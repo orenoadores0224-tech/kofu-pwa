@@ -5,17 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>kofu-pwa</title>
 
+  <!-- PWA -->
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#ffffff">
+
+  <!-- iOS（ホーム画面追加） -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
+  <!-- 見た目ちょい整える（任意） -->
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif; padding: 24px; line-height: 1.8; }
+    a { color: inherit; }
+    .muted { opacity: .75; }
+    .card { border: 1px solid #eee; border-radius: 12px; padding: 16px; margin: 16px 0; }
+    ul { padding-left: 1.2em; }
+  </style>
 </head>
 
-<body style="font-family: system-ui; padding: 24px;">
+<body>
   <h1>kofu-pwa</h1>
-  <p style="opacity:.75;">公開テストOK。ここから中身を増やします。</p>
+  <p class="muted">公開テストOK。ここから中身を増やします。</p>
 
-  <h2>メニュー</h2>
-  <ul>
-    <li><a href="./shouba.html">商売護符（集中・胆力）</a></li>
-  </ul>
+  <div class="card">
+    <h2>メニュー</h2>
+    <ul>
+      <li><a href="./shouba.html">商売護符（集中・胆力）</a></li>
+    </ul>
+  </div>
+
+  <p class="muted">※ホーム画面に追加すると、アプリみたいに開けます。</p>
 </body>
 </html>
