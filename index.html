@@ -6,54 +6,135 @@
   <title>kofu-pwa</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
 
-  <!-- iPhoneホーム画面アイコン用 -->
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- iOS ホーム画面用 -->
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Favicon（任意） -->
+  <link rel="icon" href="./icon-192.png" />
 
   <style>
-    body { font-family: system-ui, -apple-system; padding: 24px; line-height: 1.8; }
-    .muted { opacity: .75; }
-    ul { padding-left: 1.2em; }
-    a { color: #0b57d0; }
-    .card { margin-top: 18px; padding: 14px 16px; border: 1px solid #eee; border-radius: 12px; }
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#111;
+      --muted:rgba(0,0,0,.6);
+      --line:rgba(0,0,0,.08);
+      --accent:#0b57d0;
+      --radius:16px;
+    }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:720px;
+      margin:0 auto;
+      padding:22px 16px 40px;
+    }
+    h1{
+      margin:6px 0 8px;
+      font-size:34px;
+      letter-spacing:.2px;
+    }
+    .muted{ color:var(--muted); line-height:1.6; }
+
+    .section{
+      margin-top:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px;
+    }
+    .section h2{
+      margin:0 0 12px;
+      font-size:22px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .card{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px 14px;
+      box-shadow: 0 1px 0 rgba(0,0,0,.03);
+      transition: transform .06s ease;
+    }
+    .card:active{ transform: scale(.99); }
+    .cardTitle{
+      font-size:18px;
+      font-weight:700;
+      margin:0 0 6px;
+    }
+    .cardSub{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .pill{
+      display:inline-block;
+      margin-top:10px;
+      font-size:12px;
+      color:var(--accent);
+      border:1px solid rgba(11,87,208,.25);
+      background: rgba(11,87,208,.06);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.7;
+    }
   </style>
 </head>
 
 <body>
-  <h1>kofu-pwa</h1>
-  <p class="muted">公開テストOK。ここから中身を増やします。</p>
+  <div class="wrap">
+    <h1>kofu-pwa</h1>
+    <p class="muted">公開テストOK。ここから中身を増やします。</p>
 
-  <div class="card">
-    <h2>メニュー</h2>
-    <ul>
-      <li><a href="./shouba.html">商売護符（集中・胆力）</a></li>
-      <!-- 追加したい時はこの形で増やす：
-      <li><a href="./xxx.html">タイトル</a></li>
-      -->
-    </ul>
-  </div>
+    <div class="section">
+      <h2>メニュー</h2>
+      <div class="grid">
+        <a class="card" href="./shouba.html">
+          <div class="cardTitle">商売護符（集中・胆力）</div>
+          <p class="cardSub">呼吸 → 読む/聴く → 1分だけ静かに実行</p>
+          <span class="pill">開く</span>
+        </a>
+      </div>
+      <p class="note">※今後はこのカードをコピペして、メニューを増やしていく。</p>
+    </div>
 
-  <div class="card">
-    <h2>注意事項</h2>
-    <ul>
-      <li>このページは医療行為・治療の代替ではありません。</li>
-      <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
-      <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
-      <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
-    </ul>
+    <div class="section">
+      <h2>注意事項</h2>
+      <ul class="muted" style="margin:0; padding-left:1.2em;">
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+        <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+      </ul>
+    </div>
   </div>
 
   <script>
-    // Service Worker 登録（PWA/オフライン対応）
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
+    // Service Worker（sw.jsがある前提）
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").catch(console.error);
     }
   </script>
 </body>
