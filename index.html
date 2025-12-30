@@ -4,24 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>kofu-pwa</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#ffffff">
 
-<!-- iPhoneホーム画面アイコン用（iOSはmanifestだけだと反映弱いことがある） -->
-<link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- PWA -->
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="./icon-192.png">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+
+  <!-- iPhoneホーム画面アイコン用 -->
   <link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 24px; line-height: 1.7; }
+    body { font-family: system-ui, -apple-system; padding: 24px; line-height: 1.8; }
     .muted { opacity: .75; }
     ul { padding-left: 1.2em; }
     a { color: #0b57d0; }
+    .card { margin-top: 18px; padding: 14px 16px; border: 1px solid #eee; border-radius: 12px; }
   </style>
 </head>
 
@@ -29,15 +28,32 @@
   <h1>kofu-pwa</h1>
   <p class="muted">公開テストOK。ここから中身を増やします。</p>
 
-  <h2>メニュー</h2>
-  <ul>
-    <li><a href="./shouba.html">商売護符（集中・胆力）</a></li>
-  </ul>
+  <div class="card">
+    <h2>メニュー</h2>
+    <ul>
+      <li><a href="./shouba.html">商売護符（集中・胆力）</a></li>
+      <!-- 追加したい時はこの形で増やす：
+      <li><a href="./xxx.html">タイトル</a></li>
+      -->
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>注意事項</h2>
+    <ul>
+      <li>このページは医療行為・治療の代替ではありません。</li>
+      <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+      <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+      <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
+    </ul>
+  </div>
 
   <script>
-    // Service Worker（PWAのオフライン・アプリ化）
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").catch(console.error);
+    // Service Worker 登録（PWA/オフライン対応）
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
     }
   </script>
 </body>
