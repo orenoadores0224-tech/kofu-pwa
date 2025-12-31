@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>kofu-pwa</title>
 
   <!-- PWA -->
@@ -25,99 +25,110 @@
       --muted:rgba(0,0,0,.6);
       --line:rgba(0,0,0,.08);
       --accent:#0b57d0;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
       --radius:18px;
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", Segoe UI, Roboto, Arial, sans-serif;
+      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
       background:var(--bg);
       color:var(--text);
+      padding:24px;
     }
-    .wrap{
-      max-width:860px;
-      margin:0 auto;
-      padding:24px 16px 48px;
+    header{
+      max-width:880px;
+      margin:0 auto 16px;
     }
     h1{
-      margin:8px 0 12px;
-      font-size:44px;
-      letter-spacing:-.02em;
+      font-size:42px;
+      margin:6px 0 10px;
+      letter-spacing:.2px;
     }
     .muted{ color:var(--muted); }
 
-    .box{
+    .wrap{
+      max-width:880px;
+      margin:0 auto;
+    }
+
+    .panel{
       background:var(--card);
       border:1px solid var(--line);
       border-radius:var(--radius);
+      box-shadow:var(--shadow);
       padding:18px;
-      margin:18px 0;
+      margin:14px 0;
     }
-    .box h2{
+    .panel h2{
+      font-size:28px;
       margin:6px 0 14px;
-      font-size:30px;
-      letter-spacing:-.01em;
     }
 
     .grid{
       display:grid;
+      grid-template-columns:repeat(1, minmax(0, 1fr));
       gap:14px;
-      grid-template-columns: 1fr;
     }
-    @media (min-width: 640px){
-      .grid{ grid-template-columns: 1fr 1fr; }
+    @media (min-width:720px){
+      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
     }
 
-    .card{
-      display:block;
+    a.card{
       text-decoration:none;
       color:inherit;
-      background:var(--card);
-      border:1px solid var(--line);
+      background:#fff;
+      border:1px solid rgba(11,87,208,.25);
       border-radius:16px;
       padding:16px;
-      transition: transform .06s ease, border-color .12s ease;
+      box-shadow:0 8px 24px rgba(0,0,0,.05);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
       position:relative;
-      overflow:hidden;
+      transition:transform .08s ease;
     }
-    .card:active{ transform: scale(.99); }
-    .card:hover{ border-color: rgba(11,87,208,.25); }
-
+    a.card:active{ transform:scale(.99); }
     .cardTitle{
-      font-weight:800;
       font-size:20px;
-      margin-bottom:6px;
+      font-weight:800;
+      line-height:1.25;
     }
     .cardSub{
-      margin:0 0 14px;
+      margin:0;
       color:var(--muted);
       line-height:1.5;
-      font-size:14px;
     }
     .pill{
-      display:inline-block;
-      font-size:13px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(11,87,208,.1);
+      align-self:flex-start;
+      background:rgba(11,87,208,.12);
       color:var(--accent);
+      border:1px solid rgba(11,87,208,.18);
+      border-radius:999px;
+      padding:8px 12px;
       font-weight:700;
+      font-size:14px;
     }
 
-    ul{ margin:0; padding-left:1.2em; }
-    li{ margin:.5em 0; }
+    ul.note{
+      margin:0;
+      padding-left:1.2em;
+      color:var(--muted);
+      line-height:1.8;
+    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <header class="wrap">
     <h1>kofu-pwa</h1>
-    <p class="muted">公開テストOK。ここから中身を増やします。</p>
+    <div class="muted">公開テストOK。ここから中身を増やします。</div>
+  </header>
 
-    <div class="box">
+  <main class="wrap">
+    <section class="panel">
       <h2>メニュー</h2>
 
-      <!-- ★ここがカード型メニュー本体 -->
       <div class="grid">
         <a class="card" href="./shouba.html">
           <div class="cardTitle">商売護符（集中・胆力）</div>
@@ -130,18 +141,31 @@
           <p class="cardSub">短い手順 → 本文 → 注意事項</p>
           <span class="pill">開く</span>
         </a>
-      </div>
-    </div>
 
-    <div class="box">
+        <a class="card" href="./ba-kansoku.html">
+          <div class="cardTitle">場の観測フォーマット</div>
+          <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
+          <span class="pill">開く</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="panel">
       <h2>注意事項</h2>
-      <ul class="muted">
+      <ul class="note">
         <li>このページは医療行為・治療の代替ではありません。</li>
         <li>運転中・入浴中・作業中など、注意力が必要な状況では閲覧しないでください。</li>
-        <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
-        <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです！</li>
+        <li>息苦しさ・めまい・不快感が出た場合は中止し、深呼吸して必要なら休んでください。</li>
+        <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
       </ul>
-    </div>
-  </div>
+    </section>
+  </main>
+
+  <script>
+    // Service Worker（入れてるなら動く）
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    }
+  </script>
 </body>
 </html>
