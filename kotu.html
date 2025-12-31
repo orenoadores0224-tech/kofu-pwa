@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>呼吸で整える（仮）</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- iOS ホーム画面用 -->
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Favicon（任意） -->
+  <link rel="icon" href="./icon-192.png">
+
+  <style>
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#111;
+      --muted:rgba(0,0,0,.6);
+      --line:rgba(0,0,0,.08);
+      --blue:#0b57d0;
+      --radius:18px;
+    }
+    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Hiragino Sans","Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); }
+    .wrap{ max-width:860px; margin:0 auto; padding:22px; }
+    a{ color:var(--blue); }
+    .toplink{ display:inline-block; margin:8px 0 12px; text-decoration:none; }
+    h1{ font-size:40px; margin:6px 0 10px; }
+    .muted{ color:var(--muted); }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px; margin:18px 0; }
+    h2{ font-size:28px; margin:0 0 10px; }
+    ol,ul{ padding-left:1.2em; }
+    li{ margin:.4em 0; }
+    .divider{ height:1px; background:var(--line); margin:16px 0; }
+    .note{ font-size:14px; color:var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="toplink" href="./">← メニューへ戻る</a>
+
+    <h1>呼吸で整える（仮）</h1>
+    <p class="muted">公開テストOK。ここから中身を増やします。</p>
+
+    <div class="card">
+      <h2>使い方</h2>
+      <ol>
+        <li>画面を開く</li>
+        <li>呼吸を3回ゆっくり</li>
+        <li>本文を読む／必要なら音声を聴く</li>
+        <li>最後に30秒だけ静かに実行</li>
+      </ol>
+      <div class="divider"></div>
+      <p class="note">※ここは後で「手順の短文化」に差し替えOK</p>
+    </div>
+
+    <div class="card">
+      <h2>本文</h2>
+      <p>ここにコンテンツ本文を貼る</p>
+      <p class="note">（音声を置くなら例：&lt;audio controls src="./kotu.mp3"&gt;&lt;/audio&gt;）</p>
+    </div>
+
+    <div class="card">
+      <h2>注意事項</h2>
+      <ul>
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など、注意力が必要な状況では閲覧／実践しないでください。</li>
+        <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+        <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
