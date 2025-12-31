@@ -3,18 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>kofu-pwa</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="./manifest.json" />
+  <title>場の観測フォーマット | kofu-pwa</title>
   <meta name="theme-color" content="#ffffff" />
-
-  <!-- iOS ホーム画面用 -->
-  <link rel="apple-touch-icon" href="./icon-192.png" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-  <!-- Favicon（任意） -->
   <link rel="icon" href="./icon-192.png" />
 
   <style>
@@ -23,10 +13,10 @@
       --card:#ffffff;
       --text:#111;
       --muted:rgba(0,0,0,.6);
-      --line:rgba(0,0,0,.08);
+      --line:rgba(0,0,0,.10);
       --accent:#0b57d0;
-      --shadow:0 10px 30px rgba(0,0,0,.06);
       --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
     }
     *{ box-sizing:border-box; }
     body{
@@ -36,21 +26,19 @@
       color:var(--text);
       padding:24px;
     }
-    header{
-      max-width:880px;
-      margin:0 auto 16px;
+    .wrap{ max-width:880px; margin:0 auto; }
+    a.back{
+      display:inline-block;
+      margin:4px 0 18px;
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
     }
     h1{
-      font-size:42px;
+      font-size:36px;
       margin:6px 0 10px;
-      letter-spacing:.2px;
     }
-    .muted{ color:var(--muted); }
-
-    .wrap{
-      max-width:880px;
-      margin:0 auto;
-    }
+    .muted{ color:var(--muted); line-height:1.7; }
 
     .panel{
       background:var(--card);
@@ -60,112 +48,201 @@
       padding:18px;
       margin:14px 0;
     }
-    .panel h2{
-      font-size:28px;
-      margin:6px 0 14px;
-    }
+    h2{ font-size:24px; margin:6px 0 10px; }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(1, minmax(0, 1fr));
-      gap:14px;
-    }
-    @media (min-width:720px){
-      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-    }
+    .row{ display:grid; grid-template-columns:1fr; gap:10px; }
+    @media (min-width:720px){ .row{ grid-template-columns:1fr 1fr; } }
 
-    a.card{
-      text-decoration:none;
-      color:inherit;
+    label{ font-weight:800; }
+    input, textarea, select{
+      width:100%;
+      border:1px solid rgba(0,0,0,.15);
+      border-radius:12px;
+      padding:12px;
+      font-size:16px;
       background:#fff;
-      border:1px solid rgba(11,87,208,.25);
-      border-radius:16px;
-      padding:16px;
-      box-shadow:0 8px 24px rgba(0,0,0,.05);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      position:relative;
-      transition:transform .08s ease;
     }
-    a.card:active{ transform:scale(.99); }
-    .cardTitle{
-      font-size:20px;
-      font-weight:800;
-      line-height:1.25;
-    }
-    .cardSub{
-      margin:0;
-      color:var(--muted);
-      line-height:1.5;
-    }
-    .pill{
-      align-self:flex-start;
-      background:rgba(11,87,208,.12);
-      color:var(--accent);
-      border:1px solid rgba(11,87,208,.18);
-      border-radius:999px;
-      padding:8px 12px;
-      font-weight:700;
-      font-size:14px;
-    }
+    textarea{ min-height:110px; resize:vertical; }
 
-    ul.note{
-      margin:0;
-      padding-left:1.2em;
-      color:var(--muted);
-      line-height:1.8;
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; }
+    button{
+      border:1px solid rgba(11,87,208,.25);
+      background:rgba(11,87,208,.10);
+      color:var(--accent);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:15px;
+    }
+    .note{ color:var(--muted); line-height:1.8; }
+    .log{
+      white-space:pre-wrap;
+      background:#0b1220;
+      color:#e9eefc;
+      border-radius:12px;
+      padding:12px;
+      font-size:14px;
+      line-height:1.6;
     }
   </style>
 </head>
-
 <body>
-  <header class="wrap">
-    <h1>kofu-pwa</h1>
-    <div class="muted">公開テストOK。ここから中身を増やします。</div>
-  </header>
+  <div class="wrap">
+    <a class="back" href="./">← メニューへ戻る</a>
 
-  <main class="wrap">
+    <h1>場の観測フォーマット</h1>
+    <div class="muted">0〜10の数値＋短文で記録。最後に「変化」を1行だけ。</div>
+
     <section class="panel">
-      <h2>メニュー</h2>
+      <h2>記録</h2>
 
-      <div class="grid">
-        <a class="card" href="./shouba.html">
-          <div class="cardTitle">商売護符（集中・胆力）</div>
-          <p class="cardSub">呼吸 → 読む/聴く → 1分だけ静かに実行</p>
-          <span class="pill">開く</span>
-        </a>
-
-        <a class="card" href="./kotu.html">
-          <div class="cardTitle">呼吸で整える（仮）</div>
-          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
-          <span class="pill">開く</span>
-        </a>
-
-        <a class="card" href="./ba-kansoku.html">
-          <div class="cardTitle">場の観測フォーマット</div>
-          <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
-          <span class="pill">開く</span>
-        </a>
+      <div class="row">
+        <div>
+          <label>日時</label>
+          <input id="dt" type="datetime-local" />
+        </div>
+        <div>
+          <label>場所 / シーン（例：ベッドの上、仕事前など）</label>
+          <input id="place" type="text" placeholder="例：ベッドの上 / 店に入る前" />
+        </div>
       </div>
+
+      <div class="row">
+        <div>
+          <label>場の強度（0〜10）</label>
+          <select id="score">
+            <option value="">選ぶ</option>
+            <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+          </select>
+        </div>
+        <div>
+          <label>身体（1行）</label>
+          <input id="body" type="text" placeholder="例：胸が軽い / 目が冴える / 背中が張る" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>意識（短文）</label>
+          <textarea id="mind" placeholder="例：焦りが減った。視界が広い。"></textarea>
+        </div>
+        <div>
+          <label>変化（1行だけ）</label>
+          <textarea id="change" placeholder="例：1分後、呼吸が深くなった"></textarea>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button onclick="save()">この端末に保存</button>
+        <button onclick="copyText()">テキストでコピー</button>
+        <button onclick="clearForm()">フォームをクリア</button>
+      </div>
+
+      <p class="note">※保存はこのiPhone内（ブラウザ）に残ります。機種変・ブラウザ初期化で消える可能性あり。</p>
+    </section>
+
+    <section class="panel">
+      <h2>保存ログ（この端末）</h2>
+      <div id="log" class="log">（まだありません）</div>
     </section>
 
     <section class="panel">
       <h2>注意事項</h2>
-      <ul class="note">
-        <li>このページは医療行為・治療の代替ではありません。</li>
-        <li>運転中・入浴中・作業中など、注意力が必要な状況では閲覧しないでください。</li>
-        <li>息苦しさ・めまい・不快感が出た場合は中止し、深呼吸して必要なら休んでください。</li>
-        <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
-      </ul>
+      <div class="note">
+        ・医療行為の代替ではありません。<br>
+        ・運転中・入浴中・作業中は使用しないでください。<br>
+        ・不快感が出たら中止して休んでください。<br>
+      </div>
     </section>
-  </main>
+  </div>
 
   <script>
-    // Service Worker（入れてるなら動く）
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    const KEY = "kofu_ba_kansoku_log";
+
+    function init(){
+      // datetime-local 初期値
+      const now = new Date();
+      const pad = (n)=> String(n).padStart(2,"0");
+      const v = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      document.getElementById("dt").value = v;
+
+      render();
     }
+
+    function readAll(){
+      try{
+        return JSON.parse(localStorage.getItem(KEY) || "[]");
+      }catch(e){
+        return [];
+      }
+    }
+
+    function render(){
+      const list = readAll();
+      const el = document.getElementById("log");
+      if(!list.length){
+        el.textContent = "（まだありません）";
+        return;
+      }
+      el.textContent = list.map(x =>
+`[${x.dt}] 場:${x.score}/10
+場所: ${x.place}
+身体: ${x.body}
+意識: ${x.mind}
+変化: ${x.change}
+---`
+      ).join("\n");
+    }
+
+    function save(){
+      const dt = document.getElementById("dt").value || "";
+      const place = document.getElementById("place").value.trim();
+      const score = document.getElementById("score").value;
+      const body = document.getElementById("body").value.trim();
+      const mind = document.getElementById("mind").value.trim();
+      const change = document.getElementById("change").value.trim();
+
+      const item = { dt, place, score, body, mind, change };
+      const list = readAll();
+      list.unshift(item);
+      localStorage.setItem(KEY, JSON.stringify(list));
+      render();
+    }
+
+    function copyText(){
+      const dt = document.getElementById("dt").value || "";
+      const place = document.getElementById("place").value.trim();
+      const score = document.getElementById("score").value;
+      const body = document.getElementById("body").value.trim();
+      const mind = document.getElementById("mind").value.trim();
+      const change = document.getElementById("change").value.trim();
+
+      const text =
+`場の観測
+日時: ${dt}
+場所: ${place}
+強度: ${score}/10
+身体: ${body}
+意識: ${mind}
+変化: ${change}`;
+
+      navigator.clipboard?.writeText(text).then(()=>{
+        alert("コピーしたよ");
+      }).catch(()=>{
+        alert("コピーできなかった（長押しで選択してコピーしてね）");
+      });
+    }
+
+    function clearForm(){
+      document.getElementById("place").value = "";
+      document.getElementById("score").value = "";
+      document.getElementById("body").value = "";
+      document.getElementById("mind").value = "";
+      document.getElementById("change").value = "";
+    }
+
+    init();
   </script>
 </body>
 </html>
