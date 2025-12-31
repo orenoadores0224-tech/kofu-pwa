@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>場の観測フォーマット</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="./icon-192.png">
+
+  <style>
+    :root{ --bg:#f6f7f9; --card:#fff; --text:#111; --muted:rgba(0,0,0,.6); --line:rgba(0,0,0,.08); --blue:#0b57d0; --r:18px; }
+    body{ margin:0; font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); }
+    .wrap{ max-width:860px; margin:0 auto; padding:22px; }
+    a{ color:var(--blue); }
+    .top{ display:inline-block; margin:8px 0 12px; text-decoration:none; }
+    h1{ font-size:38px; margin:6px 0 10px; }
+    .muted{ color:var(--muted); }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:20px; margin:18px 0; }
+    h2{ font-size:26px; margin:0 0 10px; }
+    ul{ padding-left:1.2em; }
+    li{ margin:.45em 0; }
+    .hr{ height:1px; background:var(--line); margin:14px 0; }
+    .k{ font-weight:700; }
+    .box{ border:1px dashed var(--line); border-radius:14px; padding:14px; background:#fff; }
+    .small{ font-size:14px; color:var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="top" href="./">← メニューへ戻る</a>
+
+    <h1>場の観測フォーマット</h1>
+    <p class="muted">1〜3分で「今の場」を記録して、変化を見える化する。</p>
+
+    <div class="card">
+      <h2>使い方</h2>
+      <ul>
+        <li>呼吸を3回ゆっくり</li>
+        <li>下の項目を、<span class="k">0〜10</span> または短文でメモ</li>
+        <li>最後に「変化」を1行だけ書く</li>
+      </ul>
+      <div class="small">※メモはスマホのメモ帳でもOK。ここは“読むだけテンプレ”。</div>
+    </div>
+
+    <div class="card">
+      <h2>観測テンプレ（コピペ用）</h2>
+
+      <div class="box">
+        <div class="k">【基本】</div>
+        <div>日時：</div>
+        <div>場所：</div>
+        <div>状況（誰がいる/何してた）：</div>
+
+        <div class="hr"></div>
+
+        <div class="k">【身体（0〜10）】</div>
+        <div>重さ：</div>
+        <div>熱さ/冷え：</div>
+        <div>呼吸の深さ：</div>
+        <div>胸：</div>
+        <div>腹：</div>
+        <div>背中：</div>
+
+        <div class="hr"></div>
+
+        <div class="k">【意識（0〜10）】</div>
+        <div>静けさ：</div>
+        <div>焦り：</div>
+        <div>集中：</div>
+        <div>視界の広さ：</div>
+
+        <div class="hr"></div>
+
+        <div class="k">【場（短文OK）】</div>
+        <div>密度（薄い/濃い）：</div>
+        <div>流れ（止まる/流れる）：</div>
+        <div>方向（前/後/上/下/内/外）：</div>
+        <div>質感（粒/霧/水/風/圧）：</div>
+
+        <div class="hr"></div>
+
+        <div class="k">【一手】</div>
+        <div>今やること（1つ）：</div>
+        <div>結果（変化1行）：</div>
+      </div>
+
+      <div class="small" style="margin-top:10px;">
+        コツ：数値は「正確さ」より「同じ基準で続ける」ほうが価値が出る。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>注意事項</h2>
+      <ul>
+        <li>これは自己観察の補助であり、医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+        <li>不快感やめまいが出たら中止して休んでください。</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
