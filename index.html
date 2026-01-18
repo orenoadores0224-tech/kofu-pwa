@@ -2,138 +2,193 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>境界2分ワーク｜最初の使い方</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>kofu-pwa</title>
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f6f7f9" />
 
   <!-- iOS -->
+  <link rel="apple-touch-icon" href="./icon-192.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="apple-touch-icon" href="./icon-192.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="./icon-192.png" />
 
   <style>
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#111;
+      --muted:rgba(0,0,0,.6);
+      --line:rgba(0,0,0,.08);
+      --accent:#2b6cff;
+      --accent2:rgba(43,108,255,.14);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
-      background:#f6f7f9;
-      color:#111;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
     }
-    main{
+    .wrap{
       max-width:720px;
       margin:0 auto;
-      padding:20px;
+      padding:20px 16px 28px;
     }
     h1{
-      font-size:22px;
-      line-height:1.4;
+      font-size:40px;
+      letter-spacing:.2px;
+      margin:6px 0 6px;
+    }
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      margin:14px 0;
+    }
+    .section h2{
       margin:0 0 10px;
+      font-size:28px;
+      letter-spacing:.2px;
     }
-    p{
-      line-height:1.8;
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:12px;
     }
+
     .card{
-      background:#fff;
-      border-radius:14px;
-      padding:14px;
-      margin:12px 0;
-      box-shadow:0 6px 20px rgba(0,0,0,.06);
-    }
-    .card h2{
-      font-size:16px;
-      margin:0 0 8px;
-    }
-    ol{
-      padding-left:18px;
-    }
-    a.btn{
       display:block;
+      text-decoration:none;
+      color:inherit;
+      background:var(--card);
+      border:2px solid rgba(43,108,255,.22);
+      border-radius:20px;
+      padding:18px 18px 16px;
+      box-shadow:0 1px 0 rgba(0,0,0,.02);
+    }
+    .cardTitle{
+      font-size:24px;
+      font-weight:800;
+      margin:0 0 6px;
+    }
+    .cardSub{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:16px;
+    }
+    .pill{
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:999px;
+      background:var(--accent2);
+      color:#1e4fd6;
+      font-weight:800;
+      font-size:16px;
+      border:1px solid rgba(43,108,255,.18);
+    }
+
+    ul{
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+    }
+    li{margin:6px 0}
+    .note{
+      font-size:14px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .footer{
       text-align:center;
-      background:#111;
-      color:#fff;
-      text-decoration:none;
-      padding:14px;
-      border-radius:12px;
-      font-weight:700;
-      margin:16px 0 6px;
-    }
-    nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
       margin-top:16px;
-    }
-    nav a{
-      padding:10px 12px;
-      background:#fff;
-      border-radius:12px;
-      text-decoration:none;
-      color:#111;
-      box-shadow:0 6px 20px rgba(0,0,0,.06);
-    }
-    hr{
-      border:none;
-      border-top:1px solid rgba(0,0,0,.08);
-      margin:18px 0;
     }
   </style>
 </head>
 
 <body>
-<main>
+  <main class="wrap">
+    <h1>kofu-pwa</h1>
+    <p class="lead">公開テストOK。ここから中身を増やします。</p>
 
-  <h1>境界2分ワーク｜最初の使い方（2分）</h1>
-  <p style="opacity:.85">
-    考えすぎて眠れない／不安で頭が回り続けるときに、<br>
-    <strong>体の側から静めるための小さな実験</strong>です。<br>
-    ちゃんとやらなくて大丈夫。できる範囲でOK。
-  </p>
+    <section class="section">
+      <h2>メニュー</h2>
 
-  <section class="card">
-    <h2>まずこれだけ</h2>
-    <ol>
-      <li>肩の力を抜く</li>
-      <li>息を「吐く」ほうを長めに（5回）</li>
-      <li>終わったら体の感覚を10秒だけ見る</li>
-    </ol>
-  </section>
+      <div class="grid">
+        <a class="card" href="./shouba.html">
+          <div class="cardTitle">商売護符（集中・胆力）</div>
+          <p class="cardSub">呼吸 → 読む/聴く → 1分だけ静かに実行</p>
+          <span class="pill">開く</span>
+        </a>
 
-  <section class="card">
-    <h2>迷ったら、ここだけ</h2>
-    <p>
-      ① 眠れない → 呼吸・冷水<br>
-      ② 頭がガンガン → 観測（ば）<br>
-      ③ よくわからん → とりあえず2分
-    </p>
-  </section>
+        <a class="card" href="./kotu.html">
+          <div class="cardTitle">呼吸で整える（仮）</div>
+          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
+          <span class="pill">開く</span>
+        </a>
 
-  <a class="btn" href="https://ukikou.com/p/r/pIhBUMKC">
-    メールで受け取る（無料）
-  </a>
-  <p style="font-size:12px;opacity:.7">
-    登録後、まず「超短い使い方」が届きます。
-  </p>
+        <a class="card" href="./ba-kansoku.html">
+          <div class="cardTitle">場の観測フォーマット</div>
+          <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
+          <span class="pill">開く</span>
+        </a>
 
-  <hr>
+        <a class="card" href="./coldshower.html">
+          <div class="cardTitle">コールドシャワー氣功（試験）</div>
+          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
+          <span class="pill">開く</span>
+        </a>
 
-  <nav>
-    <a href="./coldshower.html">呼吸・冷水</a>
-    <a href="./ba-kansoku.html">観測（ば）</a>
-    <a href="./kotu.html">コツ</a>
-    <a href="./shouba.html">商売</a>
-  </nav>
+        <!-- 寝る前は「冷水なし」で作る方針。ファイルを作ったら有効にする -->
+        <!--
+        <a class="card" href="./sleep.html">
+          <div class="cardTitle">寝る前の鎮静（呼吸だけ）</div>
+          <p class="cardSub">冷水は使わない。吐く呼吸で落とす（2分）</p>
+          <span class="pill">開く</span>
+        </a>
+        -->
+      </div>
+    </section>
 
-</main>
+    <section class="section">
+      <h2>注意事項</h2>
+      <ul>
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など、注意力が必要な状況では閲覧しないでください。</li>
+        <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+        <li>効果や感じ方には個人差があります。無理はしないでください。</li>
+      </ul>
+      <p class="note">※メニューが更新されない時は、PWAのキャッシュが原因のことがあります。その場合は sw.js の CACHE_NAME を v2 にして更新します。</p>
+    </section>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js');
-  });
-}
-</script>
+    <div class="footer">© kofu-pwa</div>
+  </main>
 
+  <script>
+    // Service Worker 登録（GitHub Pages対応：同一階層）
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
