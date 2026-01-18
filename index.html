@@ -2,278 +2,370 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>護符</title>
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#0b0d12" />
+  <meta name="theme-color" content="#07070a" />
 
-  <!-- Icons -->
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="護符" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+  <!-- favicon -->
+  <link rel="icon" href="./icon-192.png" />
 
   <style>
     :root{
-      --bg0:#07080c;
-      --bg1:#0b0d12;
-      --card:#0f1219;
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.06);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.62);
-
-      --gold: rgba(255, 214, 120, .55);
-      --gold2: rgba(255, 196, 90, .22);
-
-      --radius:14px;          /* 丸すぎない */
-      --pad:18px;
-      --max:760px;
-      --shadow: 0 10px 40px rgba(0,0,0,.45);
+      --bg0:#07070a;
+      --bg1:#0c0d12;
+      --card:#0f1118cc;
+      --line:#ffffff14;
+      --line2:#ffffff1f;
+      --text:#f4f4f6;
+      --muted:#b8bcc8;
+      --muted2:#8b90a0;
+      --shu:#c1121f;      /* 朱 */
+      --gold:#d9b24c;     /* 金粉 */
+      --radius:18px;
+      --radius2:14px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --max: 820px;
     }
 
     *{ box-sizing:border-box; }
-
+    html,body{ height:100%; }
     body{
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(900px 500px at 80% 20%, rgba(255,255,255,.05), transparent 55%),
+        radial-gradient(1200px 700px at 15% 0%, #111526 0%, transparent 55%),
+        radial-gradient(900px 600px at 90% 15%, #1a1020 0%, transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
-      letter-spacing: .2px;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Segoe UI", Roboto, Arial;
+      letter-spacing:.02em;
+      overflow-x:hidden;
+    }
+
+    /* 金粉レイヤ */
+    #goldDust{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:3;
+      opacity:.75; /* うざくない程度（ここで調整） */
+      mix-blend-mode:screen;
     }
 
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:22px 16px 26px;
+      padding:20px 16px 40px;
+    }
+
+    .top{
       position:relative;
+      padding:14px 14px 10px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, #0c0d12cc, #0b0c10aa);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-
-    /* --- うざくない金粉：超薄 + 少量 --- */
-    .wrap::before,
-    .wrap::after{
+    .top:before{
       content:"";
       position:absolute;
-      inset:-30px;
-      pointer-events:none;
-      background-repeat:repeat;
-      mix-blend-mode:screen;
-      opacity:.35;
-      filter: blur(.2px);
+      inset:-2px;
+      background:
+        radial-gradient(500px 180px at 20% 0%, rgba(193,18,31,.18), transparent 60%),
+        radial-gradient(450px 180px at 80% 20%, rgba(217,178,76,.10), transparent 60%);
+      filter: blur(2px);
+      z-index:0;
     }
-    .wrap::before{
-      background-image:
-        radial-gradient(circle at 10px 12px, var(--gold) 0 1px, transparent 2px),
-        radial-gradient(circle at 44px 30px, var(--gold2) 0 1px, transparent 2px),
-        radial-gradient(circle at 80px 70px, rgba(255,255,255,.10) 0 1px, transparent 2px);
-      background-size: 140px 140px;
-      animation: dust 18s linear infinite;
-      opacity:.28;
-    }
-    .wrap::after{
-      background-image:
-        radial-gradient(circle at 20px 18px, rgba(255,215,130,.30) 0 1px, transparent 2px),
-        radial-gradient(circle at 90px 60px, rgba(255,200,90,.16) 0 1px, transparent 2px);
-      background-size: 220px 220px;
-      animation: dust2 26s linear infinite;
-      opacity:.18;
-    }
-    @keyframes dust{
-      0%{ transform: translateY(0px) translateX(0px); }
-      100%{ transform: translateY(120px) translateX(40px); }
-    }
-    @keyframes dust2{
-      0%{ transform: translateY(0px) translateX(0px); }
-      100%{ transform: translateY(160px) translateX(-30px); }
-    }
+    .top > *{ position:relative; z-index:1; }
 
-    header{
-      position:relative;
-      padding: 8px 2px 14px;
-      border-bottom:1px solid var(--line2);
-      margin-bottom:18px;
-    }
     .brand{
-      font-weight:800;
-      font-size:40px;
-      line-height:1.05;
-      letter-spacing:.6px;
-    }
-    .sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .panel{
-      margin-top:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line2);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding: 16px;
-      position:relative;
-    }
-    .panelTop{
       display:flex;
+      align-items:flex-end;
       justify-content:space-between;
-      align-items:baseline;
       gap:12px;
       margin-bottom:10px;
     }
-    .panelTop .ttl{
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:.4px;
+    .brand h1{
+      margin:0;
+      font-size:34px;
+      line-height:1.05;
+      letter-spacing:.03em;
+      font-weight:800;
     }
-    .panelTop .hint{
-      font-size:12px;
+    .brand .sub{
+      margin:0;
+      font-size:13px;
       color:var(--muted);
+      text-align:right;
+      line-height:1.25;
     }
 
-    .grid{
+    .panel{
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(16,18,26,.62), rgba(10,11,16,.62));
+      overflow:hidden;
+    }
+
+    .panelHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+    }
+    .panelHead .ttl{
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+    .panelHead .hint{
+      color:var(--muted2);
+      font-size:13px;
+    }
+
+    .list{
+      padding:14px;
       display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
+      gap:14px;
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border:1px solid var(--line);
-      border-radius: calc(var(--radius) - 2px);
-      padding: 16px;
+      border:1px solid var(--line2);
+      border-radius:var(--radius);
+      padding:16px;
+      background: linear-gradient(180deg, rgba(18,20,28,.70), rgba(10,11,16,.60));
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
       position:relative;
+      overflow:hidden;
     }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(500px 200px at 10% 0%, rgba(217,178,76,.06), transparent 60%);
+      z-index:0;
+    }
+    .card > *{ position:relative; z-index:1; }
 
-    .cardTitle{
+    .title{
       font-size:22px;
-      font-weight:800;
-      letter-spacing:.3px;
-      margin:0 0 6px;
+      font-weight:900;
+      margin:0 0 8px;
     }
-    .cardDesc{
+    .desc{
       margin:0 0 14px;
       color:var(--muted);
-      font-size:13px;
+      font-size:14px;
       line-height:1.5;
     }
 
     .row{
       display:flex;
-      justify-content:space-between;
+      gap:10px;
       align-items:center;
-      gap:12px;
+      justify-content:space-between;
+      flex-wrap:wrap;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 10px 14px;
-      border-radius: 10px; /* 角は残す */
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
+      height:42px;
+      padding:0 16px;
+      border-radius:12px;
+      border:1px solid var(--line2);
+      background: rgba(255,255,255,.03);
       color:var(--text);
       text-decoration:none;
-      font-weight:700;
-      letter-spacing:.3px;
-      min-width:86px;
+      font-weight:800;
+      letter-spacing:.06em;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
       user-select:none;
     }
-    .btn:active{
-      transform: translateY(1px);
-      opacity:.92;
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      border-color: rgba(193,18,31,.45);
+      background: linear-gradient(180deg, rgba(193,18,31,.20), rgba(193,18,31,.10));
     }
-    .btnGold{
-      border-color: rgba(255,210,120,.35);
-      box-shadow: 0 0 0 1px rgba(255,210,120,.12) inset;
-    }
-
-    footer{
-      margin-top:16px;
-      padding-top:12px;
-      border-top:1px solid var(--line2);
-      color:rgba(255,255,255,.45);
+    .tag{
       font-size:12px;
-      line-height:1.65;
+      color:var(--muted2);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
     }
 
-    /* PCだけ2列 */
-    @media (min-width: 720px){
-      .grid{ grid-template-columns: 1fr 1fr; }
-      .brand{ font-size:44px; }
+    .foot{
+      margin-top:14px;
+      color:var(--muted2);
+      font-size:12px;
+      line-height:1.55;
+      padding:0 4px;
+    }
+
+    /* 小さめ画面 */
+    @media (max-width:420px){
+      .brand h1{ font-size:30px; }
+      .title{ font-size:20px; }
     }
   </style>
 </head>
 
 <body>
+  <canvas id="goldDust"></canvas>
+
   <div class="wrap">
-    <header>
-      <div class="brand">護符</div>
-      <div class="sub">護符メニュー（B：陰陽師シャープ版）</div>
-    </header>
-
-    <div class="panel">
-      <div class="panelTop">
-        <div class="ttl">メニュー</div>
-        <div class="hint">必要なものだけ最短で開く</div>
+    <div class="top">
+      <div class="brand">
+        <div>
+          <h1>護符</h1>
+        </div>
+        <p class="sub">護符メニュー（B：陰陽師シャープ版）<br>必要なものだけ最短で開く</p>
       </div>
 
-      <div class="grid">
-        <section class="card">
-          <h2 class="cardTitle">受験護符（親の静けさ）</h2>
-          <p class="cardDesc">写真1枚＋封印ボタン</p>
-          <div class="row">
-            <a class="btn btnGold" href="./juken.html">開く</a>
-          </div>
-        </section>
+      <div class="panel">
+        <div class="panelHead">
+          <div class="ttl">メニュー</div>
+          <div class="hint">角・線・余白で硬質に</div>
+        </div>
 
-        <section class="card">
-          <h2 class="cardTitle">商売繁殖護符</h2>
-          <p class="cardDesc">写真2枚（大・小）＋封印ボタン</p>
-          <div class="row">
-            <a class="btn btnGold" href="./shobai.html">開く</a>
+        <div class="list">
+          <div class="card">
+            <div class="title">受験護符（親の静けさ）</div>
+            <p class="desc">写真1枚＋封印ボタン</p>
+            <div class="row">
+              <span class="tag">親の静けさ</span>
+              <a class="btn primary" href="./juken.html">開く</a>
+            </div>
           </div>
-        </section>
 
-        <section class="card">
-          <h2 class="cardTitle">場の観測｜護符</h2>
-          <p class="cardDesc">場・気配・静けさの観測用</p>
-          <div class="row">
-            <a class="btn" href="./ba-kansoku.html">開く</a>
+          <div class="card">
+            <div class="title">商売繁殖護符</div>
+            <p class="desc">写真2枚（大・小）＋封印ボタン</p>
+            <div class="row">
+              <span class="tag">繁殖 / 増幅</span>
+              <a class="btn primary" href="./shobai.html">開く</a>
+            </div>
           </div>
-        </section>
 
-        <section class="card">
-          <h2 class="cardTitle">コールドシャワー｜護符</h2>
-          <p class="cardDesc">冷水＋呼吸の起動用</p>
-          <div class="row">
-            <a class="btn" href="./coldshower.html">開く</a>
+          <div class="card">
+            <div class="title">場の観測｜護符</div>
+            <p class="desc">場・気配・静けさの観測用</p>
+            <div class="row">
+              <span class="tag">観測</span>
+              <a class="btn" href="./ba-kansoku.html">開く</a>
+            </div>
           </div>
-        </section>
+
+          <div class="card">
+            <div class="title">コールドシャワー｜護符</div>
+            <p class="desc">冷水で切り替える（短い導入）</p>
+            <div class="row">
+              <span class="tag">切替</span>
+              <a class="btn" href="./coldshower.html">開く</a>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <footer>
-        ・このページは医療行為・治療の代替ではありません。<br />
-        ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br />
-        ・息苦しさ／めまい／不快感が出た場合は中止して休んでください。<br />
+      <div class="foot">
+        ・このページは医療行為・治療の代替ではありません。<br>
+        ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br>
+        ・息苦しさ/めまい/不快感が出た場合は中止して休んでください。<br>
         ・効果や感じ方には個人差があります。
-      </footer>
+      </div>
     </div>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
-      }
-    </script>
   </div>
+
+  <script>
+    // --- PWA SW ---
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+
+    // --- 金粉（控えめ） ---
+    const canvas = document.getElementById('goldDust');
+    const ctx = canvas.getContext('2d', { alpha: true });
+
+    const state = {
+      w: 0, h: 0, dpr: Math.min(2, window.devicePixelRatio || 1),
+      particles: [],
+      // 量の調整（増やしたいなら count を上げる）
+      count: 46,
+    };
+
+    function resize(){
+      state.w = window.innerWidth;
+      state.h = window.innerHeight;
+      canvas.width  = Math.floor(state.w * state.dpr);
+      canvas.height = Math.floor(state.h * state.dpr);
+      canvas.style.width = state.w + 'px';
+      canvas.style.height = state.h + 'px';
+      ctx.setTransform(state.dpr,0,0,state.dpr,0,0);
+    }
+
+    function rand(a,b){ return a + Math.random()*(b-a); }
+
+    function seed(){
+      state.particles = [];
+      for(let i=0;i<state.count;i++){
+        state.particles.push({
+          x: rand(0,state.w),
+          y: rand(0,state.h),
+          r: rand(0.6, 1.6),
+          a: rand(0.10, 0.32),
+          vx: rand(-0.05, 0.12),
+          vy: rand(0.08, 0.26),
+          tw: rand(0, Math.PI*2),
+        });
+      }
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,state.w,state.h);
+
+      // ほんのり朱の粒も少数混ぜる
+      for(const p of state.particles){
+        p.tw += 0.02;
+        p.x += p.vx + Math.sin(p.tw)*0.03;
+        p.y += p.vy;
+
+        if(p.y > state.h + 8){
+          p.y = -8;
+          p.x = rand(0,state.w);
+        }
+        if(p.x < -10) p.x = state.w + 10;
+        if(p.x > state.w + 10) p.x = -10;
+
+        const isShu = (p.r > 1.35 && Math.random() < 0.003);
+        const col = isShu ? `rgba(193,18,31,${p.a})` : `rgba(217,178,76,${p.a})`;
+
+        ctx.beginPath();
+        ctx.fillStyle = col;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    resize();
+    seed();
+    tick();
+    window.addEventListener('resize', () => { resize(); seed(); });
+  </script>
 </body>
 </html>
