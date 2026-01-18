@@ -2,213 +2,135 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>受験護符（親の静けさ）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>受験護符</title>
 
-  <!-- PWA -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#f7f4ef" />
+  <meta name="theme-color" content="#07070a" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <link rel="icon" href="./icon-192.png" />
 
   <style>
     :root{
-      --bg:#f7f4ef;
-      --text:#1b1b1b;
-      --muted:#6b6b6b;
-      --card:#ffffff;
-      --stroke:#e7e2da;
-      --accent:#a7646b;
-      --shadow:0 10px 30px rgba(0,0,0,.06);
-      --radius:18px;
+      --bg0:#07070a; --bg1:#0c0d12;
+      --card:#0f1118cc; --line:#ffffff14; --line2:#ffffff1f;
+      --text:#f4f4f6; --muted:#b8bcc8; --muted2:#8b90a0;
+      --shu:#c1121f; --gold:#d9b24c;
+      --radius:18px; --shadow:0 18px 60px rgba(0,0,0,.55);
+      --max:820px;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;}
     body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.7;
+      margin:0; color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 0%, #111526 0%, transparent 55%),
+        radial-gradient(900px 600px at 90% 15%, #1a1020 0%, transparent 55%),
+        linear-gradient(180deg,var(--bg0),var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP";
+      overflow-x:hidden;
     }
-    .wrap{
-      max-width:720px;
-      margin:0 auto;
-      padding:18px 16px 40px;
+    #goldDust{position:fixed; inset:0; pointer-events:none; z-index:3; opacity:.75; mix-blend-mode:screen;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 40px;}
+    .bar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:12px 12px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg,#0c0d12cc,#0b0c10aa); box-shadow:var(--shadow);
     }
-    h1{
-      margin:8px 0 6px;
-      font-size:24px;
-      letter-spacing:.02em;
-    }
-    .sub{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--stroke);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-      margin:14px 0;
-    }
-    .label{
-      font-weight:700;
-      margin:0 0 10px;
-      font-size:16px;
-    }
-    .imgbox{
-      border:1px solid var(--stroke);
-      border-radius:14px;
-      overflow:hidden;
-      background:#fff;
-    }
-    .imgbox img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-    .steps{
-      margin:12px 0 0;
-      padding:0;
-      list-style:none;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .steps li{ margin:6px 0; }
+    .bar .ttl{font-weight:900; letter-spacing:.06em;}
     .btn{
-      display:block;
-      width:100%;
-      border:none;
-      border-radius:16px;
-      padding:16px 14px;
-      font-size:18px;
-      font-weight:800;
-      color:#fff;
-      background:var(--accent);
+      display:inline-flex; align-items:center; justify-content:center;
+      height:40px; padding:0 14px; border-radius:12px;
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.03);
+      color:var(--text); text-decoration:none; font-weight:800; letter-spacing:.06em;
+      user-select:none;
+    }
+    .btn.primary{border-color:rgba(193,18,31,.45); background:linear-gradient(180deg,rgba(193,18,31,.20),rgba(193,18,31,.10));}
+    .main{
       margin-top:14px;
+      border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(16,18,26,.62), rgba(10,11,16,.62));
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
+      overflow:hidden;
     }
-    .note{
-      margin:12px 2px 0;
-      color:var(--muted);
-      font-size:13px;
+    .head{padding:16px; border-bottom:1px solid var(--line);}
+    .head h1{margin:0 0 6px; font-size:26px; font-weight:900;}
+    .head p{margin:0; color:var(--muted); font-size:14px; line-height:1.5;}
+    .box{padding:16px;}
+    .photo{
+      width:100%; border-radius:16px; border:1px solid var(--line2);
+      background:rgba(255,255,255,.02); overflow:hidden;
     }
-    .small{
-      margin:10px 0 0;
-      color:var(--text);
-      font-size:16px;
-      font-weight:700;
-    }
-    .hr{
-      height:1px;
-      background:var(--stroke);
-      margin:14px 0;
-    }
-    /* 封印演出 */
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(20,12,12,.65);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:9999;
-    }
-    .modal{
-      width:min(520px,100%);
-      background:#fff;
-      border-radius:18px;
-      padding:18px 16px;
-      border:1px solid var(--stroke);
-      box-shadow:0 20px 60px rgba(0,0,0,.25);
-      text-align:center;
-    }
-    .seal{
-      font-size:20px;
-      font-weight:900;
-      margin:0 0 8px;
-    }
-    .desc{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .btn2{
-      margin-top:12px;
-      width:100%;
-      border:none;
-      border-radius:14px;
-      padding:12px 12px;
-      font-weight:800;
-      background:#222;
-      color:#fff;
-      font-size:15px;
-    }
+    .photo img{width:100%; display:block;}
+    .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .note{color:var(--muted2); font-size:12px; line-height:1.5;}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <h1>受験護符（親の静けさ）</h1>
-    <p class="sub">公開テストOK。ここは「親が静かでいる」ための封入。</p>
+  <canvas id="goldDust"></canvas>
 
-    <div class="card">
-      <div class="label">受験護符の写真</div>
-      <div class="imgbox">
-        <!-- ★ここが画像。ファイル名は一覧のまま IMG_3565.jpeg -->
-        <img src="./IMG_3565.jpeg" alt="受験護符の写真" />
+  <div class="wrap">
+    <div class="bar">
+      <a class="btn" href="./index.html">← 戻る</a>
+      <div class="ttl">受験護符（親の静けさ）</div>
+      <a class="btn primary" href="./index.html">メニュー</a>
+    </div>
+
+    <div class="main">
+      <div class="head">
+        <h1>受験護符</h1>
+        <p>公開テストOK。ここは「親が静かでいる」ための封入。</p>
       </div>
 
-      <ul class="steps">
-        <li>1）肩の力を抜く</li>
-        <li>2）「吐く」を長めに 3回</li>
-        <li>3）写真を 10秒だけ見る（眺めるだけ）</li>
-      </ul>
+      <div class="box">
+        <div class="photo">
+          <img src="./IMG_3563.jpeg" alt="受験護符の写真">
+        </div>
 
-      <button class="btn" id="sealBtn">封印する</button>
-
-      <div class="hr"></div>
-
-      <p class="small">この護符は、子どものためではありません。</p>
-      <p style="margin:6px 0 0;">親である私が、静かでいるためのものです。</p>
-
-      <p class="note">※ 記録は残りません。</p>
-      <p class="note">※ ここで封じたものは、子どもに渡りません。</p>
-    </div>
-
-    <div class="note">
-      ※ このページは医療行為・治療の代替ではありません。<br/>
-      ※ 運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br/>
-      ※ 不快感が出た場合は中止して休んでください。
-    </div>
-  </div>
-
-  <!-- 封印モーダル -->
-  <div class="overlay" id="overlay">
-    <div class="modal">
-      <p class="seal">封印しました。</p>
-      <p class="desc">今日は「親が静かでいる」だけで十分。</p>
-      <button class="btn2" id="closeBtn">閉じる</button>
+        <div class="actions">
+          <span class="note">※ 封印ボタンは今後追加でもOK（まずは表示を安定させる）</span>
+          <a class="btn primary" href="./index.html">封印（仮）</a>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    const overlay = document.getElementById("overlay");
-    const sealBtn = document.getElementById("sealBtn");
-    const closeBtn = document.getElementById("closeBtn");
+    // 金粉（indexと同じ系・少し増やし気味）
+    const canvas=document.getElementById('goldDust');
+    const ctx=canvas.getContext('2d',{alpha:true});
+    const s={w:0,h:0,dpr:Math.min(2,devicePixelRatio||1),particles:[],count:54};
+    const r=(a,b)=>a+Math.random()*(b-a);
 
-    function openModal(){
-      overlay.style.display = "flex";
-      // iPhoneの軽い演出（対応端末のみ）
-      try { navigator.vibrate && navigator.vibrate([40, 60, 40]); } catch(e){}
+    function resize(){
+      s.w=innerWidth; s.h=innerHeight;
+      canvas.width=Math.floor(s.w*s.dpr);
+      canvas.height=Math.floor(s.h*s.dpr);
+      canvas.style.width=s.w+'px';
+      canvas.style.height=s.h+'px';
+      ctx.setTransform(s.dpr,0,0,s.dpr,0,0);
     }
-    function closeModal(){
-      overlay.style.display = "none";
+    function seed(){
+      s.particles=[];
+      for(let i=0;i<s.count;i++){
+        s.particles.push({x:r(0,s.w),y:r(0,s.h),rr:r(.6,1.7),a:r(.10,.34),vx:r(-.05,.12),vy:r(.09,.28),tw:r(0,Math.PI*2)});
+      }
     }
-
-    sealBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeModal(); });
+    function tick(){
+      ctx.clearRect(0,0,s.w,s.h);
+      for(const p of s.particles){
+        p.tw+=.02; p.x+=p.vx+Math.sin(p.tw)*.03; p.y+=p.vy;
+        if(p.y>s.h+8){p.y=-8; p.x=r(0,s.w);}
+        if(p.x<-10)p.x=s.w+10; if(p.x>s.w+10)p.x=-10;
+        const isShu=(p.rr>1.45 && Math.random()<.004);
+        ctx.fillStyle=isShu?`rgba(193,18,31,${p.a})`:`rgba(217,178,76,${p.a})`;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.rr,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    resize(); seed(); tick();
+    addEventListener('resize',()=>{resize();seed();});
   </script>
 </body>
 </html>
