@@ -3,167 +3,159 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>受験の護符（親の静けさ）</title>
-
-  <!-- PWA（既存の仕組みに合わせる） -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#ffffff">
+  <title>受験護符（親の静けさ）</title>
 
   <style>
     :root{
-      --bg:#fafafa;
+      --bg:#f7f6f2;
       --card:#ffffff;
-      --text:#111;
-      --muted:#666;
-      --line:#e7e7e7;
-      --btn:#b65b64;
-      --btnText:#fff;
+      --text:#1b1b1b;
+      --muted:#6b6b6b;
+      --line:#e6e2d8;
+      --btn:#b95a64;
+      --btnText:#ffffff;
       --radius:18px;
+      --max:720px;
     }
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family: -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family: -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.7;
+    }
+    header{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:18px 16px 0;
+    }
+    .back{
+      display:inline-block;
+      color:#2c4a7a;
+      text-decoration:none;
+      font-size:14px;
+      margin-bottom:12px;
     }
     .wrap{
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 18px 14px 40px;
-    }
-    a.back{
-      display:inline-block;
-      margin: 6px 0 14px;
-      color:#1a5bd6;
-      text-decoration:none;
-      font-weight:600;
-    }
-    h1{
-      font-size: 26px;
-      line-height:1.25;
-      margin: 6px 0 10px;
-      letter-spacing: .02em;
-    }
-    .lead{
-      margin:0 0 16px;
-      color:var(--muted);
-      line-height:1.8;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 16px 28px;
     }
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.04);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 6px 22px rgba(0,0,0,.05);
     }
-    .sigilBox{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      text-align:center;
-      overflow:hidden;
-    }
-    .sigilImg{
-      width:100%;
-      max-width: 560px;
-      height:auto;
-      display:block;
-      margin:0 auto;
-      border-radius: 12px;
-    }
-    .sectionTitle{
-      font-size: 18px;
-      margin: 18px 0 8px;
+    h1{
+      margin:10px 0 10px;
+      font-size:22px;
       letter-spacing:.02em;
     }
-    .steps{
-      margin:0;
-      padding-left: 18px;
-      line-height:1.9;
-      color: #222;
+    .lead{
+      color:var(--muted);
+      margin:0 0 14px;
+      font-size:15px;
     }
-    .note{
-      margin-top: 14px;
-      color: var(--muted);
-      line-height: 1.85;
-      font-size: 14px;
+
+    /* 画像枠 */
+    .kofuFrame{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      padding:12px;
+      margin:14px 0 14px;
     }
+    .kofuImg{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:12px;
+    }
+
+    .txt{
+      margin:0 0 14px;
+      font-size:16px;
+    }
+
     .btn{
       width:100%;
       border:none;
-      border-radius: 14px;
-      padding: 16px 14px;
-      background: var(--btn);
-      color: var(--btnText);
-      font-size: 18px;
-      font-weight: 700;
-      margin-top: 14px;
+      border-radius:16px;
+      padding:16px 14px;
+      background:var(--btn);
+      color:var(--btnText);
+      font-size:18px;
+      font-weight:700;
       cursor:pointer;
+      transition: transform .06s ease;
     }
     .btn:active{ transform: translateY(1px); }
-    .sealMsg{
-      display:none;
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 12px;
-      background: #fff5f6;
-      border: 1px solid #f0c7cc;
-      color:#7a2d34;
-      line-height:1.8;
-      font-weight:600;
+
+    .note{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:13px;
     }
+    .result{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#fff7f8;
+      border:1px solid #f0d6d8;
+      display:none;
+    }
+    .result strong{ display:block; margin-bottom:6px; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <header>
     <a class="back" href="./index.html">← メニューへ戻る</a>
+  </header>
 
-    <h1>受験の護符（親の静けさ）</h1>
-    <p class="lead">
-      これは「子どものための道具」ではなく、<br>
-      親である私が “静かでいる” ためのスイッチです。
-    </p>
-
+  <div class="wrap">
     <div class="card">
-      <!-- ここが「文字→写真」になる場所 -->
-      <div class="sigilBox">
-        <!-- ★写真をアップした名前に合わせる（基本は juken.jpg） -->
-        <img class="sigilImg" src="./juken.jpg" alt="受験の護符（写真）">
+      <h1>受験護符（親の静けさ）</h1>
+      <p class="lead">公開テストOK。ここは「親が静かでいる」ための封入。</p>
+
+      <div class="kofuFrame">
+        <!-- ★ここを「アップした画像ファイル名」に合わせる -->
+        <img class="kofuImg" src="./juken-fuda.jpg" alt="受験護符の写真" />
       </div>
 
-      <div class="sectionTitle">使い方（30秒）</div>
-      <ol class="steps">
-        <li>護符を10秒だけ見る（読まなくてOK）</li>
-        <li>息を「吐く」を長めに3回</li>
-        <li>胸・喉・みぞおちの“固さ”が1%ゆるむのを待つ</li>
-      </ol>
+      <p class="txt">
+        この護符は、子どものためではありません。<br>
+        親である私が、静かでいるためのものです。
+      </p>
 
       <button class="btn" id="sealBtn">封印する</button>
-      <div class="sealMsg" id="sealMsg">
-        封印しました。<br>
-        「私は静かでいい」だけ残して、あとは手放す。
+
+      <div class="result" id="resultBox">
+        <strong>封印しました。</strong>
+        いまは「静けさ」を守るだけで十分。
       </div>
 
       <div class="note">
         ※ 記録は残りません。<br>
-        ※ これは医療行為・治療の代替ではありません。<br>
-        ※ 運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。
+        ※ ここで封じたものは、子どもに渡りません。
       </div>
     </div>
   </div>
 
   <script>
-    // 入力なし・挙動シンプル（押したらメッセージ表示）
-    const btn = document.getElementById('sealBtn');
-    const msg = document.getElementById('sealMsg');
-    btn.addEventListener('click', () => {
-      msg.style.display = 'block';
-      btn.textContent = '封印した（OK）';
+    const btn = document.getElementById("sealBtn");
+    const box = document.getElementById("resultBox");
+
+    btn.addEventListener("click", () => {
       btn.disabled = true;
-      // 1.8秒だけ軽く振動（対応端末のみ）
-      if (navigator.vibrate) navigator.vibrate([30,30,30]);
+      btn.textContent = "・・・";
+      setTimeout(() => {
+        box.style.display = "block";
+        btn.textContent = "封印した";
+        setTimeout(()=>{ btn.disabled = false; btn.textContent="封印する"; }, 1200);
+      }, 450);
     });
   </script>
 </body>
