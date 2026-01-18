@@ -1,24 +1,16 @@
 {
   "name": "護符",
   "short_name": "護符",
-  "description": "護符メニュー（陰陽師版）",
+  "description": "護符メニュー（陰陽師シャープ版）",
   "lang": "ja-JP",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b0b0f",
-  "theme_color": "#0b0b0f",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
   "orientation": "portrait",
   "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
