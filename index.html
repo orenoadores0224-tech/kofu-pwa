@@ -5,35 +5,27 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>護符</title>
 
-  <!-- PWA -->
+  <!-- iOS / PWA -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#07070a" />
-
-  <!-- iOS PWA -->
+  <meta name="theme-color" content="#07080c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="護符" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-
-  <!-- favicon -->
   <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
   <style>
     :root{
-      --bg0:#07070a;
-      --bg1:#0c0d12;
-      --card:#0f1118cc;
-      --line:#ffffff14;
-      --line2:#ffffff1f;
-      --text:#f4f4f6;
-      --muted:#b8bcc8;
-      --muted2:#8b90a0;
-      --shu:#c1121f;      /* 朱 */
-      --gold:#d9b24c;     /* 金粉 */
-      --radius:18px;
-      --radius2:14px;
+      --bg0:#07080c;
+      --bg1:#0b0d14;
+      --card: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.12);
+      --text:#e9ecf1;
+      --muted: rgba(233,236,241,.70);
+      --accent:#d04b3c; /* 朱 */
+      --radius: 14px;   /* 角は硬質寄り */
       --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --max: 820px;
+      --w: 760px;
     }
 
     *{ box-sizing:border-box; }
@@ -41,184 +33,132 @@
     body{
       margin:0;
       color:var(--text);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
       background:
-        radial-gradient(1200px 700px at 15% 0%, #111526 0%, transparent 55%),
-        radial-gradient(900px 600px at 90% 15%, #1a1020 0%, transparent 55%),
+        radial-gradient(1200px 800px at 15% 0%, rgba(208,75,60,.22), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255,196,92,.12), transparent 52%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Segoe UI", Roboto, Arial;
-      letter-spacing:.02em;
       overflow-x:hidden;
     }
 
-    /* 金粉レイヤ */
-    #goldDust{
-      position:fixed;
-      inset:0;
+    /* 金粉（うざくない程度） */
+    canvas#goldDust{
+      position:fixed; inset:0;
       pointer-events:none;
-      z-index:3;
-      opacity:.75; /* うざくない程度（ここで調整） */
-      mix-blend-mode:screen;
+      z-index:2;
+      opacity:.55;
+      mix-blend-mode: screen;
     }
 
     .wrap{
-      max-width:var(--max);
+      position:relative;
+      z-index:3;
+      max-width:var(--w);
       margin:0 auto;
-      padding:20px 16px 40px;
+      padding:22px 18px 26px;
     }
 
     .top{
-      position:relative;
-      padding:14px 14px 10px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: linear-gradient(180deg, #0c0d12cc, #0b0c10aa);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .top:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(500px 180px at 20% 0%, rgba(193,18,31,.18), transparent 60%),
-        radial-gradient(450px 180px at 80% 20%, rgba(217,178,76,.10), transparent 60%);
-      filter: blur(2px);
-      z-index:0;
-    }
-    .top > *{ position:relative; z-index:1; }
-
-    .brand{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:12px;
-      margin-bottom:10px;
+      gap:16px;
+      margin-bottom:16px;
     }
-    .brand h1{
+    h1{
       margin:0;
+      letter-spacing:.02em;
+      font-weight:800;
       font-size:34px;
       line-height:1.05;
-      letter-spacing:.03em;
-      font-weight:800;
     }
-    .brand .sub{
-      margin:0;
-      font-size:13px;
+    .sub{
+      margin-top:6px;
       color:var(--muted);
-      text-align:right;
-      line-height:1.25;
+      font-size:13px;
     }
 
     .panel{
-      margin-top:14px;
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(16,18,26,.62), rgba(10,11,16,.62));
-      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      padding:14px;
     }
 
-    .panelHead{
+    .menuTitle{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
+      padding:4px 2px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      margin-bottom:12px;
     }
-    .panelHead .ttl{
+    .menuTitle .l{
       font-weight:800;
       letter-spacing:.08em;
+      font-size:14px;
+      color:rgba(233,236,241,.92);
     }
-    .panelHead .hint{
-      color:var(--muted2);
-      font-size:13px;
+    .menuTitle .r{
+      font-size:12px;
+      color:rgba(233,236,241,.58);
     }
 
-    .list{
-      padding:14px;
+    .grid{
       display:grid;
-      gap:14px;
+      grid-template-columns:1fr;
+      gap:12px;
     }
 
     .card{
-      border:1px solid var(--line2);
-      border-radius:var(--radius);
-      padding:16px;
-      background: linear-gradient(180deg, rgba(18,20,28,.70), rgba(10,11,16,.60));
-      box-shadow: 0 12px 40px rgba(0,0,0,.35);
-      position:relative;
-      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:12px;
+      background:rgba(0,0,0,.22);
+      padding:14px 14px 12px;
     }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: radial-gradient(500px 200px at 10% 0%, rgba(217,178,76,.06), transparent 60%);
-      z-index:0;
-    }
-    .card > *{ position:relative; z-index:1; }
 
     .title{
-      font-size:22px;
-      font-weight:900;
-      margin:0 0 8px;
+      font-size:20px;
+      font-weight:850;
+      margin:0 0 6px;
     }
     .desc{
-      margin:0 0 14px;
+      margin:0 0 12px;
       color:var(--muted);
-      font-size:14px;
-      line-height:1.5;
-    }
-
-    .row{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      font-size:13px;
+      line-height:1.45;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
-      justify-content:center;
-      height:42px;
-      padding:0 16px;
-      border-radius:12px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.03);
+      gap:10px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.18);
       color:var(--text);
       text-decoration:none;
-      font-weight:800;
-      letter-spacing:.06em;
-      transition: transform .08s ease, border-color .12s ease, background .12s ease;
-      user-select:none;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
     }
     .btn:active{ transform: translateY(1px); }
-    .btn.primary{
-      border-color: rgba(193,18,31,.45);
-      background: linear-gradient(180deg, rgba(193,18,31,.20), rgba(193,18,31,.10));
-    }
-    .tag{
-      font-size:12px;
-      color:var(--muted2);
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.02);
+
+    .btn .dot{
+      width:8px; height:8px; border-radius:99px;
+      background:var(--accent);
+      box-shadow: 0 0 18px rgba(208,75,60,.55);
     }
 
     .foot{
       margin-top:14px;
-      color:var(--muted2);
+      color:rgba(233,236,241,.55);
       font-size:12px;
-      line-height:1.55;
-      padding:0 4px;
+      line-height:1.6;
     }
-
-    /* 小さめ画面 */
-    @media (max-width:420px){
-      .brand h1{ font-size:30px; }
-      .title{ font-size:20px; }
+    .hr{
+      height:1px;
+      background:rgba(255,255,255,.10);
+      margin:12px 0 10px;
     }
   </style>
 </head>
@@ -228,144 +168,106 @@
 
   <div class="wrap">
     <div class="top">
-      <div class="brand">
-        <div>
-          <h1>護符</h1>
-        </div>
-        <p class="sub">護符メニュー（B：陰陽師シャープ版）<br>必要なものだけ最短で開く</p>
+      <div>
+        <h1>護符</h1>
+        <div class="sub">必要なものだけ、最短で開く。</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="menuTitle">
+        <div class="l">メニュー</div>
+        <div class="r">封印・観測・整え</div>
       </div>
 
-      <div class="panel">
-        <div class="panelHead">
-          <div class="ttl">メニュー</div>
-          <div class="hint">角・線・余白で硬質に</div>
+      <div class="grid">
+        <div class="card">
+          <div class="title">受験護符（親の静けさ）</div>
+          <p class="desc">写真1枚＋封印ボタン</p>
+          <a class="btn" href="./juken.html"><span class="dot"></span>開く</a>
         </div>
 
-        <div class="list">
-          <div class="card">
-            <div class="title">受験護符（親の静けさ）</div>
-            <p class="desc">写真1枚＋封印ボタン</p>
-            <div class="row">
-              <span class="tag">親の静けさ</span>
-              <a class="btn primary" href="./juken.html">開く</a>
-            </div>
-          </div>
+        <div class="card">
+          <div class="title">商売繁殖護符</div>
+          <p class="desc">写真2枚（大・小）＋封印ボタン</p>
+          <a class="btn" href="./shobai.html"><span class="dot"></span>開く</a>
+        </div>
 
-          <div class="card">
-            <div class="title">商売繁殖護符</div>
-            <p class="desc">写真2枚（大・小）＋封印ボタン</p>
-            <div class="row">
-              <span class="tag">繁殖 / 増幅</span>
-              <a class="btn primary" href="./shobai.html">開く</a>
-            </div>
-          </div>
+        <div class="card">
+          <div class="title">場の観測｜護符</div>
+          <p class="desc">場・気配・静けさの観測用</p>
+          <a class="btn" href="./ba-kansoku.html"><span class="dot"></span>開く</a>
+        </div>
 
-          <div class="card">
-            <div class="title">場の観測｜護符</div>
-            <p class="desc">場・気配・静けさの観測用</p>
-            <div class="row">
-              <span class="tag">観測</span>
-              <a class="btn" href="./ba-kansoku.html">開く</a>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="title">コールドシャワー｜護符</div>
-            <p class="desc">冷水で切り替える（短い導入）</p>
-            <div class="row">
-              <span class="tag">切替</span>
-              <a class="btn" href="./coldshower.html">開く</a>
-            </div>
-          </div>
-
+        <div class="card">
+          <div class="title">コールドシャワー｜護符</div>
+          <p class="desc">冷水で整える（短い手順）</p>
+          <a class="btn" href="./coldshower.html"><span class="dot"></span>開く</a>
         </div>
       </div>
 
+      <div class="hr"></div>
       <div class="foot">
         ・このページは医療行為・治療の代替ではありません。<br>
         ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br>
-        ・息苦しさ/めまい/不快感が出た場合は中止して休んでください。<br>
+        ・息苦しさ／めまい／不快感が出た場合は中止して休んでください。<br>
         ・効果や感じ方には個人差があります。
       </div>
     </div>
   </div>
 
   <script>
-    // --- PWA SW ---
+    // 金粉（控えめ・軽量）
+    (function(){
+      const c = document.getElementById('goldDust');
+      const ctx = c.getContext('2d');
+      let w,h,particles;
+
+      function resize(){
+        w = c.width = Math.floor(window.innerWidth * devicePixelRatio);
+        h = c.height = Math.floor(window.innerHeight * devicePixelRatio);
+        c.style.width = window.innerWidth + 'px';
+        c.style.height = window.innerHeight + 'px';
+
+        const n = Math.min(120, Math.floor((window.innerWidth * window.innerHeight) / 12000)); // ほどほど
+        particles = Array.from({length:n}, () => ({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: (Math.random()*1.6 + 0.6) * devicePixelRatio,
+          vx: (Math.random()*0.18 + 0.04) * devicePixelRatio,
+          vy: (Math.random()*0.10 + 0.02) * devicePixelRatio,
+          a: Math.random()*0.35 + 0.08
+        }));
+      }
+
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+          if(p.x > w+10) p.x = -10;
+          if(p.y > h+10) p.y = -10;
+
+          // 金粒（少しだけ揺らぎ）
+          const tw = Math.sin((p.x+p.y)*0.0009) * 0.5 + 0.7;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r*tw, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(255, 206, 120, ${p.a})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('resize', resize, {passive:true});
+      resize();
+      tick();
+    })();
+  </script>
+
+  <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');
     }
-
-    // --- 金粉（控えめ） ---
-    const canvas = document.getElementById('goldDust');
-    const ctx = canvas.getContext('2d', { alpha: true });
-
-    const state = {
-      w: 0, h: 0, dpr: Math.min(2, window.devicePixelRatio || 1),
-      particles: [],
-      // 量の調整（増やしたいなら count を上げる）
-      count: 46,
-    };
-
-    function resize(){
-      state.w = window.innerWidth;
-      state.h = window.innerHeight;
-      canvas.width  = Math.floor(state.w * state.dpr);
-      canvas.height = Math.floor(state.h * state.dpr);
-      canvas.style.width = state.w + 'px';
-      canvas.style.height = state.h + 'px';
-      ctx.setTransform(state.dpr,0,0,state.dpr,0,0);
-    }
-
-    function rand(a,b){ return a + Math.random()*(b-a); }
-
-    function seed(){
-      state.particles = [];
-      for(let i=0;i<state.count;i++){
-        state.particles.push({
-          x: rand(0,state.w),
-          y: rand(0,state.h),
-          r: rand(0.6, 1.6),
-          a: rand(0.10, 0.32),
-          vx: rand(-0.05, 0.12),
-          vy: rand(0.08, 0.26),
-          tw: rand(0, Math.PI*2),
-        });
-      }
-    }
-
-    function tick(){
-      ctx.clearRect(0,0,state.w,state.h);
-
-      // ほんのり朱の粒も少数混ぜる
-      for(const p of state.particles){
-        p.tw += 0.02;
-        p.x += p.vx + Math.sin(p.tw)*0.03;
-        p.y += p.vy;
-
-        if(p.y > state.h + 8){
-          p.y = -8;
-          p.x = rand(0,state.w);
-        }
-        if(p.x < -10) p.x = state.w + 10;
-        if(p.x > state.w + 10) p.x = -10;
-
-        const isShu = (p.r > 1.35 && Math.random() < 0.003);
-        const col = isShu ? `rgba(193,18,31,${p.a})` : `rgba(217,178,76,${p.a})`;
-
-        ctx.beginPath();
-        ctx.fillStyle = col;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fill();
-      }
-
-      requestAnimationFrame(tick);
-    }
-
-    resize();
-    seed();
-    tick();
-    window.addEventListener('resize', () => { resize(); seed(); });
   </script>
 </body>
 </html>
