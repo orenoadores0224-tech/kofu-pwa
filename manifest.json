@@ -1,13 +1,13 @@
 {
-  "name": "kofu-pwa",
-  "short_name": "kofu",
-  "description": "kofu-pwa（メニュー型）",
+  "name": "護符",
+  "short_name": "護符",
+  "description": "必要なものだけを静かに開く",
   "lang": "ja-JP",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#0b0b0f",
+  "theme_color": "#0b0b0f",
   "orientation": "portrait",
   "icons": [
     {
@@ -21,3 +21,4 @@
       "type": "image/png"
     }
   ]
+}
