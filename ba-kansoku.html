@@ -1,157 +1,208 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>場の観測｜護符</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>場の観測 | 護符</title>
 
-<style>
-:root{
-  --bg:#fafaf7;
-  --text:#111;
-  --muted:#666;
-  --card:#fff;
-  --radius:18px;
-  --shadow:0 10px 30px rgba(0,0,0,.06);
-}
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
-*{ box-sizing:border-box; }
+  <style>
+    :root{
+      --bg:#0b0b0f; --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
+      --aka:#c1121f; --gold:#d4af37;
+      --radius:14px; --shadow:0 14px 40px rgba(0,0,0,.45);
+      --field: rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans","Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(212,175,55,.10), transparent 60%),
+        linear-gradient(180deg, #0b0b0f, #10101a);
+    }
+    .wrap{max-width:760px;margin:0 auto;padding:18px 18px 44px;}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:16px;
+    }
+    .back{color:var(--muted);text-decoration:none;font-weight:900;letter-spacing:.06em}
+    h1{margin:14px 0 6px;font-size:26px}
+    .desc{margin:0 0 16px;color:var(--muted);line-height:1.7;font-size:13px}
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:
-    system-ui,
-    -apple-system,
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "Noto Serif JP",
-    serif;
-  padding:24px;
-}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:14px;
+    }
 
-.wrap{
-  max-width:880px;
-  margin:0 auto;
-}
+    .grid{display:grid; gap:10px}
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+    label{font-size:12px;color:rgba(255,255,255,.72);font-weight:800;letter-spacing:.08em}
+    input,select,textarea{
+      width:100%;
+      background: var(--field);
+      border:1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 12px;
+      outline: none;
+    }
+    textarea{min-height:110px; resize: vertical;}
+    .btn{
+      margin-top:8px;
+      appearance:none; width:100%;
+      border:1px solid rgba(212,175,55,.45);
+      background: rgba(0,0,0,.40);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 900;
+      letter-spacing:.10em;
+      cursor:pointer;
+    }
 
-a.back{
-  display:inline-block;
-  margin-bottom:16px;
-  font-size:14px;
-  color:var(--muted);
-  text-decoration:none;
-}
-
-h1{
-  font-size:22px;
-  margin:6px 0 6px;
-}
-
-.muted{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:18px;
-}
-
-.panel{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:18px;
-  margin-bottom:20px;
-}
-
-h2{
-  font-size:16px;
-  margin:0 0 12px;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:12px;
-}
-
-label{
-  font-size:13px;
-  color:var(--muted);
-}
-
-input, select, textarea{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.15);
-  font-size:15px;
-}
-
-textarea{
-  resize:vertical;
-  min-height:80px;
-}
-
-button{
-  margin-top:12px;
-  padding:12px 16px;
-  border-radius:14px;
-  border:none;
-  background:#111;
-  color:#fff;
-  font-size:15px;
-}
-</style>
+    .list{margin-top:12px; display:grid; gap:10px}
+    .item{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,.25);
+      color: rgba(255,255,255,.86);
+      font-size: 13px;
+      line-height:1.6;
+    }
+    .meta{color:rgba(255,255,255,.55);font-size:12px;margin-top:4px}
+    .smallbtn{
+      margin-top:8px;
+      border:1px solid rgba(193,18,31,.35);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.85);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      cursor:pointer;
+      width:100%;
+    }
+    @media (max-width:560px){ .row{grid-template-columns:1fr;} }
+  </style>
 </head>
-
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="./index.html">← 護符にもどる</a>
+      <div style="color:rgba(255,255,255,.55);font-weight:800;letter-spacing:.14em;font-size:12px;">KANSOKU</div>
+    </div>
 
-  <!-- 戻り導線 -->
-  <a class="back" href="./kofu.html">← 護符にもどる</a>
+    <h1>場の観測フォーマット</h1>
+    <p class="desc">判断せず、見えたことだけ。0〜10＋短文で記録する。</p>
 
-  <h1>場の観測フォーマット</h1>
-  <div class="muted">
-    0〜10の数値と短文で記録する。
+    <div class="card">
+      <div class="grid">
+        <div class="row">
+          <div>
+            <label>日時</label>
+            <input id="dt" type="datetime-local" />
+          </div>
+          <div>
+            <label>場所 / シーン</label>
+            <input id="place" placeholder="例：ベッドの上、店の入口" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>場の強度（0〜10）</label>
+            <select id="power"></select>
+          </div>
+          <div>
+            <label>身体感覚</label>
+            <input id="body" placeholder="例：重い、静か、ピリつく" />
+          </div>
+        </div>
+
+        <div>
+          <label>短文メモ</label>
+          <textarea id="memo" placeholder="判断せず、見えたことだけ"></textarea>
+        </div>
+
+        <button class="btn" id="save">記録する</button>
+        <button class="smallbtn" id="clear">全消去（ローカル）</button>
+      </div>
+    </div>
+
+    <div class="list" id="list"></div>
   </div>
 
-  <section class="panel">
-    <h2>記録</h2>
+  <script>
+    const power = document.getElementById('power');
+    for(let i=0;i<=10;i++){
+      const o = document.createElement('option');
+      o.value = i; o.textContent = i;
+      power.appendChild(o);
+    }
+    const dt = document.getElementById('dt');
+    dt.value = new Date().toISOString().slice(0,16);
 
-    <div class="row">
-      <div>
-        <label>日時</label>
-        <input type="datetime-local">
-      </div>
-      <div>
-        <label>場所 / シーン</label>
-        <input type="text" placeholder="例：ベッドの上、仕事前">
-      </div>
-    </div>
+    const KEY = "kansoku_logs_v1";
+    const list = document.getElementById('list');
 
-    <div class="row">
-      <div>
-        <label>場の強度（0〜10）</label>
-        <select>
-          <option>0</option><option>1</option><option>2</option>
-          <option>3</option><option>4</option><option>5</option>
-          <option>6</option><option>7</option><option>8</option>
-          <option>9</option><option>10</option>
-        </select>
-      </div>
-      <div>
-        <label>身体感覚</label>
-        <input type="text" placeholder="例：重い、静か">
-      </div>
-    </div>
+    function load(){
+      const raw = localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+    function render(){
+      const logs = load().slice().reverse();
+      list.innerHTML = "";
+      logs.forEach((x, idx) => {
+        const div = document.createElement('div');
+        div.className = "item";
+        div.innerHTML = `
+          <div><b>強度:</b> ${x.power} / <b>場所:</b> ${escapeHtml(x.place || "-")}</div>
+          <div class="meta">${escapeHtml(x.dt || "-")} / 身体: ${escapeHtml(x.body || "-")}</div>
+          <div style="margin-top:6px">${escapeHtml(x.memo || "")}</div>
+        `;
+        list.appendChild(div);
+      });
+      if(logs.length === 0){
+        const div = document.createElement('div');
+        div.className = "item";
+        div.innerHTML = `<div style="color:rgba(255,255,255,.60)">まだ記録がありません。</div>`;
+        list.appendChild(div);
+      }
+    }
+    function escapeHtml(s){
+      return (s+"").replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
 
-    <label>短文メモ</label>
-    <textarea placeholder="判断せず、見えたことだけ"></textarea>
+    document.getElementById('save').addEventListener('click', () => {
+      const logs = load();
+      logs.push({
+        dt: dt.value,
+        place: document.getElementById('place').value.trim(),
+        power: document.getElementById('power').value,
+        body: document.getElementById('body').value.trim(),
+        memo: document.getElementById('memo').value.trim()
+      });
+      localStorage.setItem(KEY, JSON.stringify(logs));
+      document.getElementById('memo').value = "";
+      render();
+      try { navigator.vibrate && navigator.vibrate([30,40,30]); } catch(e){}
+    });
 
-    <button>記録する</button>
-  </section>
+    document.getElementById('clear').addEventListener('click', () => {
+      localStorage.removeItem(KEY);
+      render();
+    });
 
-</div>
+    render();
+  </script>
 </body>
 </html>
