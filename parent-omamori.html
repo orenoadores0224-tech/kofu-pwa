@@ -1,297 +1,275 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#ffffff" />
-  <title>親の静守お守り（受験）</title>
-  <style>
-    :root{
-      --bg:#fbfbf8;
-      --ink:#111;
-      --muted:#666;
-      --card:#ffffffcc;
-      --line:#e7e7e0;
-      --accent:#9b1c1c;
-    }
-    body{
-      margin:0;
-      font-family: ui-serif, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
-      background: radial-gradient(1200px 600px at 50% 10%, #ffffff 0%, var(--bg) 45%, #f6f6f1 100%);
-      color:var(--ink);
-    }
-    .wrap{
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 24px 18px 40px;
-    }
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom: 14px;
-    }
-    .top a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:14px;
-      border-bottom:1px solid transparent;
-    }
-    .top a:hover{ border-bottom-color: var(--muted); }
-    h1{
-      font-size:18px;
-      margin:0;
-      letter-spacing: .02em;
-      font-weight: 600;
-    }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.05);
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>親の静守お守り（受験）</title>
 
-    /* ---- kofu (text-only) ---- */
-    .kofu{
-      display:flex;
-      justify-content:center;
-      padding: 8px 0 14px;
-    }
-    .kofuBox{
-      width: 260px;
-      max-width: 70vw;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
-      padding: 18px 16px;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.02);
-    }
-    .kofuCol{
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      margin: 0 auto;
-      letter-spacing: .18em;
-      line-height: 1.15;
-      user-select:none;
-    }
-    .kofuCol .t{ display:block; font-size:26px; line-height:1.1; }
-    .kofuCol .s{ display:block; font-size:22px; line-height:1.1; }
-    .gapLg{ display:block; height: 28px; }
+<style>
+:root{
+  --ink:#111;
+  --muted:#666;
+  --line:rgba(0,0,0,.12);
+}
 
-    .lead{
-      margin: 10px 0 12px;
-      line-height: 1.9;
-      font-size: 15px;
-    }
-    .lead .small{
-      color:var(--muted);
-      font-size: 13px;
-      margin-top: 8px;
-    }
-    label{
-      display:block;
-      margin-top: 14px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-    input{
-      width:100%;
-      box-sizing:border-box;
-      padding: 14px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background:#fff;
-      font-size:16px;
-      letter-spacing:.02em;
-      outline:none;
-    }
-    input:focus{ border-color:#cfcfc2; box-shadow:0 0 0 3px rgba(155,28,28,.08); }
-    .row{
-      display:flex;
-      gap:10px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-    button{
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background:#fff;
-      cursor:pointer;
-      font-size:15px;
-    }
-    button.primary{
-      background: linear-gradient(180deg, #b02222 0%, #8c1515 100%);
-      border-color:#7c1111;
-      color:#fff;
-    }
-    button.primary:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-    }
-    .status{
-      margin-top: 14px;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background:#fff;
-      line-height: 1.9;
-      font-size: 15px;
-    }
-    .seal{
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing:.06em;
-    }
-    .hint{
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 10px;
-      line-height:1.8;
-    }
-    footer{
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-      text-align:center;
-    }
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12px;
-      color: #777;
-    }
-  </style>
+/* ===== 全体 ===== */
+body{
+  margin:0;
+  background:#fafaf7;
+  font-family:
+    "Hiragino Mincho ProN",
+    "Yu Mincho",
+    "Noto Serif JP",
+    ui-serif, serif;
+  color:var(--ink);
+}
+
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:22px 16px 40px;
+}
+
+/* ===== ヘッダ ===== */
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.top a{
+  font-size:14px;
+  color:var(--muted);
+  text-decoration:none;
+}
+.top h1{
+  font-size:17px;
+  margin:0;
+  font-weight:600;
+}
+
+/* ===== カード（和紙感） ===== */
+.card{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  background:
+    radial-gradient(140% 90% at 20% 10%, rgba(0,0,0,.02), transparent 60%),
+    radial-gradient(120% 80% at 80% 30%, rgba(0,0,0,.025), transparent 65%),
+    #fff;
+}
+
+/* ===== 護符 ===== */
+.kofuWrap{
+  display:flex;
+  justify-content:center;
+  margin:6px 0 16px;
+}
+.kofuBox{
+  padding:18px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+}
+.kofu{
+  writing-mode:vertical-rl;
+  text-orientation:upright;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  user-select:none;
+  color:#111;
+  text-shadow:
+    0.2px 0.2px 0 rgba(0,0,0,.18),
+   -0.2px 0.1px 0 rgba(0,0,0,.08);
+}
+.kofu .l{font-size:26px; line-height:1;}
+.kofu .s{font-size:22px; line-height:1;}
+.kofu .gap{height:28px;}
+
+/* ===== 説明 ===== */
+.lead{
+  font-size:15px;
+  line-height:1.9;
+  margin-bottom:12px;
+}
+.lead small{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:6px;
+}
+
+/* ===== 入力 ===== */
+label{
+  font-size:14px;
+  color:var(--muted);
+}
+input{
+  width:100%;
+  box-sizing:border-box;
+  margin-top:6px;
+  padding:14px 12px;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  font-family:inherit;
+}
+input:focus{
+  outline:none;
+  border-color:#bbb;
+}
+
+/* ===== ボタン ===== */
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+button{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-size:15px;
+}
+button.primary{
+  background:linear-gradient(180deg,#b02222,#8c1515);
+  color:#fff;
+  border-color:#7c1111;
+}
+button:disabled{
+  opacity:.5;
+}
+
+/* ===== 封印表示 ===== */
+.status{
+  margin-top:14px;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  line-height:1.8;
+}
+.seal{
+  color:#9b1c1c;
+  font-weight:700;
+  letter-spacing:.1em;
+}
+
+/* ===== フッタ ===== */
+footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:18px;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="top">
-      <a href="./index.html">← 戻る</a>
-      <h1>親の静守お守り（受験）</h1>
-      <span class="mono" id="today"></span>
-    </div>
+<div class="wrap">
 
-    <div class="card">
-      <div class="kofu">
-        <div class="kofuBox" aria-label="護符">
-          <div class="kofuCol">
-            <span class="t">日</span><span class="t">日</span><span class="t">日</span>
-            <span class="gapLg"></span>
-            <span class="t">若</span><span class="t">者</span><span class="t">戸</span><span class="t">鬼</span>
-            <span class="gapLg"></span>
-            <span class="s">呪</span><span class="s">咒</span><span class="s">急</span><span class="s">如</span><span class="s">律</span><span class="s">令</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="lead">
-        このお守りは、子どものためではありません。<br>
-        親である私が、静かでいるためのものです。
-        <div class="small">（おすすめ：就寝前。説明は増やしません。）</div>
-      </div>
-
-      <div id="formArea">
-        <label for="letgo">今日、私が手放すこと（10文字以内）</label>
-        <input id="letgo" type="text" maxlength="10" inputmode="text" autocomplete="off" />
-
-        <div class="row">
-          <button class="primary" id="sealBtn" disabled>封印する</button>
-          <button id="clearBtn" type="button">入力を消す</button>
-        </div>
-
-        <div class="hint">
-          ※ 記録は見返しません。<br>
-          ※ ここで封じた言葉は、子どもに渡りません。
-        </div>
-      </div>
-
-      <div id="statusArea" class="status" style="display:none;"></div>
-    </div>
-
-    <footer>
-      日々の勝ち負けを作らない。<br>
-      家庭の空気を整えるだけ。
-    </footer>
+  <div class="top">
+    <a href="./index.html">← 戻る</a>
+    <h1>親の静守お守り（受験）</h1>
+    <span id="today" style="font-size:12px;color:#777"></span>
   </div>
+
+  <div class="card">
+
+    <div class="kofuWrap">
+      <div class="kofuBox">
+        <div class="kofu">
+          <span class="l">日</span>
+          <span class="l">日</span>
+          <span class="l">日</span>
+          <span class="gap"></span>
+          <span class="l">若</span>
+          <span class="l">者</span>
+          <span class="l">戸</span>
+          <span class="l">鬼</span>
+          <span class="gap"></span>
+          <span class="s">呪</span>
+          <span class="s">咒</span>
+          <span class="s">急</span>
+          <span class="s">如</span>
+          <span class="s">律</span>
+          <span class="s">令</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lead">
+      このお守りは、子どものためではありません。<br>
+      親である私が、静かでいるためのものです。
+      <small>（おすすめ：就寝前。説明は増やしません。）</small>
+    </div>
+
+    <div id="form">
+      <label>今日、私が手放すこと（10文字以内）</label>
+      <input id="text" maxlength="10" autocomplete="off">
+      <div class="actions">
+        <button id="sealBtn" class="primary" disabled>封印する</button>
+        <button id="clearBtn">消す</button>
+      </div>
+    </div>
+
+    <div id="status" class="status" style="display:none"></div>
+
+  </div>
+
+  <footer>
+    日々の勝ち負けを作らない。<br>
+    家庭の空気を整えるだけ。
+  </footer>
+
+</div>
 
 <script>
 (() => {
-  const KEY = "kofu_parent_omamori_v1";
-  const TZ = "Asia/Tokyo";
-  const $ = (id) => document.getElementById(id);
+  const KEY="seishu_parent_v1";
+  const TZ="Asia/Tokyo";
+  const $=id=>document.getElementById(id);
 
-  function todayYMD() {
-    const now = new Date();
-    const fmt = new Intl.DateTimeFormat("ja-JP", {
-      timeZone: TZ, year:"numeric", month:"2-digit", day:"2-digit"
-    });
-    const parts = fmt.formatToParts(now);
-    const y = parts.find(p=>p.type==="year").value;
-    const m = parts.find(p=>p.type==="month").value;
-    const d = parts.find(p=>p.type==="day").value;
-    return `${y}-${m}-${d}`;
-  }
+  const today=()=>{
+    const f=new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"});
+    const p=f.formatToParts(new Date());
+    return `${p[0].value}-${p[2].value}-${p[4].value}`;
+  };
 
-  function loadState() {
-    try { return JSON.parse(localStorage.getItem(KEY) || "{}"); }
-    catch { return {}; }
-  }
-  function saveState(obj) {
-    localStorage.setItem(KEY, JSON.stringify(obj));
-  }
+  $("today").textContent=today();
+  const state=JSON.parse(localStorage.getItem(KEY)||"{}");
 
-  const ymd = todayYMD();
-  $("today").textContent = ymd;
+  const input=$("text");
+  const btn=$("sealBtn");
+  const clear=$("clearBtn");
+  const form=$("form");
+  const status=$("status");
 
-  const state = loadState();
-  const sealedToday = state.lastSealedDate === ymd;
-
-  const formArea = $("formArea");
-  const statusArea = $("statusArea");
-  const input = $("letgo");
-  const sealBtn = $("sealBtn");
-  const clearBtn = $("clearBtn");
-
-  function showSealed() {
-    formArea.style.display = "none";
-    statusArea.style.display = "block";
-    statusArea.innerHTML = `
-      <div><span class="seal">封</span> じました。</div>
-      <div>これは子どもに渡りません。</div>
-      <div class="hint">今日はもう入力しません。</div>
-    `;
-  }
-
-  if (sealedToday) {
-    showSealed();
+  if(state.date===today()){
+    form.style.display="none";
+    status.style.display="block";
+    status.innerHTML=`<div><span class="seal">封</span> じました。</div>
+    <div>これは子どもに渡りません。</div>
+    <div style="font-size:13px;color:#666">今日はもう入力しません。</div>`;
     return;
   }
 
-  function updateBtn() {
-    const v = (input.value || "").trim();
-    sealBtn.disabled = v.length === 0;
-  }
-
-  input.addEventListener("input", updateBtn);
-  clearBtn.addEventListener("click", () => {
-    input.value = "";
-    updateBtn();
-    input.focus();
+  input.addEventListener("input",()=>btn.disabled=!input.value.trim());
+  clear.addEventListener("click",()=>{input.value="";btn.disabled=true;});
+  btn.addEventListener("click",()=>{
+    localStorage.setItem(KEY,JSON.stringify({date:today()}));
+    form.style.display="none";
+    status.style.display="block";
+    status.innerHTML=`<div><span class="seal">封</span> じました。</div>
+    <div>これは子どもに渡りません。</div>
+    <div style="font-size:13px;color:#666">今日はもう入力しません。</div>`;
   });
-
-  sealBtn.addEventListener("click", () => {
-    const v = (input.value || "").trim();
-    if (!v) return;
-    // 入力内容は保存しない（親向けとして最適）
-    saveState({ lastSealedDate: ymd });
-    input.value = "";
-    showSealed();
-  });
-
-  updateBtn();
 })();
 </script>
+
 </body>
 </html>
