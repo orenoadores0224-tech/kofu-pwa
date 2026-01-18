@@ -2,176 +2,92 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>kofu-pwa｜護符メニュー</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>kofu-pwa</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#f6f2ea" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
 
   <style>
     :root{
-      --bg:#f6f2ea;
+      --bg:#faf7f2;
       --card:#ffffff;
       --text:#1a1a1a;
-      --sub:#666;
-      --line:#d9d6cf;
-      --accent:#7a6b5a;
-      --pill:#efe8dd;
+      --sub:#6b6b6b;
+      --line:#e7e1d8;
+      --accent:#dfe6ff;
       --radius:18px;
-      --shadow:0 8px 22px rgba(0,0,0,.05);
+      --max:720px;
     }
-    *{box-sizing:border-box}
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
     }
-    .wrap{
-      max-width:720px;
-      margin:0 auto;
-      padding:22px 16px 28px;
-    }
-    h1{
-      margin:6px 0 8px;
-      font-size:36px;
-      letter-spacing:.5px;
-    }
-    .lead{
-      color:var(--sub);
-      margin:0 0 18px;
-      line-height:1.7;
-    }
-    .sectionTitle{
-      margin:18px 0 10px;
-      font-size:20px;
-      letter-spacing:.2px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
+    .wrap{ max-width:var(--max); margin:0 auto; padding:18px; }
+    h1{ font-size:34px; margin:10px 0 6px; letter-spacing:.5px; }
+    .lead{ color:var(--sub); margin:0 0 16px; }
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
     }
     .card{
-      display:block;
-      text-decoration:none;
-      background:var(--card);
-      border:2px solid #cfd7ef;
+      border:2px solid #cfd7ff;
       border-radius:22px;
-      padding:18px 18px 16px;
-      box-shadow:var(--shadow);
+      padding:18px;
+      background:linear-gradient(0deg, rgba(223,230,255,.35), rgba(223,230,255,.35));
+      margin:14px 0;
     }
-    .cardTitle{
-      font-size:28px;
-      font-weight:800;
-      margin:0 0 6px;
-      line-height:1.2;
-    }
-    .cardSub{
-      margin:0 0 14px;
-      color:var(--sub);
-      line-height:1.6;
-      font-size:16px;
-    }
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
+    .title{ font-size:26px; font-weight:900; margin:0 0 6px; }
+    .desc{ color:var(--sub); margin:0 0 12px; }
+    .btn{
+      display:inline-block;
+      background:#e6ecff;
+      border:2px solid #c9d3ff;
+      color:#1a3cff;
+      padding:12px 22px;
       border-radius:999px;
-      border:2px solid #bfc7e6;
-      background:#dde6ff;
-      color:#1a3d9c;
       font-weight:800;
-      min-width:86px;
-      justify-content:center;
     }
-    .mutedBox{
+    .foot{
       margin-top:18px;
-      background:rgba(255,255,255,.7);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px 16px;
-      color:#4c4c4c;
-      line-height:1.7;
-      font-size:14px;
-    }
-    .mutedBox ul{margin:8px 0 0; padding-left:18px}
-    .mutedBox li{margin:6px 0}
-    .mini{
+      color:var(--sub);
       font-size:12px;
-      color:#6b6b6b;
-      margin-top:10px;
-    }
-    @media (min-width:740px){
-      .grid{grid-template-columns:1fr 1fr;}
-      .cardTitle{font-size:26px}
+      line-height:1.7;
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
+  <div class="wrap">
     <h1>kofu-pwa</h1>
-    <p class="lead">公開テストOK。ここから「必要な護符だけ」を増やしていきます。</p>
+    <p class="lead">公開テストOK。ここから中身を増やします。</p>
 
-    <div class="sectionTitle">メニュー</div>
-    <section class="grid">
+    <div class="panel">
+      <div class="card">
+        <div class="title">受験護符（親の静けさ）</div>
+        <p class="desc">写真1枚＋封印ボタンだけ</p>
+        <a class="btn" href="./juken.html">開く</a>
+      </div>
 
-      <!-- 受験護符 -->
-      <a class="card" href="./juken.html">
-        <div class="cardTitle">受験護符（親の静けさ）</div>
-        <p class="cardSub">写真2枚（大・小）＋封印ボタンだけ</p>
-        <div class="row">
-          <span class="mini">※ 記録は残りません</span>
-          <span class="pill">開く</span>
-        </div>
-      </a>
-
-      <!-- 商売繁殖護符（これから作るページ） -->
-      <a class="card" href="./shobai.html">
-        <div class="cardTitle">商売繁殖護符</div>
-        <p class="cardSub">写真＋封印（最小UI）</p>
-        <div class="row">
-          <span class="mini">※ 記録は残りません</span>
-          <span class="pill">開く</span>
-        </div>
-      </a>
-
-      <!-- 場の観測（残したいなら） -->
-      <a class="card" href="./ba-kansoku.html">
-        <div class="cardTitle">場の観測フォーマット</div>
-        <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
-        <div class="row">
-          <span class="mini">※ 記録は端末内</span>
-          <span class="pill">開く</span>
-        </div>
-      </a>
-
-    </section>
-
-    <div class="mutedBox">
-      <strong>注意事項</strong>
-      <ul>
-        <li>このページは医療行為・治療の代替ではありません。</li>
-        <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
-        <li>息苦しさ・めまい・不快感が出た場合は中止して休んでください。</li>
-        <li>効果や感じ方には個人差があります。</li>
-      </ul>
+      <div class="card">
+        <div class="title">商売繁殖護符</div>
+        <p class="desc">写真2枚（大・小）＋封印ボタンだけ</p>
+        <a class="btn" href="./shobai.html">開く</a>
+      </div>
     </div>
-  </main>
+
+    <div class="foot">
+      ・このページは医療行為・治療の代替ではありません。<br>
+      ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br>
+      ・息苦しさ/めまい/不快感が出た場合は中止して休んでください。<br>
+      ・効果や感じ方には個人差があります。
+    </div>
+  </div>
 
   <script>
-    // Service Worker（PWA）
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(()=>{});
     }
