@@ -1,177 +1,141 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>冷水｜護符</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コールドシャワー | 護符</title>
 
-<style>
-:root{
-  --bg:#fafaf7;
-  --text:#111;
-  --muted:#666;
-  --card:#fff;
-  --radius:18px;
-  --shadow:0 10px 30px rgba(0,0,0,.06);
-}
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
-*{ box-sizing:border-box; }
+  <style>
+    :root{
+      --bg:#0b0b0f; --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
+      --aka:#c1121f; --gold:#d4af37;
+      --radius:14px; --shadow:0 14px 40px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans","Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(900px 500px at 75% 10%, rgba(193,18,31,.12), transparent 60%),
+        radial-gradient(900px 500px at 15% 10%, rgba(212,175,55,.08), transparent 60%),
+        linear-gradient(180deg, #0b0b0f, #10101a);
+    }
+    .wrap{max-width:760px;margin:0 auto;padding:18px 18px 44px;}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:16px;
+    }
+    .back{color:var(--muted);text-decoration:none;font-weight:900;letter-spacing:.06em}
+    h1{margin:14px 0 6px;font-size:26px}
+    .desc{margin:0 0 16px;color:var(--muted);line-height:1.7;font-size:13px}
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:
-    system-ui,
-    -apple-system,
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "Noto Serif JP",
-    serif;
-  padding:24px;
-}
-
-.wrap{
-  max-width:880px;
-  margin:0 auto;
-}
-
-a.back{
-  display:inline-block;
-  margin-bottom:16px;
-  font-size:14px;
-  color:var(--muted);
-  text-decoration:none;
-}
-
-h1{
-  font-size:22px;
-  margin:6px 0 6px;
-}
-
-.muted{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:18px;
-  line-height:1.8;
-}
-
-.panel{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:18px;
-  margin-bottom:20px;
-}
-
-h2{
-  font-size:16px;
-  margin:0 0 12px;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:12px;
-}
-
-label{
-  font-size:13px;
-  color:var(--muted);
-}
-
-input, select, textarea{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.15);
-  font-size:15px;
-}
-
-button{
-  margin-top:12px;
-  padding:12px 16px;
-  border-radius:14px;
-  border:none;
-  background:#111;
-  color:#fff;
-  font-size:15px;
-}
-
-.smallnote{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:10px;
-  line-height:1.8;
-}
-</style>
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:14px;
+    }
+    .timer{
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing:.06em;
+      margin: 6px 0 12px;
+    }
+    .btn{
+      appearance:none;border:1px solid rgba(212,175,55,.45);
+      background: rgba(0,0,0,.40); color:var(--text);
+      padding:12px 14px;border-radius:12px;font-weight:900;
+      letter-spacing:.10em; cursor:pointer; width:100%;
+      margin-top:10px;
+    }
+    textarea{
+      width:100%;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 12px;
+      outline: none;
+      min-height: 90px;
+      resize: vertical;
+    }
+  </style>
 </head>
-
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="./index.html">← 護符にもどる</a>
+      <div style="color:rgba(255,255,255,.55);font-weight:800;letter-spacing:.14em;font-size:12px;">COLD</div>
+    </div>
 
-  <!-- 戻り導線 -->
-  <a class="back" href="./kofu.html">← 護符にもどる</a>
+    <h1>コールドシャワー</h1>
+    <p class="desc">短い導線で実行。終わったら一言だけ残す。</p>
 
-  <h1>冷水</h1>
-  <div class="muted">
-    目的：反射ではなく、<b>落ち着いた開始</b>を作る。<br>
-    （回数や根性の記録にしない。）
+    <div class="card">
+      <div style="color:rgba(255,255,255,.72);font-weight:900;letter-spacing:.08em;font-size:12px">タイマー（2:00）</div>
+      <div class="timer" id="t">02:00</div>
+
+      <button class="btn" id="start">開始</button>
+      <button class="btn" id="stop" style="border-color:rgba(255,255,255,.18)">停止</button>
+
+      <div style="margin-top:14px;color:rgba(255,255,255,.72);font-weight:900;letter-spacing:.08em;font-size:12px">一言メモ</div>
+      <textarea id="memo" placeholder="例：胸が開いた / 震えが静まった / 集中が戻った"></textarea>
+      <button class="btn" id="save" style="border-color:rgba(193,18,31,.45)">保存</button>
+
+      <div id="saved" style="margin-top:10px;color:rgba(255,255,255,.62);font-size:12px;line-height:1.7"></div>
+    </div>
   </div>
 
-  <section class="panel">
-    <h2>今日の設定</h2>
+  <script>
+    let sec = 120;
+    let timer = null;
+    const t = document.getElementById('t');
 
-    <div class="row">
-      <div>
-        <label>温度感（主観）</label>
-        <select>
-          <option>ぬるい</option>
-          <option>冷たい</option>
-          <option>かなり冷たい</option>
-        </select>
-      </div>
-      <div>
-        <label>時間（秒）</label>
-        <select>
-          <option>10</option>
-          <option>20</option>
-          <option>30</option>
-          <option>45</option>
-          <option>60</option>
-        </select>
-      </div>
-    </div>
+    function fmt(s){
+      const m = String(Math.floor(s/60)).padStart(2,'0');
+      const r = String(s%60).padStart(2,'0');
+      return m+":"+r;
+    }
+    function draw(){ t.textContent = fmt(sec); }
+    draw();
 
-    <div class="row">
-      <div>
-        <label>始め方</label>
-        <select>
-          <option>手→腕→首</option>
-          <option>足→膝→腿</option>
-          <option>首の後ろだけ</option>
-          <option>シャワー全身</option>
-        </select>
-      </div>
-      <div>
-        <label>終え方</label>
-        <select>
-          <option>すぐ拭く</option>
-          <option>ゆっくり呼吸</option>
-          <option>温かい飲み物</option>
-        </select>
-      </div>
-    </div>
+    document.getElementById('start').addEventListener('click', () => {
+      if(timer) return;
+      timer = setInterval(() => {
+        sec = Math.max(0, sec-1);
+        draw();
+        if(sec === 0){
+          clearInterval(timer); timer=null;
+          try{ navigator.vibrate && navigator.vibrate([60,80,60]); }catch(e){}
+        }
+      }, 1000);
+    });
 
-    <button type="button">今日はこれでいく</button>
+    document.getElementById('stop').addEventListener('click', () => {
+      if(timer){ clearInterval(timer); timer=null; }
+      sec = 120; draw();
+    });
 
-    <div class="smallnote">
-      ※ 「強くなる」ためではなく、<b>静かな開始</b>のため。<br>
-      ※ 体調が悪い日はやらない（それで良い）。
-    </div>
-  </section>
+    const KEY="cold_memo_v1";
+    const saved = document.getElementById('saved');
+    function renderSaved(){
+      const v = localStorage.getItem(KEY);
+      saved.textContent = v ? ("前回メモ： " + v) : "前回メモ：なし";
+    }
+    renderSaved();
 
-</div>
+    document.getElementById('save').addEventListener('click', () => {
+      const v = document.getElementById('memo').value.trim();
+      if(!v) return;
+      localStorage.setItem(KEY, v);
+      document.getElementById('memo').value = "";
+      renderSaved();
+      try{ navigator.vibrate && navigator.vibrate([30,40,30]); }catch(e){}
+    });
+  </script>
 </body>
 </html>
