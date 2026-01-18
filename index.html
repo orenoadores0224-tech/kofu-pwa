@@ -2,271 +2,213 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>護符</title>
 
-  <!-- iOS / PWA -->
+  <!-- PWA / Icons -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#07080c" />
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta name="theme-color" content="#0b0c10" />
+
+  <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="護符" />
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
   <style>
     :root{
-      --bg0:#07080c;
-      --bg1:#0b0d14;
-      --card: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.12);
-      --text:#e9ecf1;
-      --muted: rgba(233,236,241,.70);
-      --accent:#d04b3c; /* 朱 */
-      --radius: 14px;   /* 角は硬質寄り */
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --w: 760px;
+      --bg0:#06070a;
+      --bg1:#0b0c10;
+      --card:#0f1218;
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --sub:rgba(255,255,255,.62);
+      --accent:#b4372f;  /* 朱 */
+      --gold1:rgba(255, 215, 140, .22);
+      --gold2:rgba(255, 215, 140, .14);
+      --radius:14px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
       color:var(--text);
-      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
       background:
-        radial-gradient(1200px 800px at 15% 0%, rgba(208,75,60,.22), transparent 55%),
-        radial-gradient(900px 600px at 90% 10%, rgba(255,196,92,.12), transparent 52%),
+        radial-gradient(1000px 600px at 10% 0%, rgba(180,55,47,.18), transparent 55%),
+        radial-gradient(900px 700px at 100% 20%, rgba(255,215,140,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
       overflow-x:hidden;
     }
 
-    /* 金粉（うざくない程度） */
-    canvas#goldDust{
-      position:fixed; inset:0;
+    /* 金粉（控えめ〜少し増し） */
+    .gold::before{
+      content:"";
+      position:fixed;
+      inset:-20vh -20vw;
       pointer-events:none;
-      z-index:2;
-      opacity:.55;
+      background:
+        radial-gradient(circle, var(--gold1) 0 1px, transparent 2px) 0 0/110px 110px,
+        radial-gradient(circle, rgba(255,215,140,.18) 0 1px, transparent 2px) 40px 60px/150px 150px,
+        radial-gradient(circle, rgba(255,215,140,.12) 0 1px, transparent 2px) 10px 90px/210px 210px;
+      filter: blur(.2px);
+      opacity:.90;
+      animation: drift 16s linear infinite;
       mix-blend-mode: screen;
     }
-
-    .wrap{
-      position:relative;
-      z-index:3;
-      max-width:var(--w);
-      margin:0 auto;
-      padding:22px 18px 26px;
+    .gold::after{
+      content:"";
+      position:fixed;
+      inset:-20vh -20vw;
+      pointer-events:none;
+      background:
+        radial-gradient(circle, var(--gold2) 0 1px, transparent 2px) 30px 20px/130px 130px,
+        radial-gradient(circle, rgba(255,215,140,.10) 0 1px, transparent 2px) 80px 110px/240px 240px;
+      opacity:.70;
+      animation: drift2 24s linear infinite;
+      mix-blend-mode: screen;
     }
+    @keyframes drift{ from{transform:translate3d(0,0,0)} to{transform:translate3d(70px,170px,0)} }
+    @keyframes drift2{ from{transform:translate3d(0,0,0)} to{transform:translate3d(-50px,150px,0)} }
+
+    .wrap{ max-width:760px; margin:0 auto; padding:22px 16px 44px; }
 
     .top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:16px;
+      padding:8px 2px 18px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      margin-bottom:18px;
     }
-    h1{
-      margin:0;
-      letter-spacing:.02em;
-      font-weight:800;
-      font-size:34px;
-      line-height:1.05;
+    .brand{
+      font-size:40px; line-height:1.05; letter-spacing:.02em;
+      margin:0 0 6px; font-weight:900;
     }
-    .sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:13px;
-    }
+    .tag{ margin:0; color:var(--sub); font-size:14px; letter-spacing:.06em; }
 
     .panel{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding:16px;
       box-shadow: var(--shadow);
-      padding:14px;
     }
+    .panelHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:10px; margin-bottom:12px;
+    }
+    .panelTitle{ font-size:18px; letter-spacing:.10em; margin:0; color:rgba(255,255,255,.88); }
+    .panelNote{ margin:0; font-size:12px; color:rgba(255,255,255,.50); letter-spacing:.08em; }
 
-    .menuTitle{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:4px 2px 10px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      margin-bottom:12px;
-    }
-    .menuTitle .l{
-      font-weight:800;
-      letter-spacing:.08em;
-      font-size:14px;
-      color:rgba(233,236,241,.92);
-    }
-    .menuTitle .r{
-      font-size:12px;
-      color:rgba(233,236,241,.58);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
+    .grid{ display:grid; grid-template-columns:1fr; gap:12px; }
 
     .card{
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:12px;
-      background:rgba(0,0,0,.22);
-      padding:14px 14px 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:16px;
+      position:relative;
+      overflow:hidden;
     }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: linear-gradient(90deg, rgba(180,55,47,0), rgba(180,55,47,.22), rgba(180,55,47,0));
+      opacity:.22;
+      transform: translateX(-45%);
+      pointer-events:none;
+    }
+    .title{ font-size:24px; margin:0 0 8px; font-weight:900; letter-spacing:.02em; }
+    .desc{ margin:0 0 14px; color:var(--sub); font-size:14px; letter-spacing:.04em; }
 
-    .title{
-      font-size:20px;
-      font-weight:850;
-      margin:0 0 6px;
-    }
-    .desc{
-      margin:0 0 12px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-
+    .btnRow{ display:flex; gap:10px; }
     .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.18);
-      color:var(--text);
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
+      border-radius: 12px;
       text-decoration:none;
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      font-weight:900;
+      letter-spacing:.08em;
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.90);
+      background: rgba(0,0,0,.20);
+      min-width:120px;
     }
     .btn:active{ transform: translateY(1px); }
-
-    .btn .dot{
-      width:8px; height:8px; border-radius:99px;
-      background:var(--accent);
-      box-shadow: 0 0 18px rgba(208,75,60,.55);
+    .btnAccent{
+      border-color: rgba(180,55,47,.60);
+      box-shadow: 0 0 0 1px rgba(180,55,47,.22) inset;
     }
 
     .foot{
       margin-top:14px;
-      color:rgba(233,236,241,.55);
+      padding:14px 2px 0;
+      color:rgba(255,255,255,.45);
       font-size:12px;
-      line-height:1.6;
-    }
-    .hr{
-      height:1px;
-      background:rgba(255,255,255,.10);
-      margin:12px 0 10px;
+      line-height:1.7;
     }
   </style>
 </head>
 
-<body>
-  <canvas id="goldDust"></canvas>
-
+<body class="gold">
   <div class="wrap">
     <div class="top">
-      <div>
-        <h1>護符</h1>
-        <div class="sub">必要なものだけ、最短で開く。</div>
-      </div>
+      <h1 class="brand">護符</h1>
+      <p class="tag">護符メニュー（硬質・陰陽師ver）</p>
     </div>
 
     <div class="panel">
-      <div class="menuTitle">
-        <div class="l">メニュー</div>
-        <div class="r">封印・観測・整え</div>
+      <div class="panelHead">
+        <h2 class="panelTitle">メニュー</h2>
+        <p class="panelNote">必要なものだけ最短で開く</p>
       </div>
 
       <div class="grid">
         <div class="card">
           <div class="title">受験護符（親の静けさ）</div>
           <p class="desc">写真1枚＋封印ボタン</p>
-          <a class="btn" href="./juken.html"><span class="dot"></span>開く</a>
+          <div class="btnRow">
+            <a class="btn btnAccent" href="./juken.html">開く</a>
+          </div>
         </div>
 
         <div class="card">
           <div class="title">商売繁殖護符</div>
           <p class="desc">写真2枚（大・小）＋封印ボタン</p>
-          <a class="btn" href="./shobai.html"><span class="dot"></span>開く</a>
+          <div class="btnRow">
+            <a class="btn btnAccent" href="./shobai.html">開く</a>
+          </div>
         </div>
 
         <div class="card">
           <div class="title">場の観測｜護符</div>
           <p class="desc">場・気配・静けさの観測用</p>
-          <a class="btn" href="./ba-kansoku.html"><span class="dot"></span>開く</a>
+          <div class="btnRow">
+            <a class="btn" href="./ba-kansoku.html">開く</a>
+          </div>
         </div>
 
         <div class="card">
           <div class="title">コールドシャワー｜護符</div>
-          <p class="desc">冷水で整える（短い手順）</p>
-          <a class="btn" href="./coldshower.html"><span class="dot"></span>開く</a>
+          <p class="desc">冷水を「儀式化」して整える</p>
+          <div class="btnRow">
+            <a class="btn" href="./coldshower.html">開く</a>
+          </div>
         </div>
       </div>
 
-      <div class="hr"></div>
       <div class="foot">
         ・このページは医療行為・治療の代替ではありません。<br>
-        ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br>
-        ・息苦しさ／めまい／不快感が出た場合は中止して休んでください。<br>
-        ・効果や感じ方には個人差があります。
+        ・体調が悪いときは無理をしないでください。
       </div>
     </div>
   </div>
 
   <script>
-    // 金粉（控えめ・軽量）
-    (function(){
-      const c = document.getElementById('goldDust');
-      const ctx = c.getContext('2d');
-      let w,h,particles;
-
-      function resize(){
-        w = c.width = Math.floor(window.innerWidth * devicePixelRatio);
-        h = c.height = Math.floor(window.innerHeight * devicePixelRatio);
-        c.style.width = window.innerWidth + 'px';
-        c.style.height = window.innerHeight + 'px';
-
-        const n = Math.min(120, Math.floor((window.innerWidth * window.innerHeight) / 12000)); // ほどほど
-        particles = Array.from({length:n}, () => ({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: (Math.random()*1.6 + 0.6) * devicePixelRatio,
-          vx: (Math.random()*0.18 + 0.04) * devicePixelRatio,
-          vy: (Math.random()*0.10 + 0.02) * devicePixelRatio,
-          a: Math.random()*0.35 + 0.08
-        }));
-      }
-
-      function tick(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
-          if(p.x > w+10) p.x = -10;
-          if(p.y > h+10) p.y = -10;
-
-          // 金粒（少しだけ揺らぎ）
-          const tw = Math.sin((p.x+p.y)*0.0009) * 0.5 + 0.7;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r*tw, 0, Math.PI*2);
-          ctx.fillStyle = `rgba(255, 206, 120, ${p.a})`;
-          ctx.fill();
-        }
-        requestAnimationFrame(tick);
-      }
-
-      window.addEventListener('resize', resize, {passive:true});
-      resize();
-      tick();
-    })();
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
+    // SW register
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(()=>{});
+      });
     }
   </script>
 </body>
