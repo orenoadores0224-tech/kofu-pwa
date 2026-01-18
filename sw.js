@@ -1,4 +1,4 @@
-const CACHE_NAME = "kofu-cache-v5";
+const CACHE_NAME = "kofu-cache-v6";
 
 const PRECACHE_URLS = [
   "./",
@@ -6,9 +6,11 @@ const PRECACHE_URLS = [
   "./juken.html",
   "./shobai.html",
   "./ba-kansoku.html",
+  "./coldshower.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
+  "./apple-touch-icon.png",
   "./IMG_3563.jpeg",
   "./IMG_3564.jpeg",
   "./IMG_3565.jpeg"
