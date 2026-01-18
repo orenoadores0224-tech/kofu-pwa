@@ -5,158 +5,210 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>受験護符（親の静けさ）</title>
 
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#f7f4ef" />
+
   <style>
     :root{
-      --bg:#f7f6f2;
-      --card:#ffffff;
+      --bg:#f7f4ef;
       --text:#1b1b1b;
       --muted:#6b6b6b;
-      --line:#e6e2d8;
-      --btn:#b95a64;
-      --btnText:#ffffff;
+      --card:#ffffff;
+      --stroke:#e7e2da;
+      --accent:#a7646b;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
       --radius:18px;
-      --max:720px;
     }
+    *{box-sizing:border-box}
     body{
       margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
       background:var(--bg);
       color:var(--text);
-      font-family: -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
       line-height:1.7;
     }
-    header{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:18px 16px 0;
-    }
-    .back{
-      display:inline-block;
-      color:#2c4a7a;
-      text-decoration:none;
-      font-size:14px;
-      margin-bottom:12px;
-    }
     .wrap{
-      max-width:var(--max);
+      max-width:720px;
       margin:0 auto;
-      padding:0 16px 28px;
+      padding:18px 16px 40px;
+    }
+    h1{
+      margin:8px 0 6px;
+      font-size:24px;
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:14px;
     }
     .card{
       background:var(--card);
-      border:1px solid var(--line);
+      border:1px solid var(--stroke);
       border-radius:var(--radius);
-      padding:18px;
-      box-shadow: 0 6px 22px rgba(0,0,0,.05);
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin:14px 0;
     }
-    h1{
-      margin:10px 0 10px;
-      font-size:22px;
-      letter-spacing:.02em;
-    }
-    .lead{
-      color:var(--muted);
-      margin:0 0 14px;
-      font-size:15px;
-    }
-
-    /* 画像枠 */
-    .kofuFrame{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#fff;
-      padding:12px;
-      margin:14px 0 14px;
-    }
-    .kofuImg{
-      width:100%;
-      height:auto;
-      display:block;
-      border-radius:12px;
-    }
-
-    .txt{
-      margin:0 0 14px;
+    .label{
+      font-weight:700;
+      margin:0 0 10px;
       font-size:16px;
     }
-
+    .imgbox{
+      border:1px solid var(--stroke);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .imgbox img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .steps{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .steps li{ margin:6px 0; }
     .btn{
+      display:block;
       width:100%;
       border:none;
       border-radius:16px;
       padding:16px 14px;
-      background:var(--btn);
-      color:var(--btnText);
       font-size:18px;
-      font-weight:700;
-      cursor:pointer;
-      transition: transform .06s ease;
+      font-weight:800;
+      color:#fff;
+      background:var(--accent);
+      margin-top:14px;
     }
-    .btn:active{ transform: translateY(1px); }
-
     .note{
-      margin-top:12px;
+      margin:12px 2px 0;
       color:var(--muted);
       font-size:13px;
     }
-    .result{
-      margin-top:14px;
-      padding:12px 14px;
-      border-radius:14px;
-      background:#fff7f8;
-      border:1px solid #f0d6d8;
-      display:none;
+    .small{
+      margin:10px 0 0;
+      color:var(--text);
+      font-size:16px;
+      font-weight:700;
     }
-    .result strong{ display:block; margin-bottom:6px; }
+    .hr{
+      height:1px;
+      background:var(--stroke);
+      margin:14px 0;
+    }
+    /* 封印演出 */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(20,12,12,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modal{
+      width:min(520px,100%);
+      background:#fff;
+      border-radius:18px;
+      padding:18px 16px;
+      border:1px solid var(--stroke);
+      box-shadow:0 20px 60px rgba(0,0,0,.25);
+      text-align:center;
+    }
+    .seal{
+      font-size:20px;
+      font-weight:900;
+      margin:0 0 8px;
+    }
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .btn2{
+      margin-top:12px;
+      width:100%;
+      border:none;
+      border-radius:14px;
+      padding:12px 12px;
+      font-weight:800;
+      background:#222;
+      color:#fff;
+      font-size:15px;
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <a class="back" href="./index.html">← メニューへ戻る</a>
-  </header>
-
   <div class="wrap">
-    <div class="card">
-      <h1>受験護符（親の静けさ）</h1>
-      <p class="lead">公開テストOK。ここは「親が静かでいる」ための封入。</p>
+    <h1>受験護符（親の静けさ）</h1>
+    <p class="sub">公開テストOK。ここは「親が静かでいる」ための封入。</p>
 
-      <div class="kofuFrame">
-        <!-- ★ここを「アップした画像ファイル名」に合わせる -->
-        <img class="kofuImg" src="./juken-fuda.jpg" alt="受験護符の写真" />
+    <div class="card">
+      <div class="label">受験護符の写真</div>
+      <div class="imgbox">
+        <!-- ★ここが画像。ファイル名は一覧のまま IMG_3565.jpeg -->
+        <img src="./IMG_3565.jpeg" alt="受験護符の写真" />
       </div>
 
-      <p class="txt">
-        この護符は、子どものためではありません。<br>
-        親である私が、静かでいるためのものです。
-      </p>
+      <ul class="steps">
+        <li>1）肩の力を抜く</li>
+        <li>2）「吐く」を長めに 3回</li>
+        <li>3）写真を 10秒だけ見る（眺めるだけ）</li>
+      </ul>
 
       <button class="btn" id="sealBtn">封印する</button>
 
-      <div class="result" id="resultBox">
-        <strong>封印しました。</strong>
-        いまは「静けさ」を守るだけで十分。
-      </div>
+      <div class="hr"></div>
 
-      <div class="note">
-        ※ 記録は残りません。<br>
-        ※ ここで封じたものは、子どもに渡りません。
-      </div>
+      <p class="small">この護符は、子どものためではありません。</p>
+      <p style="margin:6px 0 0;">親である私が、静かでいるためのものです。</p>
+
+      <p class="note">※ 記録は残りません。</p>
+      <p class="note">※ ここで封じたものは、子どもに渡りません。</p>
+    </div>
+
+    <div class="note">
+      ※ このページは医療行為・治療の代替ではありません。<br/>
+      ※ 運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br/>
+      ※ 不快感が出た場合は中止して休んでください。
+    </div>
+  </div>
+
+  <!-- 封印モーダル -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <p class="seal">封印しました。</p>
+      <p class="desc">今日は「親が静かでいる」だけで十分。</p>
+      <button class="btn2" id="closeBtn">閉じる</button>
     </div>
   </div>
 
   <script>
-    const btn = document.getElementById("sealBtn");
-    const box = document.getElementById("resultBox");
+    const overlay = document.getElementById("overlay");
+    const sealBtn = document.getElementById("sealBtn");
+    const closeBtn = document.getElementById("closeBtn");
 
-    btn.addEventListener("click", () => {
-      btn.disabled = true;
-      btn.textContent = "・・・";
-      setTimeout(() => {
-        box.style.display = "block";
-        btn.textContent = "封印した";
-        setTimeout(()=>{ btn.disabled = false; btn.textContent="封印する"; }, 1200);
-      }, 450);
-    });
+    function openModal(){
+      overlay.style.display = "flex";
+      // iPhoneの軽い演出（対応端末のみ）
+      try { navigator.vibrate && navigator.vibrate([40, 60, 40]); } catch(e){}
+    }
+    function closeModal(){
+      overlay.style.display = "none";
+    }
+
+    sealBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeModal(); });
   </script>
 </body>
 </html>
