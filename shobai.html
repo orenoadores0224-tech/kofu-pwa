@@ -2,174 +2,138 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>商売繁殖護符</title>
-
+  <meta name="theme-color" content="#0b0c10" />
   <style>
     :root{
-      --bg0:#07080c;
-      --bg1:#0b0d14;
-      --card: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.12);
-      --text:#e9ecf1;
-      --muted: rgba(233,236,241,.70);
-      --accent:#d04b3c;
-      --radius: 14px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --w: 760px;
+      --bg0:#06070a; --bg1:#0b0c10;
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --sub:rgba(255,255,255,.62);
+      --accent:#b4372f;
+      --radius:14px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
     }
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
-      margin:0;
-      color:var(--text);
-      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+      margin:0; color:var(--text);
       background:
-        radial-gradient(1100px 700px at 88% 8%, rgba(255,196,92,.10), transparent 55%),
-        radial-gradient(1200px 800px at 15% 0%, rgba(208,75,60,.18), transparent 55%),
+        radial-gradient(1000px 600px at 10% 0%, rgba(180,55,47,.18), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
     }
+    .wrap{ max-width:760px; margin:0 auto; padding:16px 16px 44px; }
 
-    .wrap{
-      max-width:var(--w);
-      margin:0 auto;
-      padding:16px 16px 26px;
+    .bar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-bottom:12px;
     }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:12px;
-    }
-
     .back{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:44px;
-      height:40px;
-      padding:0 12px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.25);
-      color:var(--text);
+      display:inline-flex; align-items:center; gap:8px;
       text-decoration:none;
-      font-weight:700;
-    }
-
-    h1{
-      margin:8px 0 6px;
-      font-size:28px;
-      font-weight:900;
-      letter-spacing:.02em;
-    }
-    .lead{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:13px;
-    }
-
-    .panel{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      padding:14px;
-    }
-
-    .label{
-      font-weight:800;
-      letter-spacing:.08em;
-      font-size:13px;
-      margin:2px 0 10px;
-      color:rgba(233,236,241,.90);
-    }
-
-    /* 写真ズレ防止（共通） */
-    .imgBox{
+      color:rgba(255,255,255,.86);
+      padding:10px 12px;
       border:1px solid rgba(255,255,255,.12);
       border-radius:12px;
-      background:rgba(0,0,0,.22);
-      overflow:hidden;
-      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+      background:rgba(0,0,0,.20);
+      font-weight:900;
+      letter-spacing:.06em;
     }
-    .imgBox img{
+    .back:active{ transform: translateY(1px); }
+    .hint{ color:rgba(255,255,255,.48); font-size:12px; letter-spacing:.06em; }
+
+    h1{ margin:8px 0 8px; font-size:30px; font-weight:900; letter-spacing:.02em; }
+    .lead{ margin:0 0 14px; color:var(--sub); font-size:14px; line-height:1.7; }
+
+    .panel{
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding:14px;
+      box-shadow: var(--shadow);
+    }
+
+    .label{ margin:0 0 10px; font-weight:900; letter-spacing:.06em; }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;  /* 大：小 */
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width:520px){
+      .row{ grid-template-columns:1fr; }
+    }
+
+    .frame{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: rgba(0,0,0,.20);
+    }
+
+    /* ✅ 写真ズレ対策（切らずに収める） */
+    img{
       display:block;
       width:100%;
       height:auto;
-      max-height:72vh;
       object-fit:contain;
       background:#0a0b10;
     }
 
-    /* 大・小の並び固定（“以前の並び”っぽく：大→小） */
-    .stack{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .smallWrap{
-      width:62%;
-      margin-left:auto; /* 右寄せで「小」感 */
-    }
-
-    .row{
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-
+    .btnRow{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
     .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.18);
-      color:var(--text);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      font-weight:800;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.20);
+      color:rgba(255,255,255,.90);
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:.08em;
+      min-width:140px;
     }
-    .btn:active{ transform:translateY(1px); }
+    .btnAccent{
+      border-color: rgba(180,55,47,.60);
+      box-shadow: 0 0 0 1px rgba(180,55,47,.22) inset;
+    }
+    .btn:active{ transform: translateY(1px); }
 
-    .dot{
-      width:8px; height:8px; border-radius:99px;
-      background:var(--accent);
-      box-shadow: 0 0 18px rgba(208,75,60,.55);
-    }
+    .small{ margin-top:10px; color:rgba(255,255,255,.45); font-size:12px; line-height:1.7; }
   </style>
 </head>
-
 <body>
   <div class="wrap">
-    <div class="topbar">
+    <div class="bar">
       <a class="back" href="./index.html">← 戻る</a>
-      <div></div>
+      <div class="hint">印刷＝封印</div>
     </div>
 
     <h1>商売繁殖護符</h1>
-    <p class="lead">大（文字多い方）→ 小（文字少ない方）の順に置く。</p>
+    <p class="lead">写真2枚（大・小）を封入して封印。</p>
 
     <div class="panel">
-      <div class="label">護符（大）</div>
-      <div class="stack">
-        <div class="imgBox">
-          <img src="./IMG_3563.jpeg" alt="商売繁殖護符 大">
-        </div>
+      <p class="label">護符の写真（大・小）</p>
 
-        <div class="label">護符（小）</div>
-        <div class="smallWrap">
-          <div class="imgBox">
-            <img src="./IMG_3564.jpeg" alt="商売繁殖護符 小">
-          </div>
+      <div class="row">
+        <div class="frame">
+          <img src="./IMG_3564.jpeg" alt="商売繁殖護符（大）">
+        </div>
+        <div class="frame">
+          <img src="./IMG_3565.jpeg" alt="商売繁殖護符（小）">
         </div>
       </div>
 
-      <div class="row">
-        <button class="btn" onclick="window.print()"><span class="dot"></span>封印（印刷）</button>
+      <div class="btnRow">
+        <a class="btn btnAccent" href="javascript:window.print()">封印（印刷）</a>
+        <a class="btn" href="./index.html">メニューへ</a>
+      </div>
+
+      <div class="small">
+        ・印刷できない場合はスクショ保存でもOK。<br>
+        ・これは医療行為・治療の代替ではありません。
       </div>
     </div>
   </div>
