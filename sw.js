@@ -1,4 +1,4 @@
-const CACHE_NAME = "kofu-cache-v6";
+const CACHE_NAME = kofu-cache-v7 
 
 const PRECACHE_URLS = [
   "./",
