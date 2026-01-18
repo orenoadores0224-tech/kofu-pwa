@@ -1,7 +1,7 @@
 {
   "name": "護符",
   "short_name": "護符",
-  "description": "必要なものだけを静かに開く",
+  "description": "護符メニュー（陰陽師版）",
   "lang": "ja-JP",
   "start_url": "./",
   "scope": "./",
