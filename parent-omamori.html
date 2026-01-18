@@ -2,169 +2,197 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>親の静守お守り（受験）</title>
 
 <style>
 :root{
-  --ink:#111;
+  --bg:#fafaf7;
+  --text:#111;
   --muted:#666;
-  --line:rgba(0,0,0,.12);
+  --card:#fff;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,.06);
+  --line:rgba(0,0,0,.15);
+  --accent:#c07a7a;
 }
 
-/* ===== 全体 ===== */
+*{ box-sizing:border-box; }
+
 body{
   margin:0;
-  background:#fafaf7;
+  background:var(--bg);
+  color:var(--text);
   font-family:
+    system-ui,
+    -apple-system,
     "Hiragino Mincho ProN",
     "Yu Mincho",
     "Noto Serif JP",
-    ui-serif, serif;
-  color:var(--ink);
+    serif;
+  padding:24px;
 }
 
 .wrap{
-  max-width:720px;
+  max-width:880px;
   margin:0 auto;
-  padding:22px 16px 40px;
 }
 
-/* ===== ヘッダ ===== */
-.top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
-}
-.top a{
+a.back{
+  display:inline-block;
+  margin-bottom:16px;
   font-size:14px;
   color:var(--muted);
   text-decoration:none;
 }
-.top h1{
-  font-size:17px;
+
+header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+h1{
+  font-size:22px;
   margin:0;
-  font-weight:600;
+  line-height:1.3;
 }
 
-/* ===== カード（和紙感） ===== */
-.card{
-  position:relative;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  background:
-    radial-gradient(140% 90% at 20% 10%, rgba(0,0,0,.02), transparent 60%),
-    radial-gradient(120% 80% at 80% 30%, rgba(0,0,0,.025), transparent 65%),
-    #fff;
-}
-
-/* ===== 護符 ===== */
-.kofuWrap{
-  display:flex;
-  justify-content:center;
-  margin:6px 0 16px;
-}
-.kofuBox{
-  padding:18px 14px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#fff;
-}
-.kofu{
-  writing-mode:vertical-rl;
-  text-orientation:upright;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  user-select:none;
-  color:#111;
-  text-shadow:
-    0.2px 0.2px 0 rgba(0,0,0,.18),
-   -0.2px 0.1px 0 rgba(0,0,0,.08);
-}
-.kofu .l{font-size:26px; line-height:1;}
-.kofu .s{font-size:22px; line-height:1;}
-.kofu .gap{height:28px;}
-
-/* ===== 説明 ===== */
-.lead{
-  font-size:15px;
-  line-height:1.9;
-  margin-bottom:12px;
-}
-.lead small{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:6px;
-}
-
-/* ===== 入力 ===== */
-label{
+.date{
   font-size:14px;
   color:var(--muted);
+  white-space:nowrap;
+  padding-top:2px;
 }
-input{
+
+.panel{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.muted{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.9;
+  margin:10px 0 0;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  margin:14px 0 6px;
+}
+
+input[type="text"]{
   width:100%;
-  box-sizing:border-box;
-  margin-top:6px;
-  padding:14px 12px;
-  font-size:16px;
+  padding:12px 12px;
   border-radius:12px;
   border:1px solid var(--line);
+  font-size:16px;
   font-family:inherit;
 }
-input:focus{
-  outline:none;
-  border-color:#bbb;
+
+/* --- Ofuda Canvas Ritual --- */
+.ofudaWrap{
+  margin: 10px 0 8px;
 }
 
-/* ===== ボタン ===== */
-.actions{
+.paper{
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  background:
+    radial-gradient(1200px 700px at 30% 10%, rgba(0,0,0,.04), transparent 60%),
+    radial-gradient(900px 600px at 80% 40%, rgba(0,0,0,.03), transparent 55%),
+    linear-gradient(#fbfaf6, #f7f4ec);
+}
+
+/* 中央の“柱”ガイド（うっすら） */
+.paper::before{
+  content:"";
+  position:absolute;
+  top: 6%;
+  bottom: 6%;
+  left: 50%;
+  width: 1px;
+  background: rgba(0,0,0,.10);
+  transform: translateX(-50%);
+}
+
+/* 外枠（うっすら） */
+.paper::after{
+  content:"";
+  position:absolute;
+  inset: 10%;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+}
+
+#ofudaCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  touch-action: none; /* iOSでスクロールじゃなく描画 */
+}
+
+.tools{
   display:flex;
-  gap:10px;
+  gap:12px;
+  justify-content:center;
   margin-top:12px;
 }
+
 button{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:#fff;
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.12);
   font-size:15px;
+  min-width: 140px;
 }
-button.primary{
-  background:linear-gradient(180deg,#b02222,#8c1515);
+
+.btnMain{
+  background:var(--accent);
   color:#fff;
-  border-color:#7c1111;
-}
-button:disabled{
-  opacity:.5;
+  border:none;
 }
 
-/* ===== 封印表示 ===== */
-.status{
-  margin-top:14px;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  line-height:1.8;
-}
-.seal{
-  color:#9b1c1c;
-  font-weight:700;
-  letter-spacing:.1em;
+.btnSub{
+  background:#fff;
+  color:#333;
 }
 
-/* ===== フッタ ===== */
-footer{
-  text-align:center;
+.note{
+  margin-top:10px;
   font-size:12px;
   color:var(--muted);
-  margin-top:18px;
+  line-height:1.8;
+}
+
+.sealMsg{
+  text-align:center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.footerLine{
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  line-height:2.0;
+  margin-top:12px;
 }
 </style>
 </head>
@@ -172,101 +200,145 @@ footer{
 <body>
 <div class="wrap">
 
-  <div class="top">
-    <a href="./index.html">← 戻る</a>
+  <a class="back" href="./kofu.html">← 護符にもどる</a>
+
+  <header>
     <h1>親の静守お守り（受験）</h1>
-    <span id="today" style="font-size:12px;color:#777"></span>
-  </div>
+    <div class="date" id="today"></div>
+  </header>
 
-  <div class="card">
+  <section class="panel">
 
-    <div class="kofuWrap">
-      <div class="kofuBox">
-        <div class="kofu">
-          <span class="l">日</span>
-          <span class="l">日</span>
-          <span class="l">日</span>
-          <span class="gap"></span>
-          <span class="l">若</span>
-          <span class="l">者</span>
-          <span class="l">戸</span>
-          <span class="l">鬼</span>
-          <span class="gap"></span>
-          <span class="s">呪</span>
-          <span class="s">咒</span>
-          <span class="s">急</span>
-          <span class="s">如</span>
-          <span class="s">律</span>
-          <span class="s">令</span>
-        </div>
+    <div class="ofudaWrap" aria-label="護符を書くエリア">
+      <div class="paper" id="paper">
+        <canvas id="ofudaCanvas"></canvas>
+      </div>
+
+      <div class="tools">
+        <button type="button" id="btnClear" class="btnSub">消す</button>
+        <button type="button" id="btnSeal" class="btnMain">封印する</button>
+      </div>
+
+      <div id="sealMsg" class="sealMsg" hidden>
+        これは子どもに渡りません。これで終了。
+      </div>
+
+      <div class="note">
+        ※ これは読むものではなく、書くもの。<br>
+        ※ 記録は残しません。説明は増やしません。
       </div>
     </div>
 
-    <div class="lead">
+    <p class="muted">
       このお守りは、子どものためではありません。<br>
-      親である私が、静かでいるためのものです。
-      <small>（おすすめ：就寝前。説明は増やしません。）</small>
+      親である私が、静かでいるためのものです。<br>
+      （おすすめ：就寝前。説明は増やしません。）
+    </p>
+
+    <label for="release">今日、私が手放すこと（10文字以内）</label>
+    <input id="release" type="text" maxlength="10" placeholder="例：焦り / 比較 / 不安">
+
+    <div class="footerLine">
+      日々の勝ち負けを作らない。<br>
+      家庭の空気を整えるだけ。
     </div>
 
-    <div id="form">
-      <label>今日、私が手放すこと（10文字以内）</label>
-      <input id="text" maxlength="10" autocomplete="off">
-      <div class="actions">
-        <button id="sealBtn" class="primary" disabled>封印する</button>
-        <button id="clearBtn">消す</button>
-      </div>
-    </div>
-
-    <div id="status" class="status" style="display:none"></div>
-
-  </div>
-
-  <footer>
-    日々の勝ち負けを作らない。<br>
-    家庭の空気を整えるだけ。
-  </footer>
+  </section>
 
 </div>
 
 <script>
 (() => {
-  const KEY="seishu_parent_v1";
-  const TZ="Asia/Tokyo";
-  const $=id=>document.getElementById(id);
+  // 日付
+  const d = new Date();
+  const pad = (n)=> String(n).padStart(2,'0');
+  const today = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const todayEl = document.getElementById('today');
+  if(todayEl) todayEl.textContent = today;
 
-  const today=()=>{
-    const f=new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"});
-    const p=f.formatToParts(new Date());
-    return `${p[0].value}-${p[2].value}-${p[4].value}`;
-  };
+  // Canvas set
+  const canvas = document.getElementById('ofudaCanvas');
+  const paper  = document.getElementById('paper');
+  const btnClear = document.getElementById('btnClear');
+  const btnSeal  = document.getElementById('btnSeal');
+  const sealMsg  = document.getElementById('sealMsg');
+  if(!canvas || !paper) return;
 
-  $("today").textContent=today();
-  const state=JSON.parse(localStorage.getItem(KEY)||"{}");
+  const ctx = canvas.getContext('2d', { alpha: true });
 
-  const input=$("text");
-  const btn=$("sealBtn");
-  const clear=$("clearBtn");
-  const form=$("form");
-  const status=$("status");
+  function resizeCanvas(){
+    const rect = paper.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
 
-  if(state.date===today()){
-    form.style.display="none";
-    status.style.display="block";
-    status.innerHTML=`<div><span class="seal">封</span> じました。</div>
-    <div>これは子どもに渡りません。</div>
-    <div style="font-size:13px;color:#666">今日はもう入力しません。</div>`;
-    return;
+    canvas.width  = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+
+    // CSSpx基準で描画するため、座標系を戻す
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    // 筆っぽい設定
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(15,15,15,.92)';
+    ctx.lineWidth = 6; // 4〜10で好み
   }
 
-  input.addEventListener("input",()=>btn.disabled=!input.value.trim());
-  clear.addEventListener("click",()=>{input.value="";btn.disabled=true;});
-  btn.addEventListener("click",()=>{
-    localStorage.setItem(KEY,JSON.stringify({date:today()}));
-    form.style.display="none";
-    status.style.display="block";
-    status.innerHTML=`<div><span class="seal">封</span> じました。</div>
-    <div>これは子どもに渡りません。</div>
-    <div style="font-size:13px;color:#666">今日はもう入力しません。</div>`;
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  let drawing = false;
+
+  function pos(e){
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e){
+    drawing = true;
+    const p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  }
+
+  function move(e){
+    if(!drawing) return;
+    const p = pos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+  }
+
+  function end(){
+    drawing = false;
+  }
+
+  canvas.addEventListener('pointerdown', (e)=>{ e.preventDefault(); start(e); });
+  canvas.addEventListener('pointermove', (e)=>{ e.preventDefault(); move(e); });
+  canvas.addEventListener('pointerup',   (e)=>{ e.preventDefault(); end(); });
+  canvas.addEventListener('pointercancel',(e)=>{ e.preventDefault(); end(); });
+
+  btnClear?.addEventListener('click', () => {
+    const w = canvas.getBoundingClientRect().width;
+    const h = canvas.getBoundingClientRect().height;
+    ctx.clearRect(0,0,w,h);
+    sealMsg.hidden = true;
+    canvas.style.opacity = '1';
+    canvas.style.filter = 'none';
+    canvas.style.transition = '';
+  });
+
+  btnSeal?.addEventListener('click', () => {
+    // “封印”：薄れて消える（保存しない）
+    canvas.style.transition = 'opacity 900ms ease, filter 900ms ease';
+    canvas.style.filter = 'blur(1.2px)';
+    canvas.style.opacity = '0.08';
+
+    sealMsg.hidden = false;
+
+    setTimeout(() => {
+      const w = canvas.getBoundingClientRect().width;
+      const h = canvas.getBoundingClientRect().height;
+      ctx.clearRect(0,0,w,h);
+    }, 1200);
   });
 })();
 </script>
