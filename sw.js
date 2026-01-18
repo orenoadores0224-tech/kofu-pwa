@@ -1,22 +1,22 @@
-// sw.js (v2)
-const CACHE_NAME = "kofu-cache-v2";
+// sw.js (v3)
+const CACHE_NAME = "kofu-cache-v3";
 
-// 必要ならここに「確実にキャッシュしたいもの」だけ入れる
+// ここは「今サイトに存在してるページだけ」入れる（無いファイルがあるとエラーになりやすい）
 const PRECACHE_URLS = [
   "./",
   "./index.html",
+  "./juken.html",
   "./kofu.html",
-  "./parent-omamori.html",
+  "./shouba.html",
   "./ba-kansoku.html",
   "./coldshower.html",
-  "./shouba.html",
   "./kotu.html",
   "./manifest.json",
   "./icon-192.png",
-  "./icon-512.png",
+  "./icon-512.png"
 ];
 
-// install: 先に必要最低限を入れて待機短縮
+// install: 先に最低限をキャッシュ
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -24,52 +24,34 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// activate: 古いキャッシュを掃除して即反映
+// activate: 古いキャッシュを削除
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    Promise.all([
-      caches.keys().then((keys) =>
-        Promise.all(
-          keys
-            .filter((k) => k !== CACHE_NAME)
-            .map((k) => caches.delete(k))
-        )
-      ),
-      self.clients.claim(),
-    ])
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((k) => k.startsWith("kofu-cache-") && k !== CACHE_NAME)
+          .map((k) => caches.delete(k))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// fetch: 基本は cache-first（静的サイト向け）
-// HTMLだけは「ネット優先」にして更新反映を強くする
+// fetch: 基本は「キャッシュ優先」、無ければネット
 self.addEventListener("fetch", (event) => {
   const req = event.request;
-  const url = new URL(req.url);
+  if (req.method !== "GET") return;
 
-  // GitHub Pages配下のみ扱う（外部は触らない）
-  if (url.origin !== location.origin) return;
-
-  // HTMLは network-first（更新反映のため）
-  if (req.headers.get("accept")?.includes("text/html")) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then((r) => r || caches.match("./")))
-    );
-    return;
-  }
-
-  // それ以外は cache-first
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
       return fetch(req).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        // 同一オリジンだけキャッシュ（外部は無理にキャッシュしない）
+        const url = new URL(req.url);
+        if (url.origin === location.origin) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        }
         return res;
       });
     })
