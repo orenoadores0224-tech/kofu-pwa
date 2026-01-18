@@ -3,139 +3,137 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>商売繁殖護符</title>
-  <meta name="theme-color" content="#0b0c10" />
+  <title>商売繁殖護符 | 護符</title>
+
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
   <style>
     :root{
-      --bg0:#06070a; --bg1:#0b0c10;
-      --line:rgba(255,255,255,.10);
-      --text:rgba(255,255,255,.92);
-      --sub:rgba(255,255,255,.62);
-      --accent:#b4372f;
-      --radius:14px;
-      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --bg:#0b0b0f; --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
+      --aka:#c1121f; --gold:#d4af37;
+      --radius:14px; --shadow:0 14px 40px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     body{
-      margin:0; color:var(--text);
+      margin:0;color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans","Noto Sans JP", sans-serif;
       background:
-        radial-gradient(1000px 600px at 10% 0%, rgba(180,55,47,.18), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+        radial-gradient(900px 500px at 85% 10%, rgba(212,175,55,.12), transparent 60%),
+        radial-gradient(900px 500px at 12% 10%, rgba(193,18,31,.16), transparent 60%),
+        linear-gradient(180deg, #0b0b0f, #10101a);
     }
-    .wrap{ max-width:760px; margin:0 auto; padding:16px 16px 44px; }
-
-    .bar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px; margin-bottom:12px;
+    .wrap{max-width:760px;margin:0 auto;padding:18px 18px 44px;}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:16px;
     }
-    .back{
-      display:inline-flex; align-items:center; gap:8px;
-      text-decoration:none;
-      color:rgba(255,255,255,.86);
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:12px;
-      background:rgba(0,0,0,.20);
-      font-weight:900;
-      letter-spacing:.06em;
+    .back{color:var(--muted);text-decoration:none;font-weight:800;letter-spacing:.06em}
+    h1{margin:14px 0 6px;font-size:26px}
+    .desc{margin:0 0 16px;color:var(--muted);line-height:1.7;font-size:13px}
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:14px;
     }
-    .back:active{ transform: translateY(1px); }
-    .hint{ color:rgba(255,255,255,.48); font-size:12px; letter-spacing:.06em; }
-
-    h1{ margin:8px 0 8px; font-size:30px; font-weight:900; letter-spacing:.02em; }
-    .lead{ margin:0 0 14px; color:var(--sub); font-size:14px; line-height:1.7; }
-
-    .panel{
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius);
-      padding:14px;
-      box-shadow: var(--shadow);
+    .grid{display:grid; gap:12px;}
+    .label{font-weight:900; letter-spacing:.04em; margin:0 0 8px}
+    .imgbox{
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:12px; overflow:hidden;
+      background: rgba(0,0,0,.25);
     }
+    img{display:block;width:100%;height:auto;} /* ←ズレない */
+    .small img{max-width: 360px; margin:0 auto;} /* ←小は中央に */
+    input[type="file"]{width:100%; color:var(--muted);}
 
-    .label{ margin:0 0 10px; font-weight:900; letter-spacing:.06em; }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;  /* 大：小 */
-      gap:12px;
-      align-items:start;
-    }
-    @media (max-width:520px){
-      .row{ grid-template-columns:1fr; }
-    }
-
-    .frame{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      overflow:hidden;
-      background: rgba(0,0,0,.20);
-    }
-
-    /* ✅ 写真ズレ対策（切らずに収める） */
-    img{
-      display:block;
-      width:100%;
-      height:auto;
-      object-fit:contain;
-      background:#0a0b10;
-    }
-
-    .btnRow{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 16px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.20);
-      color:rgba(255,255,255,.90);
-      text-decoration:none;
-      font-weight:900;
-      letter-spacing:.08em;
-      min-width:140px;
+      appearance:none;border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35); color:var(--text);
+      padding:12px 14px;border-radius:12px;font-weight:900;
+      letter-spacing:.08em; cursor:pointer; width:100%;
+      border-color: rgba(212,175,55,.45);
     }
-    .btnAccent{
-      border-color: rgba(180,55,47,.60);
-      box-shadow: 0 0 0 1px rgba(180,55,47,.22) inset;
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background: rgba(0,0,0,.75);
+      border:1px solid rgba(193,18,31,.35);
+      color: rgba(255,255,255,.92);
+      padding:10px 12px;border-radius:12px;
+      font-weight:900; letter-spacing:.06em;
+      opacity:0; pointer-events:none;
+      transition: opacity .18s ease;
     }
-    .btn:active{ transform: translateY(1px); }
-
-    .small{ margin-top:10px; color:rgba(255,255,255,.45); font-size:12px; line-height:1.7; }
+    .toast.show{opacity:1;}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="bar">
-      <a class="back" href="./index.html">← 戻る</a>
-      <div class="hint">印刷＝封印</div>
+    <div class="topbar">
+      <a class="back" href="./index.html">← 護符にもどる</a>
+      <div style="color:rgba(255,255,255,.55);font-weight:800;letter-spacing:.14em;font-size:12px;">SHOBAI</div>
     </div>
 
     <h1>商売繁殖護符</h1>
-    <p class="lead">写真2枚（大・小）を封入して封印。</p>
+    <p class="desc">写真2枚（大→小）＋封印ボタン。並びは固定でズレない。</p>
 
-    <div class="panel">
-      <p class="label">護符の写真（大・小）</p>
-
-      <div class="row">
-        <div class="frame">
-          <img src="./IMG_3564.jpeg" alt="商売繁殖護符（大）">
+    <div class="card">
+      <div class="grid">
+        <div>
+          <p class="label">写真（大）</p>
+          <div class="imgbox">
+            <img id="bigPreview" src="./IMG_3563.jpeg" alt="big" />
+          </div>
+          <div style="margin-top:10px">
+            <input id="bigFile" type="file" accept="image/*" />
+          </div>
         </div>
-        <div class="frame">
-          <img src="./IMG_3565.jpeg" alt="商売繁殖護符（小）">
+
+        <div>
+          <p class="label">写真（小）</p>
+          <div class="imgbox small">
+            <img id="smallPreview" src="./IMG_3564.jpeg" alt="small" />
+          </div>
+          <div style="margin-top:10px">
+            <input id="smallFile" type="file" accept="image/*" />
+          </div>
         </div>
-      </div>
 
-      <div class="btnRow">
-        <a class="btn btnAccent" href="javascript:window.print()">封印（印刷）</a>
-        <a class="btn" href="./index.html">メニューへ</a>
-      </div>
-
-      <div class="small">
-        ・印刷できない場合はスクショ保存でもOK。<br>
-        ・これは医療行為・治療の代替ではありません。
+        <button class="btn" id="seal">封印（繁殖）</button>
       </div>
     </div>
   </div>
+
+  <div class="toast" id="toast">封印しました</div>
+
+  <script>
+    const bigFile = document.getElementById('bigFile');
+    const smallFile = document.getElementById('smallFile');
+    const bigPreview = document.getElementById('bigPreview');
+    const smallPreview = document.getElementById('smallPreview');
+    const seal = document.getElementById('seal');
+    const toast = document.getElementById('toast');
+
+    bigFile.addEventListener('change', () => {
+      const f = bigFile.files && bigFile.files[0];
+      if(!f) return;
+      bigPreview.src = URL.createObjectURL(f);
+    });
+
+    smallFile.addEventListener('change', () => {
+      const f = smallFile.files && smallFile.files[0];
+      if(!f) return;
+      smallPreview.src = URL.createObjectURL(f);
+    });
+
+    seal.addEventListener('click', () => {
+      try { navigator.vibrate && navigator.vibrate([50,70,50]); } catch(e){}
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1100);
+    });
+  </script>
 </body>
 </html>
