@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>寝る前の鎮静（呼吸だけ）｜kofu-pwa</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#f6f7f9" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="icon" href="./icon-192.png" />
+
+  <style>
+    :root{
+      --bg:#f6f7f9;--card:#fff;--text:#111;--muted:rgba(0,0,0,.62);
+      --line:rgba(0,0,0,.08);--accent:#0b57d0;--accent2:rgba(11,87,208,.10);
+      --radius:18px;--shadow:0 10px 28px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.75;}
+    .wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    .back{display:inline-flex;gap:8px;align-items:center;padding:10px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);}
+    .hero{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px;margin:10px 0 14px;}
+    h1{font-size:34px;margin:8px 0 6px;}
+    .sub{margin:0;color:var(--muted);font-size:16px;}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:16px;margin:14px 0;}
+    h2{font-size:22px;margin:0 0 10px;}
+    ol,ul{margin:10px 0 0 22px;} li{margin:6px 0;}
+    .pill{display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid rgba(11,87,208,.25);background:var(--accent2);color:var(--accent);font-weight:800;font-size:14px;}
+    .box{background:rgba(0,0,0,.03);border:1px solid var(--line);border-radius:18px;padding:12px;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+    button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer;}
+    button.primary{background:var(--accent2);border-color:rgba(11,87,208,.25);color:var(--accent);}
+    textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px;font-size:16px;line-height:1.6;background:#fff;}
+    .small{font-size:13px;color:var(--muted);margin-top:8px;}
+    .hr{height:1px;background:var(--line);margin:14px 0;}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="back" href="./index.html">← メニューへ戻る</a>
+
+    <div class="hero">
+      <h1>寝る前の鎮静（呼吸だけ）</h1>
+      <p class="sub">冷水は使わない。思考を止めない。体から静まる。</p>
+    </div>
+
+    <div class="card">
+      <h2>使い方（2分）</h2>
+      <ol>
+        <li>体の力を抜く（肩・あご・お腹）</li>
+        <li><b>吐く息を長め</b>に、ゆっくり5回</li>
+        <li>最後に<b>10秒だけ</b>体の感覚を見る（胸/腹/手）</li>
+      </ol>
+      <p class="small">※うまくやろうとしない。雑でOK。戻ってくるだけ。</p>
+    </div>
+
+    <div class="card">
+      <h2>本文（読むだけ）</h2>
+      <div class="box">
+        <p>
+          「眠れない」は、あなたの意志が弱いせいじゃない。<br>
+          ただ、体がまだ<b>ONのまま</b>なだけ。
+        </p>
+        <p>
+          いまは“止める”より、“落とす”。<br>
+          その合図が<b>吐く息</b>。
+        </p>
+        <p>
+          吐く。細く、長く。<br>
+          それだけで、体は少しずつ戻っていく。
+        </p>
+        <div class="hr"></div>
+        <p><span class="pill">「今夜は、ここまででいい。」</span></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>記録（端末に保存）</h2>
+      <p class="small">眠れなかった日ほど価値がある。数字だけでもOK。</p>
+
+      <div class="small">落ち着き（0〜10）</div>
+      <textarea id="memo" placeholder="例：4 → 6 / 胸のざわつきが少し薄まった"></textarea>
+
+      <div class="row">
+        <button class="primary" id="saveBtn">保存</button>
+        <button id="clearBtn">消去</button>
+      </div>
+
+      <p class="small">※保存はこのiPhone内のみ（外に送信しません）。</p>
+    </div>
+
+    <div class="card">
+      <h2>注意事項</h2>
+      <ul>
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>息苦しさ・不快感が出たら中止して自然呼吸に戻してください。</li>
+        <li>眠気が強い時は、そのまま画面を閉じてOK。</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const KEY = "kofu_sleep_memo_v1";
+    const memo = document.getElementById("memo");
+    const saveBtn = document.getElementById("saveBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    memo.value = localStorage.getItem(KEY) || "";
+
+    saveBtn.addEventListener("click", () => {
+      localStorage.setItem(KEY, memo.value || "");
+      const prev = saveBtn.textContent;
+      saveBtn.textContent = "保存しました";
+      setTimeout(()=> saveBtn.textContent = prev, 900);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      memo.value = "";
+      localStorage.removeItem(KEY);
+    });
+  </script>
+</body>
+</html>
