@@ -2,113 +2,147 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>商売繁殖護符</title>
+
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#07070a" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <link rel="icon" href="./icon-192.png" />
+
   <style>
     :root{
-      --bg:#faf7f2;
-      --card:#ffffff;
-      --text:#1a1a1a;
-      --sub:#6b6b6b;
-      --line:#e7e1d8;
-      --btn:#7b5a57;
-      --btnText:#fff;
-      --radius:18px;
-      --max:720px;
+      --bg0:#07070a; --bg1:#0c0d12;
+      --line:#ffffff14; --line2:#ffffff1f;
+      --text:#f4f4f6; --muted:#b8bcc8; --muted2:#8b90a0;
+      --shu:#c1121f; --gold:#d9b24c;
+      --radius:18px; --shadow:0 18px 60px rgba(0,0,0,.55);
+      --max:820px;
     }
+    *{box-sizing:border-box;}
     body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+      margin:0; color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 0%, #111526 0%, transparent 55%),
+        radial-gradient(900px 600px at 90% 15%, #1a1020 0%, transparent 55%),
+        linear-gradient(180deg,var(--bg0),var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP";
+      overflow-x:hidden;
     }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding:18px; }
-    .top{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-    .back{ font-size:14px; color:var(--sub); }
-    h1{ font-size:22px; margin:6px 0 4px; }
-    .desc{ color:var(--sub); font-size:14px; margin:0 0 14px; }
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:14px;
+    #goldDust{position:fixed; inset:0; pointer-events:none; z-index:3; opacity:.75; mix-blend-mode:screen;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 40px;}
+    .bar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:12px 12px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg,#0c0d12cc,#0b0c10aa); box-shadow:var(--shadow);
     }
-    .imgBox{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:10px;
-    }
-    img{ display:block; width:100%; height:auto; border-radius:12px; }
-    .big{ width:100%; }
-    .smallWrap{ display:flex; justify-content:center; margin-top:12px; }
-    .small{ width:min(78%, 460px); }
-    .btnRow{ display:flex; gap:12px; margin-top:14px; }
+    .bar .ttl{font-weight:900; letter-spacing:.06em; text-align:center; flex:1;}
     .btn{
-      flex:1;
-      border:none;
-      border-radius:999px;
-      padding:14px 16px;
-      font-size:18px;
-      font-weight:700;
-      background:var(--btn);
-      color:var(--btnText);
+      display:inline-flex; align-items:center; justify-content:center;
+      height:40px; padding:0 14px; border-radius:12px;
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.03);
+      color:var(--text); text-decoration:none; font-weight:800; letter-spacing:.06em;
+      user-select:none;
+      white-space:nowrap;
     }
-    .note{ margin-top:10px; color:var(--sub); font-size:12px; line-height:1.6; }
-    .toast{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
-      background:rgba(0,0,0,.82); color:#fff;
-      padding:10px 14px; border-radius:999px;
-      font-size:13px; opacity:0; pointer-events:none;
-      transition:opacity .25s ease;
+    .btn.primary{border-color:rgba(193,18,31,.45); background:linear-gradient(180deg,rgba(193,18,31,.20),rgba(193,18,31,.10));}
+    .main{
+      margin-top:14px;
+      border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(16,18,26,.62), rgba(10,11,16,.62));
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
+      overflow:hidden;
     }
-    .toast.show{ opacity:1; }
+    .head{padding:16px; border-bottom:1px solid var(--line);}
+    .head h1{margin:0 0 6px; font-size:26px; font-weight:900;}
+    .head p{margin:0; color:var(--muted); font-size:14px; line-height:1.5;}
+    .grid{
+      padding:16px;
+      display:grid;
+      gap:14px;
+    }
+    .photo{
+      width:100%; border-radius:16px; border:1px solid var(--line2);
+      background:rgba(255,255,255,.02); overflow:hidden;
+    }
+    .photo img{width:100%; display:block;}
+    .label{margin:0 0 8px; color:var(--muted2); font-size:12px; letter-spacing:.1em;}
+    .actions{padding:0 16px 16px; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
+    .note{color:var(--muted2); font-size:12px; line-height:1.5;}
   </style>
 </head>
+
 <body>
+  <canvas id="goldDust"></canvas>
+
   <div class="wrap">
-    <div class="top">
-      <a class="back" href="./index.html">← メニューへ戻る</a>
+    <div class="bar">
+      <a class="btn" href="./index.html">← 戻る</a>
+      <div class="ttl">商売繁殖護符</div>
+      <a class="btn primary" href="./index.html">メニュー</a>
     </div>
 
-    <h1>商売繁殖護符</h1>
-    <p class="desc">公開テストOK。写真2枚（大・小）＋封印ボタンだけ。</p>
+    <div class="main">
+      <div class="head">
+        <h1>商売繁殖護符</h1>
+        <p>写真2枚（大・小）＋封印ボタン。まずは「表示の完成」を優先。</p>
+      </div>
 
-    <div class="card">
-      <div class="imgBox">
-        <img class="big" src="./IMG_3563.jpeg" alt="商売繁殖護符（本文多め）" />
-        <div class="smallWrap">
-          <img class="small" src="./IMG_3564.jpeg" alt="商売繁殖護符（本文少なめ）" />
+      <div class="grid">
+        <div>
+          <p class="label">PHOTO / LARGE</p>
+          <div class="photo"><img src="./IMG_3564.jpeg" alt="商売繁殖護符（大）"></div>
+        </div>
+
+        <div>
+          <p class="label">PHOTO / SMALL</p>
+          <div class="photo"><img src="./IMG_3565.jpeg" alt="商売繁殖護符（小）"></div>
         </div>
       </div>
 
-      <div class="btnRow">
-        <button class="btn" id="sealBtn">封印する</button>
-      </div>
-
-      <div class="note">
-        ※ 記録は残りません。<br>
-        ※ これは医療行為・治療の代替ではありません。
+      <div class="actions">
+        <span class="note">※ 封印ボタンは仮（必要なら後で強化）</span>
+        <a class="btn primary" href="./index.html">封印（仮）</a>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">封印しました</div>
-
   <script>
-    // 体験だけ：記録しない
-    const btn = document.getElementById('sealBtn');
-    const toast = document.getElementById('toast');
-    btn.addEventListener('click', () => {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 1200);
-    });
+    const canvas=document.getElementById('goldDust');
+    const ctx=canvas.getContext('2d',{alpha:true});
+    const s={w:0,h:0,dpr:Math.min(2,devicePixelRatio||1),particles:[],count:62}; // 商売は少し増やす
+    const r=(a,b)=>a+Math.random()*(b-a);
 
-    // PWA: SW登録（失敗してもOK）
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    function resize(){
+      s.w=innerWidth; s.h=innerHeight;
+      canvas.width=Math.floor(s.w*s.dpr);
+      canvas.height=Math.floor(s.h*s.dpr);
+      canvas.style.width=s.w+'px';
+      canvas.style.height=s.h+'px';
+      ctx.setTransform(s.dpr,0,0,s.dpr,0,0);
     }
+    function seed(){
+      s.particles=[];
+      for(let i=0;i<s.count;i++){
+        s.particles.push({x:r(0,s.w),y:r(0,s.h),rr:r(.6,1.9),a:r(.10,.36),vx:r(-.06,.14),vy:r(.10,.30),tw:r(0,Math.PI*2)});
+      }
+    }
+    function tick(){
+      ctx.clearRect(0,0,s.w,s.h);
+      for(const p of s.particles){
+        p.tw+=.02; p.x+=p.vx+Math.sin(p.tw)*.03; p.y+=p.vy;
+        if(p.y>s.h+8){p.y=-8; p.x=r(0,s.w);}
+        if(p.x<-10)p.x=s.w+10; if(p.x>s.w+10)p.x=-10;
+
+        const isShu=(p.rr>1.55 && Math.random()<.006); // 朱をほんの少し増やす
+        ctx.fillStyle=isShu?`rgba(193,18,31,${p.a})`:`rgba(217,178,76,${p.a})`;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.rr,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    resize(); seed(); tick();
+    addEventListener('resize',()=>{resize();seed();});
   </script>
 </body>
 </html>
