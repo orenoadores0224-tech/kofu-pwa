@@ -73,12 +73,12 @@
       text-orientation: upright;
       margin: 0 auto;
       letter-spacing: .18em;
-      line-height: 1.25;
-      font-size: 26px;
+      line-height: 1.15;
       user-select:none;
     }
-    .gapLg{ display:inline-block; height: 28px; }
-    .gapMd{ display:inline-block; height: 18px; }
+    .kofuCol .t{ display:block; font-size:26px; line-height:1.1; }
+    .kofuCol .s{ display:block; font-size:22px; line-height:1.1; }
+    .gapLg{ display:block; height: 28px; }
 
     .lead{
       margin: 10px 0 12px;
@@ -174,15 +174,14 @@
     </div>
 
     <div class="card">
-      <!-- kofu: text-only (no assets needed) -->
       <div class="kofu">
         <div class="kofuBox" aria-label="護符">
           <div class="kofuCol">
-            日<br>日<br>日
+            <span class="t">日</span><span class="t">日</span><span class="t">日</span>
             <span class="gapLg"></span>
-            若<br>者<br>戸<br>鬼
+            <span class="t">若</span><span class="t">者</span><span class="t">戸</span><span class="t">鬼</span>
             <span class="gapLg"></span>
-            呪<br>咒<br>急<br>如<br>律<br>令
+            <span class="s">呪</span><span class="s">咒</span><span class="s">急</span><span class="s">如</span><span class="s">律</span><span class="s">令</span>
           </div>
         </div>
       </div>
@@ -285,10 +284,8 @@
   sealBtn.addEventListener("click", () => {
     const v = (input.value || "").trim();
     if (!v) return;
-
     // 入力内容は保存しない（親向けとして最適）
     saveState({ lastSealedDate: ymd });
-
     input.value = "";
     showSealed();
   });
