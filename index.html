@@ -1,72 +1,197 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>護符と実験</title>
-<style>
-body{
-  margin:0;
-  background:#fafaf7;
-  color:#111;
-  font-family:
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "Noto Serif JP",
-    serif;
-}
-.wrap{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:24px;
-}
-h1{
-  font-size:22px;
-  margin-bottom:10px;
-}
-p{
-  font-size:14px;
-  color:#666;
-  margin-bottom:26px;
-  line-height:1.8;
-}
-a{
-  display:inline-block;
-  padding:14px 22px;
-  border-radius:16px;
-  text-decoration:none;
-  font-size:15px;
-  margin:6px 0;
-}
-.primary{
-  background:#111;
-  color:#fff;
-}
-.secondary{
-  color:#111;
-  border:1px solid rgba(0,0,0,.15);
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>kofu-pwa</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --paper:#f6f7fb;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --line:#dbeafe;
+      --accent:#2563eb;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 22px;
+    }
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",Roboto,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+    }
+    .wrap{
+      max-width:720px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+    }
+    .brand{
+      font-size:54px;
+      line-height:1.0;
+      margin:8px 0 12px;
+      letter-spacing:-.02em;
+      font-weight:900;
+    }
+    .lead{
+      color:var(--muted);
+      line-height:1.8;
+      margin:0 0 18px;
+    }
+    .panel{
+      background:var(--card);
+      border:2px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin:16px 0;
+    }
+    .panelTitle{
+      font-size:28px;
+      margin:4px 0 14px;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+
+    /* cards */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+      margin-top:10px;
+    }
+    .card{
+      display:block;
+      background:var(--card);
+      border:2px solid var(--line);
+      border-radius:26px;
+      padding:20px 18px 18px;
+      text-decoration:none;
+      color:inherit;
+      box-shadow:var(--shadow);
+    }
+    .cardTitle{
+      font-size:26px;
+      font-weight:900;
+      margin:0 0 10px;
+      letter-spacing:.02em;
+    }
+    .cardSub{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:16px;
+    }
+    .pill{
+      display:inline-block;
+      border:2px solid rgba(37,99,235,.25);
+      background:rgba(37,99,235,.08);
+      color:var(--accent);
+      font-weight:900;
+      border-radius:999px;
+      padding:10px 18px;
+      letter-spacing:.02em;
+    }
+
+    /* notes */
+    h2{
+      font-size:34px;
+      margin:18px 0 10px;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+    ul{
+      margin:10px 0 0;
+      padding-left:1.2em;
+      color:var(--muted);
+      line-height:1.9;
+      font-size:16px;
+    }
+    .mini{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:8px;
+      line-height:1.7;
+    }
+
+    /* iOS safe area */
+    @supports(padding: max(0px)){
+      .wrap{ padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <h1>護符と実験</h1>
-  <p>
-    状態に介入するための、<br>
-    小さな道具たち。
-  </p>
+  <div class="wrap">
+    <div class="brand">kofu-pwa</div>
+    <p class="lead">公開テストOK。ここから中身を増やします。</p>
 
-  <a class="primary" href="./parent-omamori.html">
-    親の静守（受験）
-  </a>
+    <div class="panel">
+      <div class="panelTitle">メニュー</div>
 
-  <a class="secondary" href="./kofu.html">
-    護符一覧
-  </a>
-</div>
+      <div class="grid">
+        <!-- 商売護符 -->
+        <a class="card" href="./shouba.html">
+          <div class="cardTitle">商売護符（集中・胆力）</div>
+          <p class="cardSub">呼吸 → 読む/聴く → 1分だけ静かに実行</p>
+          <span class="pill">開く</span>
+        </a>
+
+        <!-- 場の観測 -->
+        <a class="card" href="./ba-kansoku.html">
+          <div class="cardTitle">場の観測フォーマット</div>
+          <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
+          <span class="pill">開く</span>
+        </a>
+
+        <!-- 呼吸で整える（仮） -->
+        <a class="card" href="./kotu.html">
+          <div class="cardTitle">呼吸で整える（仮）</div>
+          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
+          <span class="pill">開く</span>
+        </a>
+
+        <!-- コールドシャワー -->
+        <a class="card" href="./coldshower.html">
+          <div class="cardTitle">コールドシャワー氣功（仮）</div>
+          <p class="cardSub">浴び方の型 → 体感の観測 → 次の一手</p>
+          <span class="pill">開く</span>
+        </a>
+
+        <!-- 受験護符（作ったらON） -->
+        <!-- 受験護符ページを作ってないなら、このカードは消してOK -->
+        <a class="card" href="./juken.html">
+          <div class="cardTitle">受験護符（30秒）</div>
+          <p class="cardSub">吐く→見る10秒→次の一手を1つ</p>
+          <span class="pill">開く</span>
+        </a>
+      </div>
+
+      <div class="mini">※メニューを増やすときは、この「カード1枚」をコピペして href と文言だけ変えればOK。</div>
+    </div>
+
+    <h2>注意事項</h2>
+    <ul>
+      <li>このページは医療行為・治療の代替ではありません。</li>
+      <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+      <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+      <li>効果や感じ方には個人差があります。無理をしないでください。</li>
+    </ul>
+  </div>
+
+  <script>
+    // Service Worker（あれば登録）
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(()=>{});
+      });
+    }
+  </script>
 </body>
 </html>
