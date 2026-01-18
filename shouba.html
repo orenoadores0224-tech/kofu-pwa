@@ -2,71 +2,269 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>商売護符（集中・胆力）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>商売護符（集中・胆力）｜kofu-pwa</title>
 
-  <!-- PWA -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="./icon-192.png" type="image/png">
-
-  <!-- iPhoneホーム画面アイコン用 -->
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#f6f7f9" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="icon" href="./icon-192.png" />
 
   <style>
-    body { font-family: system-ui, -apple-system; padding: 24px; line-height: 1.8; }
-    .muted { opacity: .75; }
-    ul, ol { padding-left: 1.2em; }
-    a { color: #0b57d0; }
-    hr { border: 0; border-top: 1px solid #eee; margin: 18px 0; }
-    .card { margin-top: 18px; padding: 14px 16px; border: 1px solid #eee; border-radius: 12px; }
+    :root{
+      --bg:#f6f7f9;
+      --card:#ffffff;
+      --text:#111;
+      --muted:rgba(0,0,0,.62);
+      --line:rgba(0,0,0,.08);
+      --accent:#0b57d0;
+      --accent2:rgba(11,87,208,.10);
+      --radius:18px;
+      --shadow:0 10px 28px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.75;
+    }
+    .wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .top{display:flex;gap:10px;align-items:center;margin:6px 0 12px;}
+    .back{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:10px 12px;border-radius:999px;
+      background:var(--card);border:1px solid var(--line);
+      box-shadow:0 1px 0 rgba(0,0,0,.02);
+    }
+    .hero{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin:10px 0 14px;
+    }
+    h1{font-size:34px;margin:8px 0 6px;}
+    .sub{margin:0;color:var(--muted);font-size:16px;}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin:14px 0;
+    }
+    h2{font-size:22px;margin:0 0 10px;}
+    ol,ul{margin:10px 0 0 22px;}
+    li{margin:6px 0;}
+    .pill{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(11,87,208,.25);
+      background:var(--accent2);
+      color:var(--accent);
+      font-weight:800;
+      font-size:14px;
+    }
+    .box{
+      background:rgba(0,0,0,.03);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:12px;
+    }
+    .hr{height:1px;background:var(--line);margin:14px 0;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+    button{
+      appearance:none;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.primary{
+      background:var(--accent2);
+      border-color:rgba(11,87,208,.25);
+      color:var(--accent);
+    }
+    textarea, input{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      font-size:16px;
+      line-height:1.6;
+      background:#fff;
+    }
+    .small{font-size:13px;color:var(--muted);margin-top:8px;}
   </style>
 </head>
 
 <body>
-  <p><a href="./">← メニューへ戻る</a></p>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="./index.html">← メニューへ戻る</a>
+    </div>
 
-  <h1>商売護符（集中・胆力）</h1>
-  <p class="muted">公開テストOK。ここから中身を増やします。</p>
+    <div class="hero">
+      <h1>商売護符（集中・胆力）</h1>
+      <p class="sub">散らばる力を一点に戻す。強くなるより、静かに“やる”。</p>
+    </div>
 
-  <div class="card">
-    <h2>使い方</h2>
-    <ol>
-      <li>画面を開く</li>
-      <li>呼吸を3回ゆっくり</li>
-      <li>本文（あなたの説明文）を読む／音声を聴く</li>
-    </ol>
-  </div>
+    <div class="card">
+      <h2>使い方（最短3分）</h2>
+      <ol>
+        <li><b>呼吸3回</b>（吐く方を長め）</li>
+        <li>本文を読む（または音声を聴く）</li>
+        <li><b>1分実行</b>（考えずに一手だけ）</li>
+        <li>最後に記録（0〜10＋一言）</li>
+      </ol>
+      <div class="row" style="margin-top:12px;">
+        <a class="pill" href="#do1min">1分実行へ</a>
+        <a class="pill" href="#log">記録へ</a>
+      </div>
+      <p class="small">※集中が“出ない日”ほど効果が分かる。出ないままでもOK。</p>
+    </div>
 
-  <hr>
+    <div class="card">
+      <h2>本文（読むだけで起動）</h2>
+      <div class="box">
+        <p>
+          強くなる必要はない。<br>
+          散らばった力を、<b>一点に戻す</b>だけでいい。
+        </p>
 
-  <div class="card">
-    <h2>本文</h2>
-    <p>ここにコンテンツ本文を貼る</p>
+        <p>
+          いま、呼吸を3回。<br>
+          <b>吸う：丹田（下腹）へ落とす</b><br>
+          <b>吐く：細く長く</b><br>
+          3回目の吐き終わりで、<b>2秒だけ静止</b>。
+        </p>
 
-    <!-- 音声を後で入れるなら例：
-    <audio controls src="./audio/shouba.mp3"></audio>
-    -->
-  </div>
+        <div class="hr"></div>
 
-  <div class="card">
-    <h2>注意事項</h2>
-    <ul>
-      <li>このページは医療行為・治療の代替ではありません。</li>
-      <li>運転中・入浴中・作業中など注意力が必要な状況では閲覧／実践しないでください。</li>
-      <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
-      <li>効果や感じ方には個人差があります。無理に「感じよう」としなくてOKです。</li>
-    </ul>
+        <p>
+          次に、目線を一点に置く。<br>
+          画面のどこでもいい。<br>
+          離れたら、また戻す。
+        </p>
+
+        <p>
+          <b>胆力</b>とは、怖くないことではない。<br>
+          怖さがあっても、やることをやる力。
+        </p>
+
+        <p>
+          今日の合図はこれ。
+        </p>
+        <p><span class="pill">「今やる。静かに、やる。」</span></p>
+      </div>
+      <p class="small">※“盛り上げない”。熱狂じゃなく、静かな一点。</p>
+    </div>
+
+    <div class="card" id="do1min">
+      <h2>1分実行（今やる）</h2>
+      <p class="small">このページを閉じる前に、必ず一手だけ。</p>
+
+      <div class="box">
+        <p><b>① タイマーを1分</b>セット</p>
+        <p><b>② 一つの行動だけ</b>やる（小さくてOK）</p>
+      </div>
+
+      <div class="hr"></div>
+
+      <p class="small">例（迷ったらこの中から1つ）</p>
+      <ul>
+        <li>返信1通（短くてOK）</li>
+        <li>投稿のタイトルだけ決める</li>
+        <li>導線を1行書く（誰→何→どこへ）</li>
+        <li>価格表/申込フォームを開く</li>
+        <li>今日の“売る一手”を1行メモする</li>
+      </ul>
+
+      <p class="small"><b>ポイント：</b>考えない。実行する。</p>
+    </div>
+
+    <div class="card" id="log">
+      <h2>記録（端末に保存）</h2>
+
+      <p class="small">0〜10でOK。言葉が出ない日は数字だけでもOK。</p>
+
+      <label class="small">集中（0〜10）</label>
+      <input id="focus" inputmode="numeric" placeholder="例：6">
+
+      <div style="height:10px"></div>
+
+      <label class="small">胆力（0〜10）</label>
+      <input id="guts" inputmode="numeric" placeholder="例：4">
+
+      <div style="height:10px"></div>
+
+      <label class="small">今日の変化（1行）</label>
+      <textarea id="note" placeholder="例：逃げたかったが、返信1通できた。"></textarea>
+
+      <div class="row">
+        <button class="primary" id="saveBtn">保存</button>
+        <button id="clearBtn">消去</button>
+      </div>
+
+      <p class="small">※保存はこのiPhone内のみ（外に送信しません）。</p>
+    </div>
+
+    <div class="card">
+      <h2>注意事項</h2>
+      <ul>
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+        <li>息苦しさ・めまい・不快感が出た場合は、すぐに中止して深呼吸し、必要なら休んでください。</li>
+        <li>効果や感じ方には個人差があります。無理はしないでください。</li>
+      </ul>
+    </div>
   </div>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
-    }
+    const KEY = "kofu_shouba_log_v1";
+    const focus = document.getElementById("focus");
+    const guts  = document.getElementById("guts");
+    const note  = document.getElementById("note");
+    const saveBtn  = document.getElementById("saveBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    // load
+    try{
+      const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+      focus.value = saved.focus || "";
+      guts.value  = saved.guts || "";
+      note.value  = saved.note || "";
+    }catch(e){}
+
+    saveBtn.addEventListener("click", () => {
+      const payload = {
+        focus: focus.value || "",
+        guts:  guts.value || "",
+        note:  note.value || "",
+        ts: Date.now()
+      };
+      localStorage.setItem(KEY, JSON.stringify(payload));
+      const prev = saveBtn.textContent;
+      saveBtn.textContent = "保存しました";
+      setTimeout(()=> saveBtn.textContent = prev, 900);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      focus.value = "";
+      guts.value  = "";
+      note.value  = "";
+      localStorage.removeItem(KEY);
+    });
   </script>
 </body>
 </html>
