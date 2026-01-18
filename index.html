@@ -5,211 +5,303 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>護符</title>
 
-  <!-- PWA / Icons -->
+  <!-- PWA -->
   <link rel="manifest" href="./manifest.json" />
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-  <meta name="theme-color" content="#0b0c10" />
-
-  <!-- iOS -->
+  <meta name="theme-color" content="#0b0b0f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="護符" />
 
+  <!-- Icons -->
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
   <style>
     :root{
-      --bg0:#06070a;
-      --bg1:#0b0c10;
-      --card:#0f1218;
-      --line:rgba(255,255,255,.10);
+      --bg:#0b0b0f;
+      --bg2:#10101a;
+      --card:#0f0f18;
+      --line:rgba(255,255,255,.12);
       --text:rgba(255,255,255,.92);
-      --sub:rgba(255,255,255,.62);
-      --accent:#b4372f;  /* 朱 */
-      --gold1:rgba(255, 215, 140, .22);
-      --gold2:rgba(255, 215, 140, .14);
+      --muted:rgba(255,255,255,.62);
+      --sub:rgba(255,255,255,.45);
+      --aka:#c1121f;     /* 朱 */
+      --gold:#d4af37;    /* 金 */
       --radius:14px;
-      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
     }
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
       background:
-        radial-gradient(1000px 600px at 10% 0%, rgba(180,55,47,.18), transparent 55%),
-        radial-gradient(900px 700px at 100% 20%, rgba(255,215,140,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+        radial-gradient(1200px 700px at 15% 10%, rgba(193,18,31,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(212,175,55,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
-
-    /* 金粉（控えめ〜少し増し） */
-    .gold::before{
+    /* subtle paper-ish noise */
+    body:before{
       content:"";
-      position:fixed;
-      inset:-20vh -20vw;
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity:.05;
       pointer-events:none;
-      background:
-        radial-gradient(circle, var(--gold1) 0 1px, transparent 2px) 0 0/110px 110px,
-        radial-gradient(circle, rgba(255,215,140,.18) 0 1px, transparent 2px) 40px 60px/150px 150px,
-        radial-gradient(circle, rgba(255,215,140,.12) 0 1px, transparent 2px) 10px 90px/210px 210px;
-      filter: blur(.2px);
-      opacity:.90;
-      animation: drift 16s linear infinite;
-      mix-blend-mode: screen;
+      mix-blend-mode: overlay;
     }
-    .gold::after{
-      content:"";
-      position:fixed;
-      inset:-20vh -20vw;
-      pointer-events:none;
-      background:
-        radial-gradient(circle, var(--gold2) 0 1px, transparent 2px) 30px 20px/130px 130px,
-        radial-gradient(circle, rgba(255,215,140,.10) 0 1px, transparent 2px) 80px 110px/240px 240px;
-      opacity:.70;
-      animation: drift2 24s linear infinite;
-      mix-blend-mode: screen;
-    }
-    @keyframes drift{ from{transform:translate3d(0,0,0)} to{transform:translate3d(70px,170px,0)} }
-    @keyframes drift2{ from{transform:translate3d(0,0,0)} to{transform:translate3d(-50px,150px,0)} }
 
-    .wrap{ max-width:760px; margin:0 auto; padding:22px 16px 44px; }
+    .wrap{
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+      position:relative;
+      z-index:1;
+    }
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      padding: 6px 2px 14px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+    }
+    .title{
+      font-size: 34px;
+      letter-spacing:.02em;
+      margin:0;
+      font-weight: 800;
+      line-height:1;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size: 13px;
+      letter-spacing:.08em;
+    }
+    .badge{
+      border:1px solid rgba(193,18,31,.55);
+      color: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size:12px;
+      letter-spacing:.12em;
+      background: rgba(0,0,0,.25);
+      white-space:nowrap;
+    }
 
-    .top{
-      padding:8px 2px 18px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      margin-bottom:18px;
+    .grid{
+      display:grid;
+      gap: 12px;
+      margin-top: 18px;
     }
-    .brand{
-      font-size:40px; line-height:1.05; letter-spacing:.02em;
-      margin:0 0 6px; font-weight:900;
-    }
-    .tag{ margin:0; color:var(--sub); font-size:14px; letter-spacing:.06em; }
-
-    .panel{
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius);
-      padding:16px;
-      box-shadow: var(--shadow);
-    }
-    .panelHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:10px; margin-bottom:12px;
-    }
-    .panelTitle{ font-size:18px; letter-spacing:.10em; margin:0; color:rgba(255,255,255,.88); }
-    .panelNote{ margin:0; font-size:12px; color:rgba(255,255,255,.50); letter-spacing:.08em; }
-
-    .grid{ display:grid; grid-template-columns:1fr; gap:12px; }
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
-      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding:16px;
+      box-shadow: var(--shadow);
+      padding: 16px 16px 14px;
       position:relative;
       overflow:hidden;
     }
-    .card::before{
+    .card:before{
       content:"";
-      position:absolute; inset:-1px;
-      background: linear-gradient(90deg, rgba(180,55,47,0), rgba(180,55,47,.22), rgba(180,55,47,0));
-      opacity:.22;
-      transform: translateX(-45%);
+      position:absolute;
+      inset:-2px;
+      border-radius: var(--radius);
+      background: radial-gradient(600px 220px at 12% 0%, rgba(193,18,31,.18), transparent 60%);
+      opacity:.45;
       pointer-events:none;
     }
-    .title{ font-size:24px; margin:0 0 8px; font-weight:900; letter-spacing:.02em; }
-    .desc{ margin:0 0 14px; color:var(--sub); font-size:14px; letter-spacing:.04em; }
+    .card h2{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing:.02em;
+    }
+    .card p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.6;
+    }
 
-    .btnRow{ display:flex; gap:10px; }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 16px;
-      border-radius: 12px;
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px; /* 角は残しつつ硬め */
+      font-weight: 700;
+      letter-spacing:.06em;
+      cursor:pointer;
       text-decoration:none;
-      font-weight:900;
-      letter-spacing:.08em;
-      border:1px solid rgba(255,255,255,.12);
-      color:rgba(255,255,255,.90);
-      background: rgba(0,0,0,.20);
-      min-width:120px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .08s ease, border-color .2s ease, background .2s ease;
+      user-select:none;
     }
     .btn:active{ transform: translateY(1px); }
-    .btnAccent{
-      border-color: rgba(180,55,47,.60);
-      box-shadow: 0 0 0 1px rgba(180,55,47,.22) inset;
+    .btn .dot{
+      width:10px;height:10px;border-radius:2px;
+      background: rgba(193,18,31,.9);
+      box-shadow: 0 0 16px rgba(193,18,31,.45);
+    }
+    .btn.secondary .dot{ background: rgba(212,175,55,.9); box-shadow:0 0 16px rgba(212,175,55,.35); }
+    .btn:hover{ border-color: rgba(255,255,255,.34); background: rgba(0,0,0,.45); }
+
+    .note{
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-left: 2px solid rgba(212,175,55,.65);
+      color: var(--sub);
+      font-size: 12px;
+      line-height:1.7;
     }
 
-    .foot{
-      margin-top:14px;
-      padding:14px 2px 0;
-      color:rgba(255,255,255,.45);
-      font-size:12px;
-      line-height:1.7;
+    /* gold dust overlay */
+    #goldDust{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events:none;
+      z-index: 0;
+      opacity: .55; /* うざくない程度 */
     }
   </style>
 </head>
+<body>
+  <canvas id="goldDust"></canvas>
 
-<body class="gold">
   <div class="wrap">
-    <div class="top">
-      <h1 class="brand">護符</h1>
-      <p class="tag">護符メニュー（硬質・陰陽師ver）</p>
+    <header>
+      <div>
+        <h1 class="title">護符</h1>
+        <p class="subtitle">必要なものだけ最短で開く</p>
+      </div>
+      <div class="badge">陰陽師モード / Sharp</div>
+    </header>
+
+    <div class="grid">
+
+      <section class="card">
+        <h2>受験護符（親の静けさ）</h2>
+        <p>写真1枚＋封入ボタン。親の不安を、子どもに渡さない。</p>
+        <div class="row">
+          <a class="btn" href="./juken.html"><span class="dot"></span>開く</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>商売繁殖護符</h2>
+        <p>写真2枚（大・小）＋封印ボタン。場を増やす。</p>
+        <div class="row">
+          <a class="btn secondary" href="./shobai.html"><span class="dot"></span>開く</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>場の観測フォーマット</h2>
+        <p>0〜10の数値＋短文。判断せず、見えたことだけ。</p>
+        <div class="row">
+          <a class="btn" href="./ba-kansoku.html"><span class="dot"></span>開く</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>コールドシャワー</h2>
+        <p>短い実行導線。タイマーと一言記録。</p>
+        <div class="row">
+          <a class="btn secondary" href="./coldshower.html"><span class="dot"></span>開く</a>
+        </div>
+      </section>
+
     </div>
 
-    <div class="panel">
-      <div class="panelHead">
-        <h2 class="panelTitle">メニュー</h2>
-        <p class="panelNote">必要なものだけ最短で開く</p>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <div class="title">受験護符（親の静けさ）</div>
-          <p class="desc">写真1枚＋封印ボタン</p>
-          <div class="btnRow">
-            <a class="btn btnAccent" href="./juken.html">開く</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="title">商売繁殖護符</div>
-          <p class="desc">写真2枚（大・小）＋封印ボタン</p>
-          <div class="btnRow">
-            <a class="btn btnAccent" href="./shobai.html">開く</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="title">場の観測｜護符</div>
-          <p class="desc">場・気配・静けさの観測用</p>
-          <div class="btnRow">
-            <a class="btn" href="./ba-kansoku.html">開く</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="title">コールドシャワー｜護符</div>
-          <p class="desc">冷水を「儀式化」して整える</p>
-          <div class="btnRow">
-            <a class="btn" href="./coldshower.html">開く</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="foot">
-        ・このページは医療行為・治療の代替ではありません。<br>
-        ・体調が悪いときは無理をしないでください。
-      </div>
+    <div class="note">
+      ※ホーム画面に追加したPWAが古い見た目のときは「削除→再追加」で確実に更新。<br/>
+      ※この画面の金粉は“控えめ設定”です（増量は後で調整可能）。
     </div>
   </div>
 
   <script>
-    // SW register
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    // register SW
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(()=>{});
       });
     }
+
+    // Gold dust (subtle)
+    (function(){
+      const c = document.getElementById('goldDust');
+      const ctx = c.getContext('2d', { alpha: true });
+      let w, h, dpr;
+      const particles = [];
+      const COUNT = 55; // ←金粉の量（増やすなら 70〜90）
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = c.width  = Math.floor(innerWidth  * dpr);
+        h = c.height = Math.floor(innerHeight * dpr);
+        c.style.width = innerWidth + 'px';
+        c.style.height = innerHeight + 'px';
+      }
+
+      function rnd(a,b){ return a + Math.random()*(b-a); }
+
+      function init(){
+        particles.length = 0;
+        for(let i=0;i<COUNT;i++){
+          particles.push({
+            x:rnd(0,w), y:rnd(0,h),
+            r:rnd(0.6, 1.8)*dpr,
+            vx:rnd(-0.08, 0.18)*dpr,
+            vy:rnd(0.10, 0.32)*dpr,
+            a:rnd(0.06, 0.20),
+            tw:rnd(0.002, 0.01),
+            ph:rnd(0, Math.PI*2)
+          });
+        }
+      }
+
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        ctx.globalCompositeOperation = 'lighter';
+        for(const p of particles){
+          p.ph += p.tw;
+          const alpha = p.a + Math.sin(p.ph)*0.06;
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(212,175,55,${Math.max(0.03, Math.min(0.22, alpha))})`;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+
+          p.x += p.vx; p.y += p.vy;
+          if(p.y > h + 10) { p.y = -10; p.x = rnd(0,w); }
+          if(p.x > w + 10) { p.x = -10; }
+          if(p.x < -10) { p.x = w + 10; }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize(); init(); draw();
+      addEventListener('resize', ()=>{ resize(); init(); });
+    })();
   </script>
 </body>
 </html>
