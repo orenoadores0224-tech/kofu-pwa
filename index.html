@@ -2,116 +2,179 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>kofu-pwa</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>kofu-pwa｜護符メニュー</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#f7f6f2" />
-  <link rel="icon" href="./icon-192.png" />
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#f6f2ea" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
   <style>
     :root{
-      --bg:#f7f6f2;
+      --bg:#f6f2ea;
       --card:#ffffff;
-      --text:#111;
-      --sub:#555;
-      --line:#d7dbe7;
-      --pill:#4a6fe3;
-      --radius:22px;
-      --shadow: 0 10px 28px rgba(0,0,0,.06);
+      --text:#1a1a1a;
+      --sub:#666;
+      --line:#d9d6cf;
+      --accent:#7a6b5a;
+      --pill:#efe8dd;
+      --radius:18px;
+      --shadow:0 8px 22px rgba(0,0,0,.05);
     }
+    *{box-sizing:border-box}
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
     }
-    .wrap{max-width:720px;margin:0 auto;padding:22px 18px 40px;}
-    h1{font-size:44px;letter-spacing:.5px;margin:8px 0 6px;}
-    .lead{color:var(--sub);font-size:16px;line-height:1.7;margin:0 0 18px;}
-    .panel{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:18px 16px;
-      box-shadow:var(--shadow);
+    .wrap{
+      max-width:720px;
+      margin:0 auto;
+      padding:22px 16px 28px;
     }
-    .panelTitle{font-size:28px;margin:0 0 14px;}
-    .grid{display:grid;gap:14px;}
+    h1{
+      margin:6px 0 8px;
+      font-size:36px;
+      letter-spacing:.5px;
+    }
+    .lead{
+      color:var(--sub);
+      margin:0 0 18px;
+      line-height:1.7;
+    }
+    .sectionTitle{
+      margin:18px 0 10px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
     .card{
       display:block;
       text-decoration:none;
-      color:inherit;
       background:var(--card);
-      border:2px solid #cfd7f5;
-      border-radius:26px;
+      border:2px solid #cfd7ef;
+      border-radius:22px;
       padding:18px 18px 16px;
+      box-shadow:var(--shadow);
     }
-    .cardTitle{font-size:26px;font-weight:800;margin:0 0 6px;}
-    .cardSub{margin:0 0 14px;color:var(--sub);line-height:1.6;}
+    .cardTitle{
+      font-size:28px;
+      font-weight:800;
+      margin:0 0 6px;
+      line-height:1.2;
+    }
+    .cardSub{
+      margin:0 0 14px;
+      color:var(--sub);
+      line-height:1.6;
+      font-size:16px;
+    }
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
     .pill{
-      display:inline-block;
-      padding:10px 18px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
       border-radius:999px;
-      border:2px solid #b8c7ff;
-      background:#dfe7ff;
-      color:#1f3fb9;
-      font-weight:700;
+      border:2px solid #bfc7e6;
+      background:#dde6ff;
+      color:#1a3d9c;
+      font-weight:800;
+      min-width:86px;
+      justify-content:center;
     }
-    .note{
+    .mutedBox{
       margin-top:18px;
-      color:#666;
-      font-size:13px;
+      background:rgba(255,255,255,.7);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      color:#4c4c4c;
       line-height:1.7;
+      font-size:14px;
     }
-    .note b{color:#333;}
+    .mutedBox ul{margin:8px 0 0; padding-left:18px}
+    .mutedBox li{margin:6px 0}
+    .mini{
+      font-size:12px;
+      color:#6b6b6b;
+      margin-top:10px;
+    }
+    @media (min-width:740px){
+      .grid{grid-template-columns:1fr 1fr;}
+      .cardTitle{font-size:26px}
+    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <main class="wrap">
     <h1>kofu-pwa</h1>
-    <p class="lead">公開テストOK。ここから中身を増やします。</p>
+    <p class="lead">公開テストOK。ここから「必要な護符だけ」を増やしていきます。</p>
 
-    <div class="panel">
-      <div class="panelTitle">メニュー</div>
+    <div class="sectionTitle">メニュー</div>
+    <section class="grid">
 
-      <div class="grid">
-        <a class="card" href="./shouba.html">
-          <div class="cardTitle">商売護符（集中・胆力）</div>
-          <p class="cardSub">呼吸 → 読む/聴く → 1分だけ静かに実行</p>
+      <!-- 受験護符 -->
+      <a class="card" href="./juken.html">
+        <div class="cardTitle">受験護符（親の静けさ）</div>
+        <p class="cardSub">写真2枚（大・小）＋封印ボタンだけ</p>
+        <div class="row">
+          <span class="mini">※ 記録は残りません</span>
           <span class="pill">開く</span>
-        </a>
+        </div>
+      </a>
 
-        <a class="card" href="./coldshower.html">
-          <div class="cardTitle">コールドシャワー（仮）</div>
-          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
+      <!-- 商売繁殖護符（これから作るページ） -->
+      <a class="card" href="./shobai.html">
+        <div class="cardTitle">商売繁殖護符</div>
+        <p class="cardSub">写真＋封印（最小UI）</p>
+        <div class="row">
+          <span class="mini">※ 記録は残りません</span>
           <span class="pill">開く</span>
-        </a>
+        </div>
+      </a>
 
-        <a class="card" href="./ba-kansoku.html">
-          <div class="cardTitle">場の観測フォーマット</div>
-          <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
+      <!-- 場の観測（残したいなら） -->
+      <a class="card" href="./ba-kansoku.html">
+        <div class="cardTitle">場の観測フォーマット</div>
+        <p class="cardSub">0〜10＋短文で記録 → 変化を1行</p>
+        <div class="row">
+          <span class="mini">※ 記録は端末内</span>
           <span class="pill">開く</span>
-        </a>
+        </div>
+      </a>
 
-        <a class="card" href="./kotu.html">
-          <div class="cardTitle">呼吸で整える（仮）</div>
-          <p class="cardSub">短い手順 → 本文 → 注意事項</p>
-          <span class="pill">開く</span>
-        </a>
+    </section>
 
-        <!-- ここに追加していく：例）<a class="card" href="./kofu.html">...</a> -->
-      </div>
-
-      <div class="note">
-        <b>注意事項</b><br>
-        ・このページは医療行為・治療の代替ではありません。<br>
-        ・運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。<br>
-        ・息苦しさ／めまい／不快感が出た場合は中止して休んでください。
-      </div>
+    <div class="mutedBox">
+      <strong>注意事項</strong>
+      <ul>
+        <li>このページは医療行為・治療の代替ではありません。</li>
+        <li>運転中・入浴中・作業中など注意が必要な状況では閲覧しないでください。</li>
+        <li>息苦しさ・めまい・不快感が出た場合は中止して休んでください。</li>
+        <li>効果や感じ方には個人差があります。</li>
+      </ul>
     </div>
-  </div>
+  </main>
+
+  <script>
+    // Service Worker（PWA）
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    }
+  </script>
 </body>
 </html>
