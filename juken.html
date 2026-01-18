@@ -5,132 +5,152 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>受験護符</title>
 
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#07070a" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-  <link rel="icon" href="./icon-192.png" />
-
   <style>
     :root{
-      --bg0:#07070a; --bg1:#0c0d12;
-      --card:#0f1118cc; --line:#ffffff14; --line2:#ffffff1f;
-      --text:#f4f4f6; --muted:#b8bcc8; --muted2:#8b90a0;
-      --shu:#c1121f; --gold:#d9b24c;
-      --radius:18px; --shadow:0 18px 60px rgba(0,0,0,.55);
-      --max:820px;
+      --bg0:#07080c;
+      --bg1:#0b0d14;
+      --card: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.12);
+      --text:#e9ecf1;
+      --muted: rgba(233,236,241,.70);
+      --accent:#d04b3c;
+      --radius: 14px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --w: 760px;
     }
-    *{box-sizing:border-box;}
+    *{ box-sizing:border-box; }
     body{
-      margin:0; color:var(--text);
+      margin:0;
+      color:var(--text);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
       background:
-        radial-gradient(1200px 700px at 15% 0%, #111526 0%, transparent 55%),
-        radial-gradient(900px 600px at 90% 15%, #1a1020 0%, transparent 55%),
-        linear-gradient(180deg,var(--bg0),var(--bg1));
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP";
-      overflow-x:hidden;
+        radial-gradient(1200px 800px at 15% 0%, rgba(208,75,60,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
     }
-    #goldDust{position:fixed; inset:0; pointer-events:none; z-index:3; opacity:.75; mix-blend-mode:screen;}
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 40px;}
-    .bar{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:12px 12px; border:1px solid var(--line); border-radius:var(--radius);
-      background:linear-gradient(180deg,#0c0d12cc,#0b0c10aa); box-shadow:var(--shadow);
+
+    .wrap{
+      max-width:var(--w);
+      margin:0 auto;
+      padding:16px 16px 26px;
     }
-    .bar .ttl{font-weight:900; letter-spacing:.06em;}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      height:40px; padding:0 14px; border-radius:12px;
-      border:1px solid var(--line2);
-      background:rgba(255,255,255,.03);
-      color:var(--text); text-decoration:none; font-weight:800; letter-spacing:.06em;
-      user-select:none;
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
     }
-    .btn.primary{border-color:rgba(193,18,31,.45); background:linear-gradient(180deg,rgba(193,18,31,.20),rgba(193,18,31,.10));}
-    .main{
-      margin-top:14px;
-      border:1px solid var(--line); border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(16,18,26,.62), rgba(10,11,16,.62));
-      box-shadow:0 12px 40px rgba(0,0,0,.35);
+
+    .back{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:44px;
+      height:40px;
+      padding:0 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    h1{
+      margin:8px 0 6px;
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+    .lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:13px;
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+
+    .label{
+      font-weight:800;
+      letter-spacing:.08em;
+      font-size:13px;
+      margin:2px 0 10px;
+      color:rgba(233,236,241,.90);
+    }
+
+    /* ★写真ズレ防止の要：imgは "contain" で素直に中央に置く */
+    .imgBox{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:12px;
+      background:rgba(0,0,0,.22);
       overflow:hidden;
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
     }
-    .head{padding:16px; border-bottom:1px solid var(--line);}
-    .head h1{margin:0 0 6px; font-size:26px; font-weight:900;}
-    .head p{margin:0; color:var(--muted); font-size:14px; line-height:1.5;}
-    .box{padding:16px;}
-    .photo{
-      width:100%; border-radius:16px; border:1px solid var(--line2);
-      background:rgba(255,255,255,.02); overflow:hidden;
+    .imgBox img{
+      display:block;
+      width:100%;
+      height:auto;       /* これが超大事 */
+      max-height:78vh;   /* 縦に長すぎる時だけ抑える */
+      object-fit:contain;/* 切れない */
+      background:#0a0b10;
     }
-    .photo img{width:100%; display:block;}
-    .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
-    .note{color:var(--muted2); font-size:12px; line-height:1.5;}
+
+    .row{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.18);
+      color:var(--text);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      font-weight:800;
+    }
+    .btn:active{ transform:translateY(1px); }
+
+    .dot{
+      width:8px; height:8px; border-radius:99px;
+      background:var(--accent);
+      box-shadow: 0 0 18px rgba(208,75,60,.55);
+    }
   </style>
 </head>
 
 <body>
-  <canvas id="goldDust"></canvas>
-
   <div class="wrap">
-    <div class="bar">
-      <a class="btn" href="./index.html">← 戻る</a>
-      <div class="ttl">受験護符（親の静けさ）</div>
-      <a class="btn primary" href="./index.html">メニュー</a>
+    <div class="topbar">
+      <a class="back" href="./index.html">← 戻る</a>
+      <div></div>
     </div>
 
-    <div class="main">
-      <div class="head">
-        <h1>受験護符</h1>
-        <p>公開テストOK。ここは「親が静かでいる」ための封入。</p>
+    <h1>受験護符（親の静けさ）</h1>
+    <p class="lead">ここは「親が静かでいる」ための封入。</p>
+
+    <div class="panel">
+      <div class="label">受験護符の写真</div>
+      <div class="imgBox">
+        <img src="./IMG_3565.jpeg" alt="受験護符">
       </div>
 
-      <div class="box">
-        <div class="photo">
-          <img src="./IMG_3563.jpeg" alt="受験護符の写真">
-        </div>
-
-        <div class="actions">
-          <span class="note">※ 封印ボタンは今後追加でもOK（まずは表示を安定させる）</span>
-          <a class="btn primary" href="./index.html">封印（仮）</a>
-        </div>
+      <div class="row">
+        <button class="btn" onclick="window.print()"><span class="dot"></span>封印（印刷）</button>
       </div>
     </div>
   </div>
-
-  <script>
-    // 金粉（indexと同じ系・少し増やし気味）
-    const canvas=document.getElementById('goldDust');
-    const ctx=canvas.getContext('2d',{alpha:true});
-    const s={w:0,h:0,dpr:Math.min(2,devicePixelRatio||1),particles:[],count:54};
-    const r=(a,b)=>a+Math.random()*(b-a);
-
-    function resize(){
-      s.w=innerWidth; s.h=innerHeight;
-      canvas.width=Math.floor(s.w*s.dpr);
-      canvas.height=Math.floor(s.h*s.dpr);
-      canvas.style.width=s.w+'px';
-      canvas.style.height=s.h+'px';
-      ctx.setTransform(s.dpr,0,0,s.dpr,0,0);
-    }
-    function seed(){
-      s.particles=[];
-      for(let i=0;i<s.count;i++){
-        s.particles.push({x:r(0,s.w),y:r(0,s.h),rr:r(.6,1.7),a:r(.10,.34),vx:r(-.05,.12),vy:r(.09,.28),tw:r(0,Math.PI*2)});
-      }
-    }
-    function tick(){
-      ctx.clearRect(0,0,s.w,s.h);
-      for(const p of s.particles){
-        p.tw+=.02; p.x+=p.vx+Math.sin(p.tw)*.03; p.y+=p.vy;
-        if(p.y>s.h+8){p.y=-8; p.x=r(0,s.w);}
-        if(p.x<-10)p.x=s.w+10; if(p.x>s.w+10)p.x=-10;
-        const isShu=(p.rr>1.45 && Math.random()<.004);
-        ctx.fillStyle=isShu?`rgba(193,18,31,${p.a})`:`rgba(217,178,76,${p.a})`;
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.rr,0,Math.PI*2); ctx.fill();
-      }
-      requestAnimationFrame(tick);
-    }
-    resize(); seed(); tick();
-    addEventListener('resize',()=>{resize();seed();});
-  </script>
 </body>
 </html>
