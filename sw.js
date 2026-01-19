@@ -10,10 +10,7 @@ const PRECACHE_URLS = [
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
-  "./apple-touch-icon.png",
-  "./IMG_3563.jpeg",
-  "./IMG_3564.jpeg",
-  "./IMG_3565.jpeg"
+  "./apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -32,18 +29,9 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+// まずキャッシュ、なければネット（PWA向け）
 self.addEventListener("fetch", (event) => {
-  const req = event.request;
   event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match("./index.html"));
-    })
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
