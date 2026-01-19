@@ -2,204 +2,427 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>場の観測 | 護符</title>
-
-  <meta name="theme-color" content="#0b0b0f" />
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>場の観測｜護符</title>
 
   <style>
     :root{
-      --bg:#0b0b0f; --line:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
-      --aka:#c1121f; --gold:#d4af37;
-      --radius:14px; --shadow:0 14px 40px rgba(0,0,0,.45);
-      --field: rgba(0,0,0,.35);
+      --bg0:#050506;
+      --bg1:#0b0b10;
+      --panel:rgba(255,255,255,.04);
+      --panel2:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --gold:#c9a24a;
+      --vermilion:#b03a33;
+      --radius:14px;
+      --radius2:10px;
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans","Noto Sans JP", sans-serif;
+      margin:0;
+      color:var(--text);
       background:
-        radial-gradient(900px 500px at 12% 10%, rgba(212,175,55,.10), transparent 60%),
-        linear-gradient(180deg, #0b0b0f, #10101a);
+        radial-gradient(1200px 700px at 20% -10%, rgba(176,58,51,.12), transparent 55%),
+        radial-gradient(1100px 700px at 90% 10%, rgba(201,162,74,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family:var(--sans);
+      letter-spacing:.02em;
+      overflow-x:hidden;
     }
-    .wrap{max-width:760px;margin:0 auto;padding:18px 18px 44px;}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:16px;
+    #goldDust{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      opacity:.55; mix-blend-mode:screen;
     }
-    .back{color:var(--muted);text-decoration:none;font-weight:900;letter-spacing:.06em}
-    h1{margin:14px 0 6px;font-size:26px}
-    .desc{margin:0 0 16px;color:var(--muted);line-height:1.7;font-size:13px}
+    .wrap{position:relative; z-index:1; max-width:820px; margin:0 auto; padding:20px 16px 40px;}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+    .back{
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none; color:var(--muted); font-weight:600;
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.03);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .back:active{transform:translateY(1px)}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.75);
+      border:1px solid rgba(201,162,74,.30);
+      background:rgba(201,162,74,.08);
+      padding:10px 14px; border-radius:999px;
+      font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+      font-family:var(--mono);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:2px;
+      background:linear-gradient(180deg, rgba(201,162,74,.95), rgba(176,58,51,.70));
+      box-shadow:0 0 16px rgba(201,162,74,.45);
+    }
+    h1{margin:10px 0 6px; font-size:30px; line-height:1.15; letter-spacing:.06em;}
+    .lead{margin:0 0 16px; color:var(--muted); line-height:1.7; font-size:14px;}
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line); border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:14px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .cardHead{
+      padding:14px 14px 10px;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cardTitle{font-size:18px; letter-spacing:.08em; margin:0;}
+    .tag{
+      font-size:12px; letter-spacing:.14em; color:rgba(255,255,255,.75);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(176,58,51,.30);
+      background:rgba(176,58,51,.08);
+      white-space:nowrap;
+      font-family:var(--mono);
     }
 
-    .grid{display:grid; gap:10px}
-    .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
-    label{font-size:12px;color:rgba(255,255,255,.72);font-weight:800;letter-spacing:.08em}
-    input,select,textarea{
+    .body{padding:14px;}
+    .grid{display:grid; gap:12px;}
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .k{
+      flex:1; min-width:160px;
+      color:rgba(255,255,255,.85);
+      letter-spacing:.06em;
+    }
+    .v{
+      width:44px; text-align:right;
+      font-family:var(--mono);
+      color:rgba(255,255,255,.78);
+    }
+    input[type="range"]{width:100%;}
+    .note{
       width:100%;
-      background: var(--field);
-      border:1px solid rgba(255,255,255,.14);
-      color: var(--text);
-      padding: 12px 12px;
-      border-radius: 12px;
-      outline: none;
-    }
-    textarea{min-height:110px; resize: vertical;}
-    .btn{
-      margin-top:8px;
-      appearance:none; width:100%;
-      border:1px solid rgba(212,175,55,.45);
-      background: rgba(0,0,0,.40);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-weight: 900;
-      letter-spacing:.10em;
-      cursor:pointer;
-    }
-
-    .list{margin-top:12px; display:grid; gap:10px}
-    .item{
+      min-height:84px;
+      padding:12px;
+      border-radius:12px;
       border:1px solid rgba(255,255,255,.12);
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: rgba(0,0,0,.25);
-      color: rgba(255,255,255,.86);
-      font-size: 13px;
-      line-height:1.6;
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.88);
+      outline:none;
+      line-height:1.7;
     }
-    .meta{color:rgba(255,255,255,.55);font-size:12px;margin-top:4px}
-    .smallbtn{
-      margin-top:8px;
-      border:1px solid rgba(193,18,31,.35);
-      background: rgba(0,0,0,.35);
-      color: rgba(255,255,255,.85);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-weight:900;
-      letter-spacing:.08em;
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
+    .btn{
+      flex:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:12px;
+      border:1px solid rgba(176,58,51,.55);
+      background:linear-gradient(180deg, rgba(176,58,51,.12), rgba(0,0,0,.12));
+      color:rgba(255,255,255,.92);
+      font-weight:800;
+      letter-spacing:.12em;
       cursor:pointer;
-      width:100%;
+      box-shadow:0 18px 45px rgba(0,0,0,.45);
+      font-family:var(--mono);
     }
-    @media (max-width:560px){ .row{grid-template-columns:1fr;} }
+    .btn.secondary{
+      border:1px solid rgba(201,162,74,.35);
+      background:linear-gradient(180deg, rgba(201,162,74,.10), rgba(0,0,0,.12));
+    }
+    .btn:active{transform:translateY(1px)}
+    .hint{color:rgba(255,255,255,.65); font-size:12px; line-height:1.6; margin:10px 0 0;}
+
+    .list{padding:12px 14px 16px;}
+    .item{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:12px;
+      padding:12px;
+      margin:10px 0;
+    }
+    .meta{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      color:rgba(255,255,255,.70);
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.06em;
+      margin-bottom:6px;
+    }
+    .sum{color:rgba(255,255,255,.78); font-size:13px; line-height:1.6;}
+    .miniBtn{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      color:rgba(255,255,255,.78);
+      font-family:var(--mono);
+      font-size:12px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
   </style>
 </head>
+
 <body>
+  <canvas id="goldDust"></canvas>
+
   <div class="wrap">
     <div class="topbar">
       <a class="back" href="./index.html">← 護符にもどる</a>
-      <div style="color:rgba(255,255,255,.55);font-weight:800;letter-spacing:.14em;font-size:12px;">KANSOKU</div>
+      <div class="badge"><span class="dot"></span>FIELD LOG</div>
     </div>
 
     <h1>場の観測フォーマット</h1>
-    <p class="desc">判断せず、見えたことだけ。0〜10＋短文で記録する。</p>
+    <p class="lead">0〜10＋短文。判断しない。数値化して「変化」だけ拾う。</p>
 
-    <div class="card">
-      <div class="grid">
-        <div class="row">
-          <div>
-            <label>日時</label>
-            <input id="dt" type="datetime-local" />
-          </div>
-          <div>
-            <label>場所 / シーン</label>
-            <input id="place" placeholder="例：ベッドの上、店の入口" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div>
-            <label>場の強度（0〜10）</label>
-            <select id="power"></select>
-          </div>
-          <div>
-            <label>身体感覚</label>
-            <input id="body" placeholder="例：重い、静か、ピリつく" />
-          </div>
-        </div>
-
-        <div>
-          <label>短文メモ</label>
-          <textarea id="memo" placeholder="判断せず、見えたことだけ"></textarea>
-        </div>
-
-        <button class="btn" id="save">記録する</button>
-        <button class="smallbtn" id="clear">全消去（ローカル）</button>
+    <section class="card">
+      <div class="cardHead">
+        <p class="cardTitle">記録</p>
+        <div class="tag">0-10 / 1LINE</div>
       </div>
-    </div>
 
-    <div class="list" id="list"></div>
+      <div class="body">
+        <div class="grid">
+          <div class="row">
+            <div class="k">静けさ</div>
+            <input id="s1" type="range" min="0" max="10" step="1" value="5">
+            <div class="v" id="v1">5</div>
+          </div>
+
+          <div class="row">
+            <div class="k">集中</div>
+            <input id="s2" type="range" min="0" max="10" step="1" value="5">
+            <div class="v" id="v2">5</div>
+          </div>
+
+          <div class="row">
+            <div class="k">圧（内圧/密度）</div>
+            <input id="s3" type="range" min="0" max="10" step="1" value="5">
+            <div class="v" id="v3">5</div>
+          </div>
+
+          <div class="row">
+            <div class="k">胸/腹の緊張</div>
+            <input id="s4" type="range" min="0" max="10" step="1" value="5">
+            <div class="v" id="v4">5</div>
+          </div>
+
+          <textarea id="note" class="note" placeholder="短文（例：右肩が軽い／息が深い／焦りが消えた など）"></textarea>
+
+          <div class="btnRow">
+            <button class="btn" id="save">保存</button>
+            <button class="btn secondary" id="copy">コピー</button>
+          </div>
+
+          <p class="hint">保存はこの端末内（ローカル保存）。メールやクラウド送信はしない。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px;">
+      <div class="cardHead">
+        <p class="cardTitle">履歴</p>
+        <div class="tag" id="count">0</div>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
   </div>
 
   <script>
-    const power = document.getElementById('power');
-    for(let i=0;i<=10;i++){
-      const o = document.createElement('option');
-      o.value = i; o.textContent = i;
-      power.appendChild(o);
+    // 金粉
+    const canvas = document.getElementById('goldDust');
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    let W=0,H=0;
+    function resize(){
+      W = Math.floor(window.innerWidth);
+      H = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
     }
-    const dt = document.getElementById('dt');
-    dt.value = new Date().toISOString().slice(0,16);
+    window.addEventListener('resize', resize, {passive:true});
+    resize();
 
-    const KEY = "kansoku_logs_v1";
-    const list = document.getElementById('list');
-
-    function load(){
-      const raw = localStorage.getItem(KEY);
-      return raw ? JSON.parse(raw) : [];
-    }
-    function render(){
-      const logs = load().slice().reverse();
-      list.innerHTML = "";
-      logs.forEach((x, idx) => {
-        const div = document.createElement('div');
-        div.className = "item";
-        div.innerHTML = `
-          <div><b>強度:</b> ${x.power} / <b>場所:</b> ${escapeHtml(x.place || "-")}</div>
-          <div class="meta">${escapeHtml(x.dt || "-")} / 身体: ${escapeHtml(x.body || "-")}</div>
-          <div style="margin-top:6px">${escapeHtml(x.memo || "")}</div>
-        `;
-        list.appendChild(div);
+    const COUNT = 70; // ←金粉多めにしたいなら増やす（うざいなら下げる）
+    const SPEED = 0.18;
+    const particles = [];
+    const rand = (min,max)=>min+Math.random()*(max-min);
+    for(let i=0;i<COUNT;i++){
+      particles.push({
+        x: rand(0,W), y: rand(0,H),
+        r: rand(0.7, 1.9),
+        vx: rand(-SPEED, SPEED),
+        vy: rand(0.05, SPEED*1.2),
+        a: rand(0.10, 0.30),
+        tw: rand(0.002, 0.008)
       });
-      if(logs.length === 0){
-        const div = document.createElement('div');
-        div.className = "item";
-        div.innerHTML = `<div style="color:rgba(255,255,255,.60)">まだ記録がありません。</div>`;
-        list.appendChild(div);
+    }
+    function tick(t){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      ctx.fillRect(0,0,W,H);
+
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -20) p.x = W+20;
+        if(p.x > W+20) p.x = -20;
+        if(p.y > H+30){ p.y = -30; p.x = rand(0,W); }
+
+        const sparkle = (Math.sin(t*p.tw) + 1) * 0.5;
+        const alpha = p.a * (0.65 + sparkle*0.75);
+
+        const g = ctx.createRadialGradient(p.x,p.y,0, p.x,p.y,p.r*6);
+        g.addColorStop(0, `rgba(201,162,74,${alpha})`);
+        g.addColorStop(0.55, `rgba(176,58,51,${alpha*0.45})`);
+        g.addColorStop(1, `rgba(0,0,0,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // 観測
+    const s1 = document.getElementById('s1');
+    const s2 = document.getElementById('s2');
+    const s3 = document.getElementById('s3');
+    const s4 = document.getElementById('s4');
+    const v1 = document.getElementById('v1');
+    const v2 = document.getElementById('v2');
+    const v3 = document.getElementById('v3');
+    const v4 = document.getElementById('v4');
+    const note = document.getElementById('note');
+    const save = document.getElementById('save');
+    const copy = document.getElementById('copy');
+    const list = document.getElementById('list');
+    const count = document.getElementById('count');
+
+    function sync(){
+      v1.textContent = s1.value;
+      v2.textContent = s2.value;
+      v3.textContent = s3.value;
+      v4.textContent = s4.value;
+    }
+    [s1,s2,s3,s4].forEach(el=>el.addEventListener('input', sync));
+    sync();
+
+    const KEY = "kofu_field_logs_v1";
+
+    function loadLogs(){
+      try{
+        return JSON.parse(localStorage.getItem(KEY) || "[]");
+      }catch(e){
+        return [];
       }
     }
-    function escapeHtml(s){
-      return (s+"").replace(/[&<>"']/g, c => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[c]));
+    function saveLogs(arr){
+      localStorage.setItem(KEY, JSON.stringify(arr));
+    }
+    function fmtTime(ts){
+      const d = new Date(ts);
+      const pad = n => String(n).padStart(2,'0');
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    function render(){
+      const logs = loadLogs();
+      count.textContent = String(logs.length);
+      list.innerHTML = "";
+      logs.slice().reverse().forEach((x, idx) => {
+        const wrap = document.createElement('div');
+        wrap.className = "item";
+        wrap.innerHTML = `
+          <div class="meta">
+            <span>${fmtTime(x.ts)} | S:${x.s1} C:${x.s2} P:${x.s3} T:${x.s4}</span>
+            <span>
+              <button class="miniBtn" data-act="copy" data-i="${logs.length-1-idx}">コピー</button>
+              <button class="miniBtn" data-act="del" data-i="${logs.length-1-idx}">削除</button>
+            </span>
+          </div>
+          <div class="sum">${escapeHtml(x.note || "")}</div>
+        `;
+        list.appendChild(wrap);
+      });
+    }
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;")
+        .replaceAll("\n","<br>");
     }
 
-    document.getElementById('save').addEventListener('click', () => {
-      const logs = load();
-      logs.push({
-        dt: dt.value,
-        place: document.getElementById('place').value.trim(),
-        power: document.getElementById('power').value,
-        body: document.getElementById('body').value.trim(),
-        memo: document.getElementById('memo').value.trim()
-      });
-      localStorage.setItem(KEY, JSON.stringify(logs));
-      document.getElementById('memo').value = "";
+    function makeLine(){
+      const ts = Date.now();
+      return {
+        ts,
+        s1:+s1.value, s2:+s2.value, s3:+s3.value, s4:+s4.value,
+        note: (note.value || "").trim()
+      };
+    }
+    function toText(x){
+      return `【場の観測】${fmtTime(x.ts)}
+静けさ:${x.s1} / 集中:${x.s2} / 圧:${x.s3} / 緊張:${x.s4}
+一言：${x.note || "（なし）"}`;
+    }
+
+    save.addEventListener('click', () => {
+      const logs = loadLogs();
+      const x = makeLine();
+      logs.push(x);
+      saveLogs(logs);
+      note.value = "";
       render();
-      try { navigator.vibrate && navigator.vibrate([30,40,30]); } catch(e){}
     });
 
-    document.getElementById('clear').addEventListener('click', () => {
-      localStorage.removeItem(KEY);
-      render();
+    copy.addEventListener('click', async () => {
+      const x = makeLine();
+      const text = toText(x);
+      try{
+        await navigator.clipboard.writeText(text);
+        copy.textContent = "コピー済";
+        setTimeout(()=>copy.textContent="コピー", 900);
+      }catch(e){
+        alert(text);
+      }
+    });
+
+    list.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const act = btn.dataset.act;
+      const i = Number(btn.dataset.i);
+      const logs = loadLogs();
+      const x = logs[i];
+      if(!x) return;
+
+      if(act === "del"){
+        logs.splice(i,1);
+        saveLogs(logs);
+        render();
+        return;
+      }
+      if(act === "copy"){
+        const text = toText(x);
+        try{
+          await navigator.clipboard.writeText(text);
+          btn.textContent = "コピー済";
+          setTimeout(()=>btn.textContent="コピー", 900);
+        }catch(e){
+          alert(text);
+        }
+      }
     });
 
     render();
