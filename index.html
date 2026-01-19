@@ -2,270 +2,96 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>護符</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#0b0b0f" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="護符" />
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-
+  <meta name="description" content="必要なものだけ最短で開く。" />
   <style>
     :root{
-      --bg:#07070b;
-      --panel:rgba(16,16,22,.74);
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.06);
-      --txt:rgba(255,255,255,.92);
-      --sub:rgba(255,255,255,.60);
-      --accent:#8b1b1b; /* 朱寄り */
-      --gold:rgba(255,214,120,.35);
-      --r:14px; /* 角を硬めに */
-      --pad:18px;
+      --bg:#0b0d10;
+      --panel:#12161c;
+      --text:#e9edf2;
+      --muted:#a9b2bf;
+      --line:#232a33;
+      --accent:#d7e3ff;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 500px at 20% 10%, rgba(139,27,27,.22), transparent 60%),
-        radial-gradient(900px 500px at 80% 20%, rgba(255,214,120,.10), transparent 55%),
-        radial-gradient(800px 600px at 50% 110%, rgba(139,27,27,.18), transparent 55%),
-        var(--bg);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
-      letter-spacing:.02em;
-      -webkit-font-smoothing: antialiased;
-      min-height:100svh;
-    }
-    .wrap{
-      max-width:820px;
-      margin:0 auto;
-      padding:22px 16px 30px;
-    }
-    header{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      padding:6px 2px 18px;
-      border-bottom:1px solid var(--line2);
-      position:relative;
-      z-index:2;
-    }
-    .title{
-      font-weight:700;
-      font-size:34px;
-      line-height:1;
-      letter-spacing:.04em;
-    }
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif; background:var(--bg); color:var(--text); line-height:1.55}
+    main{max-width:760px; margin:0 auto; padding:18px 16px 44px}
+    h1{font-size:22px; margin:6px 0 6px}
+    .lead{color:var(--muted); margin:0 0 14px}
     .tag{
-      font-size:12px;
-      color:var(--sub);
-      margin-top:8px;
-    }
-    .mode{
-      border:1px solid rgba(139,27,27,.55);
-      color:rgba(255,255,255,.88);
-      padding:10px 12px;
-      border-radius:999px;
-      font-size:12px;
-      letter-spacing:.08em;
-      background:rgba(0,0,0,.20);
-      user-select:none;
-      white-space:nowrap;
-    }
-
-    .grid{
-      margin-top:18px;
-      display:grid;
-      gap:14px;
+      display:inline-block;
+      font-size:12px; letter-spacing:.12em; color:var(--muted);
+      border:1px solid var(--line); padding:6px 10px; border-radius:999px;
+      text-transform:uppercase;
+      margin:6px 0 10px;
     }
     .card{
-      position:relative;
+      display:block;
       background:var(--panel);
       border:1px solid var(--line);
-      border-radius:var(--r);
-      overflow:hidden;
-      padding:18px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-    }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, rgba(255,255,255,.06), transparent 35%, rgba(139,27,27,.05));
-      pointer-events:none;
-    }
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      position:relative;
-      z-index:1;
-    }
-    .name{
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:.04em;
-    }
-    .desc{
-      margin-top:6px;
-      font-size:13px;
-      color:var(--sub);
-      line-height:1.55;
-      position:relative;
-      z-index:1;
-    }
-    .btn{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.22);
-      color:rgba(255,255,255,.92);
-      border-radius:10px;
-      padding:10px 14px;
-      font-weight:700;
-      letter-spacing:.08em;
-      cursor:pointer;
+      border-radius:14px;
+      padding:14px;
+      margin:10px 0;
       text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      min-width:92px;
-      justify-content:center;
+      color:var(--text);
     }
-    .btn:hover{ border-color:rgba(255,255,255,.26) }
-    .dot{
-      width:10px;height:10px;border-radius:2px;
-      background:rgba(255,255,255,.20);
-      box-shadow:0 0 0 1px rgba(255,255,255,.10) inset;
-    }
-    .dot.red{ background:rgba(139,27,27,.75) }
-    .dot.gold{ background:rgba(255,214,120,.70) }
-    .dot.blue{ background:rgba(80,160,255,.60) }
-
-    .footer{
-      margin-top:16px;
-      color:rgba(255,255,255,.45);
+    .card:hover{border-color:#3a4554}
+    .title{font-size:16px; margin:0 0 6px}
+    .sub{margin:0; color:var(--muted); font-size:13px}
+    .pill{
+      display:inline-block;
+      margin-top:10px;
       font-size:12px;
-      letter-spacing:.06em;
-      padding:0 2px;
-      position:relative;
-      z-index:2;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--accent);
     }
-
-    /* 金粉（控えめ） */
-    #dust{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:.55;
-    }
+    .small{color:var(--muted); font-size:12px; margin-top:14px}
   </style>
 </head>
 <body>
-<canvas id="dust"></canvas>
+  <main>
+    <h1>護符</h1>
+    <p class="lead">必要なものだけ最短で開く</p>
 
-<div class="wrap">
-  <header>
-    <div>
-      <div class="title">護符</div>
-      <div class="tag">必要なものだけ最短で開く</div>
-    </div>
-    <div class="mode">陰陽師モード / Sharp</div>
-  </header>
+    <span class="tag">ENTRY / SAFE</span>
 
-  <div class="grid">
-    <section class="card">
-      <div class="row">
-        <div class="name">受験護符（親の静けさ）</div>
-        <a class="btn" href="./juken.html"><span class="dot red"></span>開く</a>
-      </div>
-      <div class="desc">写真1枚＋封入ボタン。親の不安を、子どもに渡さない。</div>
-    </section>
+    <!-- ★新規：境界2分ワーク（メール導線の着地点） -->
+    <a class="card" href="./boundary2min.html">
+      <div class="title">境界2分ワーク</div>
+      <p class="sub">夢と現実の狭間を2分だけ観測する。読むだけOK。</p>
+      <span class="pill">開く</span>
+    </a>
 
-    <section class="card">
-      <div class="row">
-        <div class="name">商売繁殖護符</div>
-        <a class="btn" href="./shobai.html"><span class="dot gold"></span>開く</a>
-      </div>
-      <div class="desc">写真2枚（大・小）＋封印ボタン。場を増やす。</div>
-    </section>
+    <span class="tag">陰陽師モード / Sharp</span>
 
-    <section class="card">
-      <div class="row">
-        <div class="name">場の観測フォーマット</div>
-        <a class="btn" href="./ba-kansoku.html"><span class="dot red"></span>開く</a>
-      </div>
-      <div class="desc">0〜10の数値＋短文。判断せず、見えたことだけ。</div>
-    </section>
+    <a class="card" href="./juken.html">
+      <div class="title">受験護符（親の静けさ）</div>
+      <p class="sub">写真1枚＋封入ボタン。親の不安を、子どもに渡さない。</p>
+      <span class="pill">開く</span>
+    </a>
 
-    <section class="card">
-      <div class="row">
-        <div class="name">コールドシャワー</div>
-        <a class="btn" href="./coldshower.html"><span class="dot blue"></span>開く</a>
-      </div>
-      <div class="desc">冷水を儀式化する。短い導入→実行→記録。</div>
-    </section>
-  </div>
+    <a class="card" href="./shobai.html">
+      <div class="title">商売繁殖護符</div>
+      <p class="sub">写真2枚（大・小）＋封印ボタン。場を増やす。</p>
+      <span class="pill">開く</span>
+    </a>
 
-  <div class="footer">※ 画面が古い時は：PWA削除→再追加 or Safariタブを閉じて再起動</div>
-</div>
+    <a class="card" href="./ba-kansoku.html">
+      <div class="title">場の観測フォーマット</div>
+      <p class="sub">0〜10の数値＋短文。判断せず、見えたことだけ。</p>
+      <span class="pill">開く</span>
+    </a>
 
-<script>
-  // SW
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
-  }
+    <a class="card" href="./coldshower.html">
+      <div class="title">コールドシャワー</div>
+      <p class="sub">冷水を儀式化する。短い導入→実行→記録。</p>
+      <span class="pill">開く</span>
+    </a>
 
-  // 金粉（控えめ）
-  (function(){
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce) return;
-
-    const c = document.getElementById('dust');
-    const ctx = c.getContext('2d');
-    let w,h,dpr;
-    function resize(){
-      dpr = Math.min(2, window.devicePixelRatio || 1);
-      w = c.width = Math.floor(innerWidth*dpr);
-      h = c.height = Math.floor(innerHeight*dpr);
-      c.style.width = innerWidth+'px';
-      c.style.height = innerHeight+'px';
-    }
-    addEventListener('resize', resize, {passive:true});
-    resize();
-
-    const N = Math.floor((innerWidth*innerHeight)/28000); // 控えめ量
-    const ps = Array.from({length: Math.max(18, Math.min(70, N))}, () => ({
-      x: Math.random()*w, y: Math.random()*h,
-      r: (Math.random()*1.3+0.5)*dpr,
-      vx: (Math.random()*0.15+0.03)*dpr,
-      vy: (Math.random()*0.12+0.04)*dpr,
-      a: Math.random()*0.45+0.10
-    }));
-
-    function tick(){
-      ctx.clearRect(0,0,w,h);
-      for(const p of ps){
-        p.x += p.vx; p.y += p.vy;
-        if(p.x> w+20) p.x = -20;
-        if(p.y> h+20) p.y = -20;
-
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,214,120,${p.a})`;
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-      }
-      requestAnimationFrame(tick);
-    }
-    tick();
-  })();
-</script>
+    <p class="small">※ 画面が古い時は：PWA削除→再追加 or Safariタブを閉じて再起動</p>
+  </main>
 </body>
 </html>
