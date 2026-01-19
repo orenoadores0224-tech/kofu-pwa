@@ -1,8 +1,9 @@
-const CACHE_NAME = "kofu-cache-v9";
+const CACHE_NAME = "kofu-cache-v10";
 
 const PRECACHE_URLS = [
   "./",
   "./index.html",
+  "./boundary2min.html",
   "./juken.html",
   "./shobai.html",
   "./ba-kansoku.html",
