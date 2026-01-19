@@ -1,7 +1,7 @@
 {
   "name": "護符",
   "short_name": "護符",
-  "description": "護符メニュー（陰陽師・シャープ版）",
+  "description": "護符メニュー（PWA）",
   "lang": "ja-JP",
   "start_url": "./",
   "scope": "./",
