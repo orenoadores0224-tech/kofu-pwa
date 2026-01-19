@@ -2,139 +2,328 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>コールドシャワー | 護符</title>
-
-  <meta name="theme-color" content="#0b0b0f" />
-  <link rel="icon" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>コールドシャワー｜護符</title>
 
   <style>
     :root{
-      --bg:#0b0b0f; --line:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
-      --aka:#c1121f; --gold:#d4af37;
-      --radius:14px; --shadow:0 14px 40px rgba(0,0,0,.45);
+      --bg0:#050506;
+      --bg1:#0b0b10;
+      --panel:rgba(255,255,255,.04);
+      --panel2:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --gold:#c9a24a;
+      --vermilion:#b03a33;
+      --radius:14px;
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans","Noto Sans JP", sans-serif;
+      margin:0;
+      color:var(--text);
       background:
-        radial-gradient(900px 500px at 75% 10%, rgba(193,18,31,.12), transparent 60%),
-        radial-gradient(900px 500px at 15% 10%, rgba(212,175,55,.08), transparent 60%),
-        linear-gradient(180deg, #0b0b0f, #10101a);
+        radial-gradient(1200px 700px at 20% -10%, rgba(176,58,51,.12), transparent 55%),
+        radial-gradient(1100px 700px at 90% 10%, rgba(201,162,74,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family:var(--sans);
+      letter-spacing:.02em;
+      overflow-x:hidden;
     }
-    .wrap{max-width:760px;margin:0 auto;padding:18px 18px 44px;}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:16px;
+    #goldDust{position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.55; mix-blend-mode:screen;}
+    .wrap{position:relative; z-index:1; max-width:820px; margin:0 auto; padding:20px 16px 40px;}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+    .back{
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none; color:var(--muted); font-weight:600;
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.03);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
-    .back{color:var(--muted);text-decoration:none;font-weight:900;letter-spacing:.06em}
-    h1{margin:14px 0 6px;font-size:26px}
-    .desc{margin:0 0 16px;color:var(--muted);line-height:1.7;font-size:13px}
+    .back:active{transform:translateY(1px)}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.75);
+      border:1px solid rgba(176,58,51,.35);
+      background:rgba(176,58,51,.08);
+      padding:10px 14px; border-radius:999px;
+      font-size:13px; letter-spacing:.12em;
+      font-family:var(--mono);
+      text-transform:uppercase;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:2px;
+      background:linear-gradient(180deg, rgba(201,162,74,.95), rgba(176,58,51,.70));
+      box-shadow:0 0 16px rgba(201,162,74,.45);
+    }
+    h1{margin:10px 0 6px; font-size:30px; line-height:1.15; letter-spacing:.06em;}
+    .lead{margin:0 0 16px; color:var(--muted); line-height:1.7; font-size:14px;}
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line); border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:14px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     }
+    .cardHead{
+      padding:14px 14px 10px;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cardTitle{font-size:18px; letter-spacing:.08em; margin:0;}
+    .tag{
+      font-size:12px; letter-spacing:.14em; color:rgba(255,255,255,.75);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(201,162,74,.30);
+      background:rgba(201,162,74,.08);
+      white-space:nowrap;
+      font-family:var(--mono);
+    }
+    .body{padding:14px;}
+    .step{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:12px;
+      padding:12px;
+      margin:10px 0;
+    }
+    .st{
+      font-family:var(--mono);
+      letter-spacing:.10em;
+      color:rgba(255,255,255,.70);
+      font-size:12px;
+      margin:0 0 6px;
+    }
+    .tx{margin:0; color:rgba(255,255,255,.86); line-height:1.7; font-size:14px;}
     .timer{
-      font-size: 40px;
-      font-weight: 900;
-      letter-spacing:.06em;
-      margin: 6px 0 12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      border-radius:12px;
+      margin-top:12px;
     }
+    .tval{
+      font-family:var(--mono);
+      font-size:28px;
+      letter-spacing:.10em;
+    }
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap;}
     .btn{
-      appearance:none;border:1px solid rgba(212,175,55,.45);
-      background: rgba(0,0,0,.40); color:var(--text);
-      padding:12px 14px;border-radius:12px;font-weight:900;
-      letter-spacing:.10em; cursor:pointer; width:100%;
-      margin-top:10px;
+      flex:1;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:12px;
+      border:1px solid rgba(176,58,51,.55);
+      background:linear-gradient(180deg, rgba(176,58,51,.12), rgba(0,0,0,.12));
+      color:rgba(255,255,255,.92);
+      font-weight:800;
+      letter-spacing:.12em;
+      cursor:pointer;
+      box-shadow:0 18px 45px rgba(0,0,0,.45);
+      font-family:var(--mono);
     }
-    textarea{
+    .btn.secondary{
+      border:1px solid rgba(201,162,74,.35);
+      background:linear-gradient(180deg, rgba(201,162,74,.10), rgba(0,0,0,.12));
+    }
+    .btn:active{transform:translateY(1px)}
+    .sel{
       width:100%;
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.14);
-      color: var(--text);
-      padding: 12px 12px;
-      border-radius: 12px;
-      outline: none;
-      min-height: 90px;
-      resize: vertical;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.88);
+      font-family:var(--mono);
+      letter-spacing:.06em;
+      outline:none;
     }
+    .hint{color:rgba(255,255,255,.65); font-size:12px; line-height:1.6; margin:10px 0 0;}
   </style>
 </head>
+
 <body>
+  <canvas id="goldDust"></canvas>
+
   <div class="wrap">
     <div class="topbar">
       <a class="back" href="./index.html">← 護符にもどる</a>
-      <div style="color:rgba(255,255,255,.55);font-weight:800;letter-spacing:.14em;font-size:12px;">COLD</div>
+      <div class="badge"><span class="dot"></span>COLD</div>
     </div>
 
-    <h1>コールドシャワー</h1>
-    <p class="desc">短い導線で実行。終わったら一言だけ残す。</p>
+    <h1>コールドシャワー氣功</h1>
+    <p class="lead">スマホは“手順の護符”。浴室に持ち込まなくても、読むだけで段取りが整う。</p>
 
-    <div class="card">
-      <div style="color:rgba(255,255,255,.72);font-weight:900;letter-spacing:.08em;font-size:12px">タイマー（2:00）</div>
-      <div class="timer" id="t">02:00</div>
+    <section class="card">
+      <div class="cardHead">
+        <p class="cardTitle">プロトコル</p>
+        <div class="tag">SAFE / SHARP</div>
+      </div>
 
-      <button class="btn" id="start">開始</button>
-      <button class="btn" id="stop" style="border-color:rgba(255,255,255,.18)">停止</button>
+      <div class="body">
+        <div class="step">
+          <p class="st">STEP 1</p>
+          <p class="tx">吐く：鼻から吸って、口から長く吐く（2回）。肩の力を抜く。</p>
+        </div>
 
-      <div style="margin-top:14px;color:rgba(255,255,255,.72);font-weight:900;letter-spacing:.08em;font-size:12px">一言メモ</div>
-      <textarea id="memo" placeholder="例：胸が開いた / 震えが静まった / 集中が戻った"></textarea>
-      <button class="btn" id="save" style="border-color:rgba(193,18,31,.45)">保存</button>
+        <div class="step">
+          <p class="st">STEP 2</p>
+          <p class="tx">冷水は “短く・狙って”。慣れてない日は足→ふくらはぎ→首の後ろの順。</p>
+        </div>
 
-      <div id="saved" style="margin-top:10px;color:rgba(255,255,255,.62);font-size:12px;line-height:1.7"></div>
-    </div>
+        <div class="step">
+          <p class="st">STEP 3</p>
+          <p class="tx">終わったら “温めない”。タオルで拭き、呼吸を整えて終了。観測は一言だけ。</p>
+        </div>
+
+        <div class="timer">
+          <div>
+            <div style="font-family:var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.70);font-size:12px;">TIMER</div>
+            <div class="tval" id="tval">00:20</div>
+          </div>
+          <div style="min-width:180px;">
+            <select id="preset" class="sel">
+              <option value="10">10 sec</option>
+              <option value="20" selected>20 sec</option>
+              <option value="30">30 sec</option>
+              <option value="45">45 sec</option>
+              <option value="60">60 sec</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btnRow" style="margin-top:12px;">
+          <button class="btn" id="start">開始</button>
+          <button class="btn secondary" id="stop">停止</button>
+          <button class="btn secondary" id="reset">リセット</button>
+        </div>
+
+        <p class="hint">※ 目が冴えるタイプは「夜にやらない」。朝・昼に回す。無理なら呼吸だけ。</p>
+      </div>
+    </section>
   </div>
 
   <script>
-    let sec = 120;
-    let timer = null;
-    const t = document.getElementById('t');
-
-    function fmt(s){
-      const m = String(Math.floor(s/60)).padStart(2,'0');
-      const r = String(s%60).padStart(2,'0');
-      return m+":"+r;
+    // 金粉
+    const canvas = document.getElementById('goldDust');
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    let W=0,H=0;
+    function resize(){
+      W = Math.floor(window.innerWidth);
+      H = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
     }
-    function draw(){ t.textContent = fmt(sec); }
-    draw();
+    window.addEventListener('resize', resize, {passive:true});
+    resize();
 
-    document.getElementById('start').addEventListener('click', () => {
+    const COUNT = 70;
+    const SPEED = 0.18;
+    const particles = [];
+    const rand = (min,max)=>min+Math.random()*(max-min);
+    for(let i=0;i<COUNT;i++){
+      particles.push({
+        x: rand(0,W), y: rand(0,H),
+        r: rand(0.7, 1.9),
+        vx: rand(-SPEED, SPEED),
+        vy: rand(0.05, SPEED*1.2),
+        a: rand(0.10, 0.30),
+        tw: rand(0.002, 0.008)
+      });
+    }
+    function tick(t){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      ctx.fillRect(0,0,W,H);
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -20) p.x = W+20;
+        if(p.x > W+20) p.x = -20;
+        if(p.y > H+30){ p.y = -30; p.x = rand(0,W); }
+        const sparkle = (Math.sin(t*p.tw) + 1) * 0.5;
+        const alpha = p.a * (0.65 + sparkle*0.75);
+        const g = ctx.createRadialGradient(p.x,p.y,0, p.x,p.y,p.r*6);
+        g.addColorStop(0, `rgba(201,162,74,${alpha})`);
+        g.addColorStop(0.55, `rgba(176,58,51,${alpha*0.45})`);
+        g.addColorStop(1, `rgba(0,0,0,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // タイマー
+    const preset = document.getElementById('preset');
+    const tval = document.getElementById('tval');
+    const start = document.getElementById('start');
+    const stop = document.getElementById('stop');
+    const reset = document.getElementById('reset');
+
+    let total = Number(preset.value);
+    let left = total;
+    let timer = null;
+
+    function fmt(sec){
+      const m = Math.floor(sec/60);
+      const s = sec%60;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+    function render(){
+      tval.textContent = fmt(left);
+    }
+    function applyPreset(){
+      total = Number(preset.value);
+      left = total;
+      render();
+    }
+    preset.addEventListener('change', () => {
+      if(timer) return; // 動作中は変更させない（事故防止）
+      applyPreset();
+    });
+    applyPreset();
+
+    start.addEventListener('click', () => {
       if(timer) return;
       timer = setInterval(() => {
-        sec = Math.max(0, sec-1);
-        draw();
-        if(sec === 0){
-          clearInterval(timer); timer=null;
-          try{ navigator.vibrate && navigator.vibrate([60,80,60]); }catch(e){}
+        left -= 1;
+        if(left <= 0){
+          left = 0;
+          render();
+          clearInterval(timer);
+          timer = null;
+          try{ navigator.vibrate && navigator.vibrate([120,80,120]); }catch(e){}
+          start.textContent = "完了";
+          setTimeout(()=>start.textContent="開始", 900);
+          return;
         }
+        render();
       }, 1000);
     });
 
-    document.getElementById('stop').addEventListener('click', () => {
-      if(timer){ clearInterval(timer); timer=null; }
-      sec = 120; draw();
+    stop.addEventListener('click', () => {
+      if(!timer) return;
+      clearInterval(timer);
+      timer = null;
     });
 
-    const KEY="cold_memo_v1";
-    const saved = document.getElementById('saved');
-    function renderSaved(){
-      const v = localStorage.getItem(KEY);
-      saved.textContent = v ? ("前回メモ： " + v) : "前回メモ：なし";
-    }
-    renderSaved();
-
-    document.getElementById('save').addEventListener('click', () => {
-      const v = document.getElementById('memo').value.trim();
-      if(!v) return;
-      localStorage.setItem(KEY, v);
-      document.getElementById('memo').value = "";
-      renderSaved();
-      try{ navigator.vibrate && navigator.vibrate([30,40,30]); }catch(e){}
+    reset.addEventListener('click', () => {
+      if(timer){ clearInterval(timer); timer = null; }
+      applyPreset();
     });
   </script>
 </body>
