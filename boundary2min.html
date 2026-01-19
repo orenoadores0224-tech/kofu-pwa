@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>境界2分ワーク｜護符</title>
+  <meta name="description" content="夢と現実の狭間を2分だけ観測する。習慣化しない。理解しない。読むだけOK。" />
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#12161c;
+      --text:#e9edf2;
+      --muted:#a9b2bf;
+      --line:#232a33;
+      --accent:#d7e3ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    main{max-width:760px; margin:0 auto; padding:18px 16px 44px}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px}
+    .back{font-size:14px; color:var(--muted)}
+    .tag{
+      font-size:12px;
+      letter-spacing:.12em;
+      color:var(--muted);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    h1{font-size:22px; margin:10px 0 8px}
+    .lead{color:var(--muted); margin:0 0 14px}
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin:12px 0;
+    }
+    .panel h2{font-size:14px; margin:0 0 10px; color:var(--accent); letter-spacing:.08em}
+    .bullet{margin:0; padding-left:18px; color:var(--text)}
+    .bullet li{margin:6px 0}
+    .muted{color:var(--muted)}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .timer{
+      font-variant-numeric: tabular-nums;
+      font-size:34px;
+      letter-spacing:.04em;
+      margin:6px 0 10px;
+    }
+    button{
+      appearance:none;
+      border:1px solid var(--line);
+      background:#0f1318;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:14px;
+      cursor:pointer;
+    }
+    button:hover{border-color:#3a4554}
+    input, textarea{
+      width:100%;
+      background:#0f1318;
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:14px;
+      outline:none;
+    }
+    textarea{min-height:68px; resize:vertical}
+    .hr{height:1px; background:var(--line); margin:12px 0}
+    .small{font-size:12px; color:var(--muted)}
+    .history{margin:0; padding-left:18px; color:var(--muted)}
+    .history li{margin:6px 0}
+    .pill{
+      display:inline-block;
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--muted);
+      margin-right:6px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="topbar">
+      <a class="back" href="./index.html">← 護符にもどる</a>
+      <span class="tag">BOUNDARY</span>
+    </div>
+
+    <h1>境界2分ワーク</h1>
+    <p class="lead">これは「技術」じゃなく<strong>短い実験</strong>。<br>
+      習慣化しない／毎日やらない／理解しない。読むだけOK。</p>
+
+    <div class="panel">
+      <h2>最初は、これだけ</h2>
+      <ul class="bullet">
+        <li>▶ このページを読む</li>
+        <li>▶ ワークは <strong>やらなくてOK</strong></li>
+        <li class="muted">無理に体感しようとすると、逆に薄くなります。</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>触るなら、この条件</h2>
+      <span class="pill">眠いとき</span>
+      <span class="pill">考えごと多い日</span>
+      <span class="pill">うまくいってない日</span>
+      <div class="hr"></div>
+      <ul class="bullet">
+        <li>「効果を出そう」としない</li>
+        <li>ただ眺める（観測する）</li>
+        <li>合わないなら閉じてOK</li>
+      </ul>
+      <p class="small">※ 強い不安・パニック傾向が出る人は無理に触らない（呼吸だけでOK）。</p>
+    </div>
+
+    <div class="panel">
+      <h2>2分タイマー（任意）</h2>
+      <div class="timer" id="t">02:00</div>
+      <div class="row">
+        <button id="start">開始</button>
+        <button id="stop">停止</button>
+        <button id="reset">リセット</button>
+      </div>
+      <p class="small">2分間、「目を閉じた残光」を“形にしない”。意味づけしない。</p>
+    </div>
+
+    <div class="panel">
+      <h2>一言メモ（任意）</h2>
+      <p class="small">体感が強い日も弱い日も、<strong>一行だけ</strong>。判断・分析は禁止。</p>
+      <textarea id="memo" placeholder="例：光がまだ決まってない／現実が少し遠い／何も起きない（←これも結果）"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="save">保存</button>
+        <button id="copy">コピー</button>
+        <button id="clear">履歴クリア</button>
+      </div>
+      <p class="small">保存はこの端末内（ローカル保存）。送信しません。</p>
+
+      <div class="hr"></div>
+      <div class="small">履歴（最新10件）</div>
+      <ol class="history" id="hist"></ol>
+    </div>
+
+    <p class="small">
+      ※ 画面が古い時は：PWA削除→再追加 / Safariタブを閉じて再起動（キャッシュ更新）
+    </p>
+  </main>
+
+  <script>
+    // ---- Timer (2:00) ----
+    let total = 120;
+    let remain = total;
+    let timerId = null;
+
+    const t = document.getElementById('t');
+    const fmt = (sec) => {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    };
+    const render = () => t.textContent = fmt(remain);
+
+    document.getElementById('start').addEventListener('click', () => {
+      if (timerId) return;
+      timerId = setInterval(() => {
+        remain = Math.max(0, remain - 1);
+        render();
+        if (remain === 0) {
+          clearInterval(timerId);
+          timerId = null;
+          // 小さく通知（音は出さない）
+          document.title = '完了｜境界2分ワーク';
+          setTimeout(() => document.title = '境界2分ワーク｜護符', 1200);
+        }
+      }, 1000);
+    });
+
+    document.getElementById('stop').addEventListener('click', () => {
+      if (!timerId) return;
+      clearInterval(timerId);
+      timerId = null;
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      if (timerId) { clearInterval(timerId); timerId = null; }
+      remain = total;
+      render();
+    });
+
+    render();
+
+    // ---- Memo local history ----
+    const KEY = 'boundary2min_history_v1';
+    const memo = document.getElementById('memo');
+    const hist = document.getElementById('hist');
+
+    const load = () => {
+      try { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+      catch { return []; }
+    };
+    const save = (arr) => localStorage.setItem(KEY, JSON.stringify(arr));
+
+    const draw = () => {
+      const arr = load().slice(0,10);
+      hist.innerHTML = '';
+      for (const item of arr) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        hist.appendChild(li);
+      }
+    };
+
+    document.getElementById('save').addEventListener('click', () => {
+      const v = (memo.value || '').trim();
+      if (!v) return;
+      const arr = load();
+      arr.unshift(v);
+      save(arr.slice(0,50));
+      memo.value = '';
+      draw();
+    });
+
+    document.getElementById('copy').addEventListener('click', async () => {
+      const v = (memo.value || '').trim();
+      if (!v) return;
+      try {
+        await navigator.clipboard.writeText(v);
+        document.title = 'コピーしました';
+        setTimeout(() => document.title = '境界2分ワーク｜護符', 800);
+      } catch(e) {
+        alert('コピーできませんでした（ブラウザ制限）');
+      }
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+      localStorage.removeItem(KEY);
+      draw();
+    });
+
+    draw();
+  </script>
+</body>
+</html>
