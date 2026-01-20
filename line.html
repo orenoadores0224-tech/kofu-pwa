@@ -2,46 +2,73 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>公式LINE｜静かな追加受け取り</title>
+  <meta name="description" content="境界2分ワーク／観測テンプレ／追加の短い実験を、必要な人だけに置きます。" />
   <style>
-    body{ margin:0; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif; }
-    main{ max-width:720px; margin:0 auto; padding:20px; }
-    h1{ font-size:20px; margin:0 0 8px; }
-    p{ line-height:1.75; opacity:.85; }
-
-    .line-invite{
-      margin:16px 0;
-      padding:14px 14px;
-      border:1px solid rgba(0,0,0,.12);
+    :root{
+      --bg:#0b0d10;
+      --panel:#12161c;
+      --text:#e9edf2;
+      --muted:#a9b2bf;
+      --line:#232a33;
+      --accent:#d7e3ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+        "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    main{max-width:760px; margin:0 auto; padding:22px 16px 44px}
+    h1{font-size:22px; margin:6px 0 10px; letter-spacing:.02em}
+    p{margin:0 0 14px; color:var(--muted)}
+    .box{
+      background:var(--panel);
+      border:1px solid var(--line);
       border-radius:16px;
-      background:rgba(255,255,255,.75);
-      backdrop-filter: blur(6px);
+      padding:16px 14px;
+      margin:14px 0;
     }
-    .line-invite__title{
-      font-size:14px; font-weight:800; letter-spacing:.02em; margin-bottom:6px;
+    .boxTitle{font-size:15px; font-weight:900; margin:0 0 8px; color:var(--text)}
+    .boxText{margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.75}
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      line-height:1.7;
     }
-    .line-invite__text{
-      font-size:13px; line-height:1.65; opacity:.85; margin-bottom:10px;
-    }
-    .line-btn{
-      display:flex; align-items:center; justify-content:center;
+
+    /* ボタン（メイン） */
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
       width:100%;
-      padding:12px 14px;
+      padding:14px 14px;
       border-radius:14px;
-      border:1px solid rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.16);
       text-decoration:none;
-      font-weight:800;
-      font-size:14px;
+      font-weight:900;
       letter-spacing:.02em;
-      background:rgba(255,255,255,.85);
-      color:inherit;
-      transition: transform .08s ease, background .2s ease;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
     }
-    .line-btn:active{ transform: translateY(1px); }
-    .back{
-      display:inline-block; margin-top:14px; font-size:13px; opacity:.75; text-decoration:none;
+    .btn:hover{border-color:rgba(255,255,255,.26)}
+    .btn:active{transform:translateY(1px)}
+
+    /* ボタン（戻る・サブ） */
+    .btnGhost{
+      background:transparent;
+      border-style:dashed;
+      color:rgba(255,255,255,.75);
     }
+    .sp10{height:10px}
+    .sp12{height:12px}
   </style>
 </head>
 <body>
@@ -49,18 +76,30 @@
     <h1>静かな追加受け取り</h1>
     <p>境界2分ワーク／観測テンプレ／追加の短い実験を、必要な人だけに置きます。</p>
 
-    <section class="line-invite">
-      <div class="line-invite__title">公式LINE</div>
-      <div class="line-invite__text">
-        追加ワーク／注意点／観測テンプレ。<br>毎日は不要。必要なときだけ開けます。
+    <div class="box">
+      <div class="boxTitle">公式LINE</div>
+      <div class="boxText">
+        毎日は不要。必要なときだけ開けます。<br>
+        こちらから売り込みはしません（置いておくだけ）。
       </div>
 
-      <a class="line-btn" href="https://lin.ee/8AOmAOg" target="_blank" rel="noopener">
+      <!-- メイン：LINEへ -->
+      <a class="btn" href="https://lin.ee/8AOmAOg" target="_blank" rel="noopener">
         公式LINEで受け取る
       </a>
-    </section>
 
-    <a class="back" href="./index.html">← 戻る</a>
+      <div class="fine">
+        ※「合わない」と感じたら、そのまま閉じて大丈夫。<br>
+        ※通知が苦手な人は、LINE側で通知OFFでもOK。
+      </div>
+
+      <div class="sp12"></div>
+
+      <!-- サブ：護符へ戻る（迷子防止） -->
+      <a class="btn btnGhost" href="./index.html">
+        護符にもどる
+      </a>
+    </div>
   </main>
 </body>
 </html>
