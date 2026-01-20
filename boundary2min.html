@@ -92,6 +92,51 @@
       color:var(--muted);
       margin-right:6px;
     }
+
+    /* ===== LINE誘導（世界観統一） ===== */
+    .lineInvite{
+      margin:14px 0 0;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .lineInvite__title{
+      font-size:14px;
+      margin:0 0 8px;
+      color:var(--accent);
+      letter-spacing:.08em;
+      font-weight:700;
+    }
+    .lineInvite__text{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.75;
+    }
+    .lineInvite__btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#0f1318;
+      color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      font-weight:700;
+    }
+    .lineInvite__btn:hover{ border-color:#3a4554; text-decoration:none; }
+    .lineInvite__btn:active{ transform:translateY(1px); }
+    .lineInvite__close{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:transparent;
+      color:var(--muted);
+    }
+    /* ===== /LINE誘導 ===== */
   </style>
 </head>
 <body>
@@ -158,6 +203,26 @@
     <p class="small">
       ※ 画面が古い時は：PWA削除→再追加 / Safariタブを閉じて再起動（キャッシュ更新）
     </p>
+
+    <!-- ===== LINE誘導（完了後・初回だけ表示） ===== -->
+    <section class="lineInvite" id="lineInvite" aria-label="公式LINE案内">
+      <div class="lineInvite__title">静かな追加受け取り</div>
+      <p class="lineInvite__text">
+        境界が動いた人だけへ。追加の短い実験／観測テンプレ／注意点を置きます。<br>
+        毎日は不要。必要なときだけ開けます。
+      </p>
+
+      <div class="row" style="margin-top:10px">
+        <a class="lineInvite__btn" href="./line.html">置き場所（公式LINE）を開く</a>
+        <button class="lineInvite__close" type="button" id="lineInviteClose">今は閉じる</button>
+      </div>
+
+      <div class="small" style="margin-top:10px">
+        ※ 売り込みはしません（必要なものだけ置きます）
+      </div>
+    </section>
+    <!-- ===== /LINE誘導 ===== -->
+
   </main>
 
   <script>
@@ -252,6 +317,22 @@
     });
 
     draw();
+
+    // ---- LINE invite (show once) ----
+    const LINE_KEY = 'boundary2min_line_invite_hidden_v1';
+    const lineInvite = document.getElementById('lineInvite');
+    const lineClose = document.getElementById('lineInviteClose');
+
+    if (localStorage.getItem(LINE_KEY) === '1' && lineInvite) {
+      lineInvite.style.display = 'none';
+    }
+
+    if (lineClose) {
+      lineClose.addEventListener('click', () => {
+        if (lineInvite) lineInvite.style.display = 'none';
+        localStorage.setItem(LINE_KEY, '1');
+      });
+    }
   </script>
 </body>
 </html>
