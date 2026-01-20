@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>公式LINE｜静かな追加受け取り</title>
-  <meta name="description" content="追加ワーク／観測テンプレ／注意点。必要な人だけ。" />
+  <title>護符</title>
+  <meta name="description" content="必要なものだけ最短で開く。" />
   <style>
     :root{
       --bg:#0b0d10;
@@ -17,78 +17,99 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,
+        "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
       background:var(--bg);
       color:var(--text);
-      line-height:1.65;
+      line-height:1.55;
     }
-    main{max-width:760px; margin:0 auto; padding:22px 16px 44px}
-    h1{font-size:22px; margin:6px 0 10px; letter-spacing:.02em}
-    p{margin:0 0 14px; color:var(--muted)}
-    .box{
+    main{max-width:760px; margin:0 auto; padding:18px 16px 44px}
+    h1{font-size:22px; margin:6px 0 6px}
+    .lead{color:var(--muted); margin:0 0 14px}
+
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      letter-spacing:.12em;
+      color:var(--muted);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      text-transform:uppercase;
+      margin:6px 0 10px;
+    }
+
+    .card{
+      display:block;
       background:var(--panel);
       border:1px solid var(--line);
-      border-radius:16px;
-      padding:16px 14px;
-      margin:14px 0;
-    }
-    .boxTitle{font-size:15px; font-weight:900; margin:0 0 8px; color:var(--text)}
-    .boxText{margin:0 0 12px; color:var(--muted); font-size:14px; line-height:1.75}
-    .btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:100%;
-      padding:14px 14px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
+      padding:14px;
+      margin:10px 0;
       text-decoration:none;
-      font-weight:900;
-      letter-spacing:.02em;
-      background:rgba(255,255,255,.08);
       color:var(--text);
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
     }
-    .btn:hover{border-color:rgba(255,255,255,.26)}
-    .btn:active{transform:translateY(1px)}
-    .fine{
+    .card:hover{border-color:#3a4554}
+    .title{font-size:16px; margin:0 0 6px}
+    .sub{margin:0; color:var(--muted); font-size:13px}
+    .pill{
+      display:inline-block;
       margin-top:10px;
       font-size:12px;
-      color:rgba(255,255,255,.55);
-      line-height:1.7;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--accent);
     }
-    .back{
-      display:inline-block;
-      margin-top:16px;
-      font-size:14px;
-      color:rgba(180,200,255,.9);
-      text-decoration:none;
-    }
+    .small{color:var(--muted); font-size:12px; margin-top:14px}
   </style>
 </head>
 <body>
   <main>
-    <h1>静かな追加受け取り</h1>
-    <p>境界2分ワーク／観測テンプレ／追加の短い実験を、必要な人だけに置きます。</p>
+    <h1>護符</h1>
+    <p class="lead">必要なものだけ最短で開く</p>
 
-    <div class="box">
-      <div class="boxTitle">公式LINE</div>
-      <div class="boxText">
-        毎日は不要。必要なときだけ開けます。<br>
-        こちらから売り込みはしません（置いておくだけ）。
-      </div>
+    <span class="tag">ENTRY / SAFE</span>
 
-      <a class="btn" href="https://lin.ee/8AOmAOg" target="_blank" rel="noopener">
-        公式LINEで受け取る
-      </a>
+    <a class="card" href="./boundary2min.html">
+      <div class="title">境界2分ワーク</div>
+      <p class="sub">夢と現実の狭間を2分だけ観測する。読むだけOK。</p>
+      <span class="pill">開く</span>
+    </a>
 
-      <div class="fine">
-        ※「合わない」と感じたら、そのまま閉じて大丈夫。<br>
-        ※通知が苦手な人は、LINE側で通知OFFでもOK。
-      </div>
-    </div>
+    <a class="card" href="./line.html">
+      <div class="title">公式LINE（静かな追加受け取り）</div>
+      <p class="sub">境界が動いた人だけへ。追加ワーク／観測テンプレ／注意点。</p>
+      <span class="pill">開く</span>
+    </a>
 
-    <a class="back" href="./index.html">← 戻る</a>
+    <span class="tag">陰陽師モード / Sharp</span>
+
+    <a class="card" href="./juken.html">
+      <div class="title">受験護符（親の静けさ）</div>
+      <p class="sub">写真1枚＋封入ボタン。親の不安を、子どもに渡さない。</p>
+      <span class="pill">開く</span>
+    </a>
+
+    <a class="card" href="./shobai.html">
+      <div class="title">商売繁殖護符</div>
+      <p class="sub">写真2枚（大・小）＋封印ボタン。場を増やす。</p>
+      <span class="pill">開く</span>
+    </a>
+
+    <a class="card" href="./ba-kansoku.html">
+      <div class="title">場の観測フォーマット</div>
+      <p class="sub">0〜10の数値＋短文。判断せず、見えたことだけ。</p>
+      <span class="pill">開く</span>
+    </a>
+
+    <a class="card" href="./coldshower.html">
+      <div class="title">コールドシャワー</div>
+      <p class="sub">冷水を儀式化する。短い導入→実行→記録。</p>
+      <span class="pill">開く</span>
+    </a>
+
+    <p class="small">※ 画面が古い時は：PWA削除→再追加 or Safariタブを閉じて再起動</p>
   </main>
 </body>
 </html>
