@@ -68,7 +68,93 @@
   <main>
     <h1>護符</h1>
     <p class="lead">必要なものだけ最短で開く</p>
+<!-- ====== START: 初見ガイド（図解＋3カード） ====== -->
+<style>
+  .start-guide { margin: 16px 0 18px; padding: 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 14px; background: rgba(255,255,255,.03); }
+  .start-guide h2 { margin: 0 0 8px; font-size: 16px; letter-spacing: .02em; }
+  .start-guide p { margin: 8px 0; line-height: 1.7; opacity: .92; }
+  .start-guide .small { font-size: 12.5px; opacity: .78; }
+  .flowbox { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 12px; line-height: 1.5; padding: 10px; border-radius: 12px; background: rgba(0,0,0,.32);
+            border: 1px solid rgba(255,255,255,.12); overflow-x: auto; }
+  .cards { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
+  @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr 1fr; } }
+  .gcard { padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+  .gcard h3 { margin: 0 0 6px; font-size: 14px; }
+  .gcard ul { margin: 6px 0 10px 18px; padding: 0; opacity: .9; }
+  .gbtn { display: inline-block; padding: 9px 10px; border-radius: 12px; text-decoration: none;
+         border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+  .gbtn:hover { background: rgba(255,255,255,.10); }
+  details.guide-more { margin-top: 10px; }
+  details.guide-more summary { cursor: pointer; opacity: .9; }
+</style>
 
+<section class="start-guide" id="start-here">
+  <h2>はじめての方へ（30秒）</h2>
+  <p><b>ここは「前に進む場所」じゃなく、戻ってこれる場所です。</b><br>
+  夢を決めなくていい。習慣化しなくていい。<b>2分だけ触って、観測して、撤収でOK。</b></p>
+
+  <div class="flowbox" aria-label="使い方の全体図">
+┌──────────────┐
+│ ① 2分やる     │  ← 小さく触る
+└──────┬───────┘
+       │
+       v
+┌──────────────┐
+│ ② 観測する     │  ← 0〜10＋一言
+└──────┬───────┘
+       │
+       v
+┌──────────────┐
+│ ③ 撤収する     │  ← 深追いしない
+└──────────────┘
+※「戻ってこれたら合格」
+  </div>
+
+  <div class="cards">
+    <div class="gcard">
+      <h3>① 2分やる（実験）</h3>
+      <ul>
+        <li>上手くやらない</li>
+        <li>体感なくてOK</li>
+        <li>2分で終わる</li>
+      </ul>
+      <a class="gbtn" href="./boundary2min.html">2分やる</a>
+    </div>
+
+    <div class="gcard">
+      <h3>② 観測する（回収）</h3>
+      <ul>
+        <li>0〜10＋一言でOK</li>
+        <li>「無理/怖い/時間ない」もデータ</li>
+        <li>反省じゃなく回収</li>
+      </ul>
+      <a class="gbtn" href="./ba-kansoku.html">観測して閉じる</a>
+    </div>
+
+    <div class="gcard">
+      <h3>③ 撤収する（安全）</h3>
+      <ul>
+        <li>深追いしない</li>
+        <li>解釈しない</li>
+        <li>閉じたら合格</li>
+      </ul>
+      <a class="gbtn" href="#">今日は撤収</a>
+    </div>
+  </div>
+
+  <p class="small">※「進めない」のは意思が弱いからじゃなく、脳の<b>省電力モード</b>（安全装置）が作動するから。ここでは戦わず、<b>小さくして終わらせます</b>。</p>
+
+  <details class="guide-more">
+    <summary>もっと読む：省電力モードって何？</summary>
+    <p class="small">
+      夢や変化が近づくと、脳は負荷を危険扱いして省電力になります。<br>
+      そのとき出る言葉が「無理」「怖い」「時間ない」「どうせ」。<br>
+      ここでは説得せず、2分に小さくして、観測して、撤収します。
+    </p>
+  </details>
+</section>
+<!-- ====== END: 初見ガイド（図解＋3カード） ====== -->
     <span class="tag">ENTRY / SAFE</span>
 
     <a class="card" href="./boundary2min.html">
