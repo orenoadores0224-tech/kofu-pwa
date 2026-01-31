@@ -2,218 +2,322 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>護符</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>護符 / CONTEXT</title>
   <meta name="description" content="必要なものだけ最短で開く。" />
+  <meta name="theme-color" content="#0b0d10" />
   <style>
     :root{
-      --bg:#0b0d10;
-      --panel:#12161c;
-      --text:#e9edf2;
-      --muted:#a9b2bf;
-      --line:#232a33;
-      --accent:#d7e3ff;
+      --bg-start: #050608;
+      --bg-end: #1a1f29;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text: #e9edf2;
+      --muted: #8b9bb4;
+      --accent: #d7e3ff;
+      --gold: #ffd700;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,
-        "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
-    main{max-width:760px; margin:0 auto; padding:18px 16px 44px}
-    h1{font-size:22px; margin:6px 0 6px}
-    .lead{color:var(--muted); margin:0 0 14px}
-
-    .tag{
-      display:inline-block;
-      font-size:12px;
-      letter-spacing:.12em;
-      color:var(--muted);
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:999px;
-      text-transform:uppercase;
-      margin:6px 0 10px;
+    
+    /* 深淵の呼吸（背景アニメーション） */
+    @keyframes breathe {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .card{
-      display:block;
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-      margin:10px 0;
-      text-decoration:none;
-      color:var(--text);
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: linear-gradient(-45deg, var(--bg-start), #0F1219, #161b24, var(--bg-start));
+      background-size: 400% 400%;
+      animation: breathe 15s ease infinite;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    .card:hover{border-color:#3a4554}
-    .title{font-size:16px; margin:0 0 6px}
-    .sub{margin:0; color:var(--muted); font-size:13px}
-    .pill{
-      display:inline-block;
-      margin-top:10px;
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      color:var(--accent);
+
+    main { max-width: 760px; margin: 0 auto; padding: 20px 18px 80px; }
+    
+    /* フェードイン演出 */
+    .fade-in { opacity: 0; transform: translateY(10px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .visible { opacity: 1; transform: translateY(0); }
+
+    h1 { 
+      font-size: 24px; 
+      margin: 10px 0 4px; 
+      font-weight: 300; 
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 10px rgba(215, 227, 255, 0.3);
     }
-    .small{color:var(--muted); font-size:12px; margin-top:14px}
+    .lead { color: var(--muted); margin: 0 0 24px; font-size: 14px; opacity: 0.8; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--accent);
+      background: rgba(215, 227, 255, 0.05);
+      border: 1px solid rgba(215, 227, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      margin: 20px 0 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* グラスモーフィズム・カード */
+    .card {
+      display: block;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 12px 0;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* カードの光沢演出 */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+    .card:active { transform: scale(0.98); background: rgba(255,255,255,0.06); }
+    .card:active::before { left: 100%; }
+
+    .title { font-size: 17px; margin: 0 0 6px; font-weight: 500; letter-spacing: 0.05em; }
+    .sub { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 12px;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--glass-border);
+      color: var(--accent);
+      background: rgba(0,0,0,0.2);
+    }
+    .pill::after { content: '→'; margin-left: 6px; opacity: 0.7; }
+
+    /* ガイドエリア */
+    .start-guide {
+      margin: 20px 0 30px;
+      padding: 20px;
+      border: 1px solid rgba(255,215,0, 0.15); /* 金色の淡い枠 */
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,215,0,0.02), transparent);
+    }
+    .start-guide h2 { margin: 0 0 10px; font-size: 15px; color: #ffd700; opacity: 0.9; }
+    .flowbox {
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--glass-border);
+      overflow-x: auto;
+      white-space: pre;
+      color: #ccc;
+      margin: 14px 0;
+    }
+
+    /* マイスピーへの裏口（特別演出） */
+    .secret-door {
+      margin-top: 60px;
+      padding: 30px 20px;
+      border-top: 1px solid var(--glass-border);
+      text-align: center;
+      position: relative;
+    }
+    .secret-door p { font-size: 12px; color: var(--muted); margin-bottom: 15px; letter-spacing: 0.1em; }
+    .secret-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #1a1f29, #0b0d10);
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      border-radius: 99px;
+      font-size: 13px;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+      transition: all 0.3s;
+    }
+    .secret-btn:active { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); transform: scale(0.96); }
+
+    /* 夜間限定メッセージ */
+    #night-message {
+      display: none;
+      font-size: 11px;
+      color: var(--accent);
+      text-align: center;
+      padding: 8px;
+      background: rgba(11, 13, 16, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid var(--glass-border);
+    }
   </style>
 </head>
 <body>
-  <div id="top"></div>
+
+  <div id="night-message">🌙 深夜の作戦会議室へようこそ</div>
+
   <main>
-    <h1>護符</h1>
-    <p class="lead">必要なものだけ最短で開く</p>
-<!-- ====== START: 初見ガイド（図解＋3カード） ====== -->
-<style>
-  .start-guide { margin: 16px 0 18px; padding: 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 14px; background: rgba(255,255,255,.03); }
-  .start-guide h2 { margin: 0 0 8px; font-size: 16px; letter-spacing: .02em; }
-  .start-guide p { margin: 8px 0; line-height: 1.7; opacity: .92; }
-  .start-guide .small { font-size: 12.5px; opacity: .78; }
-  .flowbox{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,.32);
-  border: 1px solid rgba(255,255,255,.12);
-  overflow-x: auto;
-  white-space: pre;
-}
-  .cards { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
-  @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr 1fr; } }
-  .gcard { padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
-  .gcard h3 { margin: 0 0 6px; font-size: 14px; }
-  .gcard ul { margin: 6px 0 10px 18px; padding: 0; opacity: .9; }
-  .gbtn {
-  display: inline-block;
-  padding: 9px 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 12px;
-  text-decoration: none;
+    <div class="fade-in">
+      <h1>護符 / CONTEXT</h1>
+      <p class="lead">必要なものだけ、最短で書き換える。</p>
 
-  background: rgba(215,227,255,.10);
-  color: var(--text);
-  border-color: rgba(215,227,255,.35);
-}
-  .gbtn:hover { background: rgba(215,227,255,.18); }
-  details.guide-more { margin-top: 10px; }
-  details.guide-more summary { cursor: pointer; opacity: .9; }
-</style>
-
-<section class="start-guide" id="start-here">
-  <h2>はじめての方へ（30秒）</h2>
-  <p><b>ここは「前に進む場所」じゃなく、戻ってこれる場所です。</b><br>
-  夢を決めなくていい。習慣化しなくていい。<b>2分だけ触って、観測して、撤収でOK。</b></p>
-
-  <div class="flowbox" aria-label="使い方の全体図">
+      <section class="start-guide">
+        <h2>⟡ 初見の方へ（儀式の手順）</h2>
+        <div class="flowbox">
 ┌──────────────┐
-│ ① 2分やる     │  ← 小さく触る
+│ ① 2分やる     │ ← 小さく触る
 └──────┬───────┘
-       │
-       v
+       ↓
 ┌──────────────┐
-│ ② 観測する     │  ← 0〜10＋一言
+│ ② 観測する     │ ← 0〜10＋一言
 └──────┬───────┘
-       │
-       v
+       ↓
 ┌──────────────┐
-│ ③ 撤収する     │  ← 深追いしない
+│ ③ 撤収する     │ ← 戻れたら合格
 └──────────────┘
-※「戻ってこれたら合格」
-  </div>
+        </div>
+        <p style="font-size:12px; opacity:0.8; margin-top:8px;">
+          ※ここは「前進」ではなく「帰還」の場所です。<br>
+          脳の省電力モード（言い訳）が発動する前に、2分で終わらせてください。
+        </p>
+      </section>
 
-  <div class="cards">
-    <div class="gcard">
-      <h3>① 2分やる（実験）</h3>
-      <ul>
-        <li>上手くやらない</li>
-        <li>体感なくてOK</li>
-        <li>2分で終わる</li>
-      </ul>
-      <a class="gbtn" href="./boundary2min.html">2分やる</a>
+      <span class="tag">ENTRY / SAFE</span>
+
+      <a class="card" href="./boundary2min.html">
+        <div class="title">境界2分ワーク</div>
+        <p class="sub">夢と現実の狭間を2分だけ観測する。読むだけで完了。</p>
+        <span class="pill">開く</span>
+      </a>
+
+      <a class="card" href="./line.html">
+        <div class="title">公式LINE（静かな追加受け取り）</div>
+        <p class="sub">境界が動いた人へ。追加ワークと観測テンプレ。</p>
+        <span class="pill">開く</span>
+      </a>
+
+      <span class="tag">SHARP / RITUAL</span>
+
+      <a class="card" href="./juken.html">
+        <div class="title">受験護符（親の静けさ）</div>
+        <p class="sub">写真1枚＋封入。親の不安を、子どもに感染させない。</p>
+        <span class="pill">封じる</span>
+      </a>
+
+      <a class="card" href="./shobai.html">
+        <div class="title">商売繁殖護符</div>
+        <p class="sub">写真2枚＋拡張。場を物理的に増やす。</p>
+        <span class="pill">増やす</span>
+      </a>
+
+      <a class="card" href="./ba-kansoku.html">
+        <div class="title">場の観測フォーマット</div>
+        <p class="sub">0〜10の数値＋短文。判断せず、事実だけを回収。</p>
+        <span class="pill">記録</span>
+      </a>
+
+      <a class="card" href="./coldshower.html">
+        <div class="title">コールドシャワー</div>
+        <p class="sub">冷水を浴びる儀式。導入→実行→完了。</p>
+        <span class="pill">実行</span>
+      </a>
+      
+      <div class="secret-door">
+        <p>THE WILD SIDE / SECRET ENTRANCE</p>
+        <a href="【ここにマイスピーのURLを貼る】" class="secret-btn">夜21時の文脈編集室へ ＞</a>
+      </div>
+
+      <p style="text-align:center; font-size:10px; color:var(--muted); opacity:0.5; margin-top:30px;">
+        CONTEXT ALCHEMY v2.0
+      </p>
     </div>
-
-    <div class="gcard">
-      <h3>② 観測する（回収）</h3>
-      <ul>
-        <li>0〜10＋一言でOK</li>
-        <li>「無理/怖い/時間ない」もデータ</li>
-        <li>反省じゃなく回収</li>
-      </ul>
-      <a class="gbtn" href="./ba-kansoku.html">観測して閉じる</a>
-    </div>
-
-    <div class="gcard">
-      <h3>③ 撤収する（安全）</h3>
-      <ul>
-        <li>深追いしない</li>
-        <li>解釈しない</li>
-        <li>閉じたら合格</li>
-      </ul>
-    142 <a class="gbtn" href="#top">今日は撤収</a>
-    </div>
-  </div>
-
-  <p class="small">※「進めない」のは意思が弱いからじゃなく、脳の<b>省電力モード</b>（安全装置）が作動するから。ここでは戦わず、<b>小さくして終わらせます</b>。</p>
-
-  <details class="guide-more">
-    <summary>もっと読む：省電力モードって何？</summary>
-    <p class="small">
-      夢や変化が近づくと、脳は負荷を危険扱いして省電力になります。<br>
-      そのとき出る言葉が「無理」「怖い」「時間ない」「どうせ」。<br>
-      ここでは説得せず、2分に小さくして、観測して、撤収します。
-    </p>
-  </details>
-</section>
-<!-- ====== END: 初見ガイド（図解＋3カード） ====== -->
-    <span class="tag">ENTRY / SAFE</span>
-
-    <a class="card" href="./boundary2min.html">
-      <div class="title">境界2分ワーク</div>
-      <p class="sub">夢と現実の狭間を2分だけ観測する。読むだけOK。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <a class="card" href="./line.html">
-      <div class="title">公式LINE（静かな追加受け取り）</div>
-      <p class="sub">境界が動いた人だけへ。追加ワーク／観測テンプレ／注意点。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <span class="tag">陰陽師モード / Sharp</span>
-
-    <a class="card" href="./juken.html">
-      <div class="title">受験護符（親の静けさ）</div>
-      <p class="sub">写真1枚＋封入ボタン。親の不安を、子どもに渡さない。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <a class="card" href="./shobai.html">
-      <div class="title">商売繁殖護符</div>
-      <p class="sub">写真2枚（大・小）＋封印ボタン。場を増やす。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <a class="card" href="./ba-kansoku.html">
-      <div class="title">場の観測フォーマット</div>
-      <p class="sub">0〜10の数値＋短文。判断せず、見えたことだけ。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <a class="card" href="./coldshower.html">
-      <div class="title">コールドシャワー</div>
-      <p class="sub">冷水を儀式化する。短い導入→実行→記録。</p>
-      <span class="pill">開く</span>
-    </a>
-
-    <p class="small">※ 画面が古い時は：PWA削除→再追加 or Safariタブを閉じて再起動</p>
   </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. 夜間判定 (21:00 - 04:00)
+    const hour = new Date().getHours();
+    if (hour >= 21 || hour <= 4) {
+      document.getElementById('night-message').style.display = 'block';
+    }
+
+    // 2. フェードイン起動
+    setTimeout(() => {
+      document.querySelector('.fade-in').classList.add('visible');
+    }, 100);
+
+    // 3. 振動フィードバック (Haptic)
+    const interactables = document.querySelectorAll('a, button');
+    interactables.forEach(el => {
+      el.addEventListener('click', () => {
+        if (navigator.vibrate) navigator.vibrate(15);
+      });
+    });
+
+    // 4. パーティクル生成 (光の粒)
+    document.addEventListener('click', (e) => {
+      createSparkle(e.clientX, e.clientY);
+    });
+
+    function createSparkle(x, y) {
+      const colors = ['#d7e3ff', '#ffd700', '#ffffff']; // 青、金、白
+      for (let i = 0; i < 4; i++) {
+        const spark = document.createElement('div');
+        const size = Math.random() * 4 + 2;
+        spark.style.width = size + 'px';
+        spark.style.height = size + 'px';
+        spark.style.position = 'fixed';
+        spark.style.left = x + 'px';
+        spark.style.top = y + 'px';
+        spark.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        spark.style.borderRadius = '50%';
+        spark.style.pointerEvents = 'none';
+        spark.style.zIndex = '9999';
+        
+        // ランダムな方向へ飛ばす
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 30 + 20;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        
+        spark.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+        
+        document.body.appendChild(spark);
+        
+        requestAnimationFrame(() => {
+          spark.style.transform = `translate(${tx}px, ${ty}px)`;
+          spark.style.opacity = '0';
+        });
+        
+        setTimeout(() => spark.remove(), 600);
+      }
+    }
+  });
+</script>
 </body>
 </html>
