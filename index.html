@@ -4,313 +4,668 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>【無料診断】あなたの「ヒーラー搾取され度」チェック</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Shippori+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-color: #0d0d0d;
-    --text-color: #e6e6e6;
-    --gold: #c9a84c;
-    --red: #8b0000;
-    --gray: #333333;
+    /* 黒・金・真紅のダークテーマ（教祖スタイル） */
+    --ink: #e6e6e6;       /* ベーステキスト（ライトグレー） */
+    --paper: #0a0a0a;     /* 背景（漆黒） */
+    --gold: #c9a84c;      /* アクセント（くすんだ金） */
+    --deep: #ffffff;      /* 見出し（純白） */
+    --mist: #888888;      /* サブテキスト（グレー） */
+    --accent: #8b0000;    /* 強調・選択（真紅） */
+    --box-bg: rgba(255, 255, 255, 0.03);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background: var(--paper);
+    color: var(--ink);
     font-family: 'Zen Kaku Gothic New', sans-serif;
-    line-height: 1.8;
+    min-height: 100vh;
     overflow-x: hidden;
   }
 
+  /* ダーク和紙テクスチャ（魔導書の質感） */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .container {
-    max-width: 600px;
+    max-width: 680px;
     margin: 0 auto;
-    padding: 40px 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
   }
 
-  h1, h2, h3 {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 900;
+  /* ヘッダー */
+  .hero {
     text-align: center;
+    padding: 80px 0 60px;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    position: relative;
   }
 
-  .title {
-    color: var(--gold);
-    font-size: 24px;
-    margin-bottom: 20px;
-    line-height: 1.4;
+  /* 背景の透かし文字（呪縛の「縛」） */
+  .hero::before {
+    content: '縛';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 140px;
+    color: rgba(139, 0, 0, 0.08); /* 暗い赤の透かし */
+    letter-spacing: 0;
+    pointer-events: none;
   }
 
-  .lead-text {
-    font-size: 15px;
-    margin-bottom: 40px;
-  }
-
-  .btn {
-    display: block;
-    width: 100%;
-    background: var(--gray);
-    color: var(--text-color);
-    border: 1px solid var(--gold);
-    padding: 16px;
-    font-size: 16px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 16px;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+  .hero-tag {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    margin-bottom: 28px;
     font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
   }
 
-  .btn:hover {
-    background: var(--gold);
-    color: var(--bg-color);
-    font-weight: bold;
-  }
-
-  .btn-primary {
-    background: var(--red);
-    color: #fff;
-    border: none;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 20px;
-    text-decoration: none;
-  }
-
-  .btn-primary:hover {
-    background: #a30000;
-    color: #fff;
-  }
-
-  .screen {
-    display: none;
-    animation: fadeIn 0.5s ease;
-  }
-
-  .screen.active {
-    display: block;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .question-number {
+  .hero h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 900;
+    line-height: 1.5;
     color: var(--gold);
-    font-size: 14px;
-    margin-bottom: 8px;
-    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--ink);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* 進捗バー */
+  .progress-wrap {
+    padding: 28px 0 0;
+    display: none;
+  }
+
+  .progress-wrap.active { display: block; }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
     letter-spacing: 2px;
-  }
-
-  .question-text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  .result-box {
-    border: 2px solid var(--gold);
-    padding: 30px 20px;
-    background: rgba(201, 168, 76, 0.05);
-    margin-bottom: 40px;
-  }
-
-  .result-rank {
-    color: var(--red);
-    font-size: 16px;
-    font-weight: bold;
+    color: var(--mist);
     margin-bottom: 10px;
   }
 
-  .result-title {
-    font-size: 22px;
-    color: var(--gold);
-    margin-bottom: 20px;
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 1px;
+    overflow: hidden;
   }
 
-  .result-desc {
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    border-radius: 1px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  /* スタート画面 */
+  #screen-start { padding: 50px 0; }
+
+  .start-desc {
+    background: var(--box-bg);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 32px 0;
     font-size: 15px;
+    line-height: 2.2;
+    color: var(--ink);
+  }
+
+  .time-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    font-weight: bold;
+  }
+
+  /* ボタン */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #ffffff;
+    border: 1px solid #ff0000;
+    padding: 20px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 4px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover { 
+    background: #600000; 
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+  }
+
+  /* 質問画面 */
+  #screen-quiz { display: none; padding: 50px 0; }
+
+  .question-num {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .question-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--deep);
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .choices { display: flex; flex-direction: column; gap: 16px; }
+
+  .choice-btn {
+    background: var(--box-bg);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 20px 24px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink);
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .choice-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    transform: translateX(4px);
+  }
+
+  .choice-btn.selected {
+    border-color: var(--accent);
+    background: rgba(139, 0, 0, 0.2);
+    color: #ffffff;
+  }
+
+  .choice-btn::before {
+    content: '◯';
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    margin-right: 12px;
+  }
+
+  .choice-btn.selected::before { content: '●'; color: var(--accent); }
+
+  .nav-wrap {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .btn-back {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 14px 24px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 13px;
+    color: var(--mist);
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+
+  .btn-next {
+    flex: 1;
+    background: #222222;
+    border: 1px solid #444444;
+    padding: 16px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: var(--mist);
+    cursor: pointer;
+    letter-spacing: 3px;
+    transition: all 0.3s;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .btn-next.ready { 
+    opacity: 1; 
+    pointer-events: all; 
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--paper);
+    font-weight: bold;
+  }
+  .btn-next.ready:hover { background: #dfbb5a; }
+
+  /* 結果画面 */
+  #screen-result { display: none; padding: 50px 0; }
+
+  .result-tag {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+
+  .result-type {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .result-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+    margin: 32px 0;
+  }
+
+  .result-section {
+    margin-bottom: 32px;
+    background: var(--box-bg);
+    padding: 24px;
+    border-left: 2px solid var(--gold);
+  }
+
+  .result-section p {
+    font-size: 15px;
+    line-height: 2.2;
+    color: var(--ink);
+  }
+
+  .result-section p strong {
+    color: var(--accent);
+    background: rgba(139, 0, 0, 0.1);
+    padding: 0 4px;
+  }
+
+  /* 登録ボックス */
+  .register-box {
+    background: #111111;
+    border: 1px solid var(--accent);
+    padding: 40px 36px;
+    margin-top: 48px;
+    position: relative;
+    text-align: center;
+  }
+
+  .register-box h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+
+  .register-box p {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--ink);
+    margin-bottom: 32px;
     text-align: left;
   }
 
-  .cta-box {
+  /* ローディング */
+  .loading {
+    display: none;
     text-align: center;
-    border-top: 1px solid var(--gray);
-    padding-top: 40px;
+    padding: 80px 0;
   }
 
-  .cta-title {
-    color: var(--red);
-    font-size: 20px;
-    margin-bottom: 15px;
+  .loading.active { display: block; }
+
+  .loading-circle {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    animation: spin 1s linear infinite;
   }
 
-  .cta-text {
-    font-size: 14px;
-    margin-bottom: 30px;
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading p {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 2px;
   }
 
+  /* フェードイン */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* フッター */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--mist);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 60px;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
-  
-  <div id="screen-intro" class="screen active">
-    <h1 class="title">【無料診断】<br>あなたの「ヒーラー搾取され度」チェック</h1>
-    <div class="lead-text">
-      <p>あなたは今、誰の人生を生きていますか？</p><br>
-      <p>「お金をもらうのが申し訳ない」「無料で人を救いたい」…そんな綺麗事を並べて、クレクレ星人に自分の命（時間と気）を吸い取られていませんか？</p><br>
-      <p>この診断では、あなたの脳内に潜む「自己犠牲という名のバグ」を数値化し、残酷な現実を突きつけます。</p><br>
-      <p style="color:var(--red); font-weight:bold;">目を背けずに、直感で答えてください。</p>
-    </div>
-    <button class="btn btn-primary" onclick="startQuiz()">覚悟を決めて診断を始める</button>
+
+  <div class="hero fade-in">
+    <div class="hero-tag">HOMEOSTASIS BUG CHECK</div>
+    <h1>【無料診断】<br>あなたの「ヒーラー搾取され度」チェック</h1>
+    <p>あなたは今、誰の人生を生きていますか？<br>「お金をもらうのが申し訳ない」…そんな綺麗事を並べて、クレクレ星人に自分の命（時間と気）を吸い取られていませんか？</p>
   </div>
 
-  <div id="screen-quiz" class="screen">
-    <div class="question-number" id="q-number">Q.1 / 3</div>
-    <div class="question-text" id="q-text">質問テキスト</div>
-    <div id="q-buttons">
-      </div>
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-label">
+      <span id="progress-text">QUESTION 1 / 3</span>
+      <span id="progress-pct">33%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
 
-  <div id="screen-result" class="screen">
-    <h2 style="margin-bottom:30px;">診断結果</h2>
-    
-    <div class="result-box">
-      <div class="result-rank" id="r-rank">危険度MAX</div>
-      <div class="result-title" id="r-title">【完全搾取型】クレクレ星人の養分</div>
-      <div class="result-desc" id="r-desc">
-        解説テキストがここに入ります。
-      </div>
+  <div id="screen-start">
+    <div class="start-desc fade-in">
+      この診断では、あなたの脳内に潜む「自己犠牲という名のバグ」を数値化し、残酷な現実を突きつけます。<br><br>
+      優しさで自分を誤魔化すのは、もう終わりにしましょう。<br>
+      覚悟が決まった人だけ、扉を開けてください。
     </div>
+    <p class="time-note">【警告】目を背けずに、直感で答えてください。</p>
+    <button class="btn-primary" onclick="startQuiz()">覚悟を決めて診断をはじめる</button>
+  </div>
 
-    <div class="cta-box">
-      <h3 class="cta-title">▼ あなたのバグをクレイジーに破壊する『劇薬』</h3>
-      <div class="cta-text">
-        <p>あなたの搾取され度がわかりましたね。</p>
-        <p>でも、絶望してここでページを閉じても、明日の朝にはまた同じ地獄（搾取される日常）が始まります。知るだけでは何も変わりません。</p><br>
-        <p>あなたの致命的なバグ（ホメオスタシス）を僕が直接破壊し、クレクレ星人を弾き飛ばす「強固な結界」を構築するための具体的な方法を、無料のメール講座でお渡しします。</p><br>
-        <p style="color:var(--gold);">※ただし、覚悟のない人間は絶対に登録しないでください。本気で自分の人生の支配者になりたい「蓮の花」だけ、下の扉を開けてください。</p>
-      </div>
-      
-      <a href="https://ここにマイスピーのURLを入れる" class="btn btn-primary" target="_blank">【無料】16通の劇薬メール講座に参加する</a>
-      
+  <div id="screen-quiz">
+    <span class="question-num" id="q-num"></span>
+    <div class="question-text" id="q-text"></div>
+    <div class="choices" id="q-choices"></div>
+    <div class="nav-wrap">
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← 戻る</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">次へ進む →</button>
     </div>
   </div>
+
+  <div class="loading" id="screen-loading">
+    <div class="loading-circle"></div>
+    <p>あなたのホメオスタシスのバグを<br>解析しています...</p>
+  </div>
+
+  <div id="screen-result"></div>
 
 </div>
 
+<div class="footer">© ヒーラー自立起動プログラム</div>
+
 <script>
-  const questions = [
-    {
-      text: "友人から「最近しんどくて…無料でちょっと占って（ヒーリングして）よ」と言われたら？",
-      choices: [
-        { text: "A. 相手が楽になるなら…と、つい引き受けてしまう。", score: 0 },
-        { text: "B. お金はもらわないが、軽くアドバイスだけする。", score: 1 },
-        { text: "C. 「それは私の仕事だから」と、きっぱり断る（または正規料金を提示する）。", score: 2 }
-      ]
-    },
-    {
-      text: "セッションや相談に乗った後の、あなたの「体調」は？",
-      choices: [
-        { text: "A. ぐったり疲れて、自分のエネルギーが空っぽになる感覚がある。", score: 0 },
-        { text: "B. 疲れるが「いいことをした」という充実感で誤魔化している。", score: 1 },
-        { text: "C. 逆にエネルギーが循環し、自分自身も熱く、満たされている。", score: 2 }
-      ]
-    },
-    {
-      text: "「お金（高額な対価）」を受け取ることについてどう感じますか？",
-      choices: [
-        { text: "A. 罪悪感がある。できればお金の話はしたくない。", score: 0 },
-        { text: "B. スキルがもっと上がれば、いつか自信を持って受け取れるはずだ。", score: 1 },
-        { text: "C. 自分の命（時間）を削るのだから、高額なのは当然だと思っている。", score: 2 }
-      ]
-    }
-  ];
-
-  const results = [
-    {
-      min: 0, max: 1,
-      rank: "💀 危険度MAX",
-      title: "【完全搾取型】クレクレ星人の養分",
-      desc: "あなたは今、確実に死に向かっています。<br>優しさという名の「逃げ」で自分を守っているつもりかもしれませんが、実際は他人のホメオスタシスに飲み込まれ、命（エネルギー）を際限なく吸い取られているただの「養分」です。このままお遊戯会を続ければ、必ずあなた自身が心身を壊して倒れます。今すぐ目を覚ましてください。"
-    },
-    {
-      min: 2, max: 3,
-      rank: "🔥 危険度 高",
-      title: "【お遊戯会型】自己犠牲の偽善者",
-      desc: "あなたは「相手に寄り添うこと」が正義だと思い込んでいます。<br>しかし、それは相手から自立の機会を奪い、あなたへの依存を生み出しているだけの「偽善」です。スキルはあるのに、自分と他人を切り離す「結界」がないため、常に安い承認欲求（偽のドーパミン）で自分を誤魔化しています。"
-    },
-    {
-      min: 4, max: 5,
-      rank: "⚡ 危険度 中",
-      title: "【ノウハウコレクター型】スキルオタクの迷子",
-      desc: "あなたは気功やヒーリングの「技術」の重要性は理解しており、学び続けています。<br>しかし、それを物理空間のお金の循環に変える「ビジネスの仕組み（結界）」を持っていません。だから、いつまで経っても自信が持てず、安い単価で労働し続けています。あなたに足りないのはスキルではなく、支配者としての「覚悟」です。"
-    },
-    {
-      min: 6, max: 6,
-      rank: "👑 危険度 低",
-      title: "【素質あり】支配者の卵",
-      desc: "あなたはすでに「無料で寄り添うことの無意味さ」にうすうす気づき始めています。<br>自分の身を守る必要があることも分かっています。あとは、その抽象度の高い感覚を、現実の「強固なビジネスシステム（結界）」へと落とし込むだけです。搾取されるフェーズはもう終わりました。"
-    }
-  ];
-
-  let currentQ = 0;
-  let totalScore = 0;
-
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0, 0);
+// ■ 質問データ（ポイント制に変更）
+const questions = [
+  {
+    text: "友人から「最近しんどくて…無料でちょっと占って（ヒーリングして）よ」と言われたら？",
+    choices: [
+      { text: "相手が楽になるなら…と、つい引き受けてしまう。", score: 0 },
+      { text: "お金はもらわないが、軽くアドバイスだけする。", score: 1 },
+      { text: "「それは私の仕事だから」と、きっぱり断る（正規料金を提示）。", score: 2 }
+    ]
+  },
+  {
+    text: "セッションや相談に乗った後の、あなたの「体調」は？",
+    choices: [
+      { text: "ぐったり疲れて、自分のエネルギーが空っぽになる感覚がある。", score: 0 },
+      { text: "疲れるが「いいことをした」という充実感で誤魔化している。", score: 1 },
+      { text: "逆にエネルギーが循環し、自分自身も熱く、満たされている。", score: 2 }
+    ]
+  },
+  {
+    text: "「お金（高額な対価）」を受け取ることについてどう感じますか？",
+    choices: [
+      { text: "罪悪感がある。できればお金の話はしたくない。", score: 0 },
+      { text: "スキルがもっと上がれば、いつか自信を持って受け取れるはずだ。", score: 1 },
+      { text: "自分の命（時間）を削るのだから、高額なのは当然だ。", score: 2 }
+    ]
   }
+];
 
-  function startQuiz() {
-    currentQ = 0;
-    totalScore = 0;
-    renderQuestion();
-    showScreen('screen-quiz');
+// ■ 診断結果データ
+const results = [
+  {
+    min: 0, max: 1,
+    rank: "💀 危険度MAX",
+    title: "【完全搾取型】クレクレ星人の養分",
+    desc: "あなたは今、確実に死に向かっています。<br>優しさという名の「逃げ」で自分を守っているつもりかもしれませんが、実際は他人のホメオスタシスに飲み込まれ、<strong>命（エネルギー）を際限なく吸い取られているただの「養分」</strong>です。このままお遊戯会を続ければ、必ずあなた自身が心身を壊して倒れます。今すぐ目を覚ましてください。"
+  },
+  {
+    min: 2, max: 3,
+    rank: "🔥 危険度 高",
+    title: "【お遊戯会型】自己犠牲の偽善者",
+    desc: "あなたは「相手に寄り添うこと」が正義だと思い込んでいます。<br>しかし、それは相手から自立の機会を奪い、あなたへの依存を生み出しているだけの<strong>「偽善」</strong>です。スキルはあるのに、自分と他人を切り離す「結界」がないため、常に安い承認欲求（偽のドーパミン）で自分を誤魔化しています。"
+  },
+  {
+    min: 4, max: 5,
+    rank: "⚡ 危険度 中",
+    title: "【ノウハウコレクター型】スキルオタクの迷子",
+    desc: "あなたは気功やヒーリングの「技術」の重要性は理解しており、学び続けています。<br>しかし、それを物理空間のお金の循環に変える「ビジネスの仕組み（結界）」を持っていません。だから、<strong>いつまで経っても自信が持てず、安い単価で労働し続けています。</strong>あなたに足りないのはスキルではなく、支配者としての「覚悟」です。"
+  },
+  {
+    min: 6, max: 6,
+    rank: "👑 危険度 低",
+    title: "【素質あり】支配者の卵",
+    desc: "あなたはすでに「無料で寄り添うことの無意味さ」にうすうす気づき始めています。<br>自分の身を守る必要があることも分かっています。あとは、その抽象度の高い感覚を、現実の<strong>「強固なビジネスシステム（結界）」</strong>へと落とし込むだけです。搾取されるフェーズはもう終わりました。"
   }
+];
 
-  function renderQuestion() {
-    const q = questions[currentQ];
-    document.getElementById('q-number').innerText = `Q. ${currentQ + 1} / ${questions.length}`;
-    document.getElementById('q-text').innerText = q.text;
-    
-    const btnArea = document.getElementById('q-buttons');
-    btnArea.innerHTML = '';
-    
-    q.choices.forEach(choice => {
-      const btn = document.createElement('button');
-      btn.className = 'btn';
-      btn.innerText = choice.text;
-      btn.onclick = () => answer(choice.score);
-      btnArea.appendChild(btn);
+let current = 0;
+let answers = []; // 選択したスコアを保存
+
+function startQuiz() {
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  document.getElementById('progress-wrap').classList.add('active');
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  current = idx;
+  const q = questions[idx];
+  document.getElementById('q-num').textContent = `QUESTION ${idx + 1} / ${questions.length}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const choicesEl = document.getElementById('q-choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    // 既に選択済みならハイライト
+    if (answers[idx] !== undefined && answers[idx] === c.score) {
+      btn.classList.add('selected');
+    }
+    btn.textContent = c.text;
+    btn.onclick = () => selectChoice(c.score, btn);
+    choicesEl.appendChild(btn);
+  });
+
+  updateProgress();
+  updateNextBtn();
+  document.getElementById('btn-back').style.visibility = idx === 0 ? 'hidden' : 'visible';
+}
+
+function selectChoice(score, btnElement) {
+  answers[current] = score;
+  // 他のボタンの選択状態を解除
+  const btns = document.getElementById('q-choices').querySelectorAll('.choice-btn');
+  btns.forEach(b => b.classList.remove('selected'));
+  // クリックしたボタンを選択状態に
+  btnElement.classList.add('selected');
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const btn = document.getElementById('btn-next');
+  const ready = answers[current] !== undefined;
+  btn.classList.toggle('ready', ready);
+  btn.textContent = current === questions.length - 1 ? '診断結果を見る →' : '次へ進む →';
+}
+
+function updateProgress() {
+  const pct = Math.round(((current) / questions.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = `QUESTION ${current + 1} / ${questions.length}`;
+}
+
+function nextQuestion() {
+  if (answers[current] === undefined) return;
+  if (current < questions.length - 1) {
+    showQuestion(current + 1);
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) showQuestion(current - 1);
+}
+
+function showResult() {
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('progress-wrap').classList.remove('active');
+  document.getElementById('screen-loading').classList.add('active');
+
+  // スコア合計を計算
+  const totalScore = answers.reduce((sum, score) => sum + score, 0);
+
+  // 該当する結果を検索
+  const resultData = results.find(r => totalScore >= r.min && totalScore <= r.max);
+
+  setTimeout(() => {
+    document.getElementById('screen-loading').classList.remove('active');
+    renderResult(resultData);
+  }, 2000); // 2秒間のローディング演出
+}
+
+function renderResult(r) {
+  const el = document.getElementById('screen-result');
+  el.style.display = 'block';
+
+  el.innerHTML = `
+    <span class="result-tag">${r.rank}</span>
+    <div class="result-type">${r.title}</div>
+    <div class="result-divider"></div>
+
+    <div class="result-section fade-in">
+      <p>${r.desc}</p>
+    </div>
+
+    <div class="register-box fade-in">
+      <h3>▼ あなたのバグをクレイジーに破壊する『劇薬』</h3>
+      <p>
+        あなたの搾取され度がわかりましたね。<br>
+        でも、絶望してここでページを閉じても、明日の朝にはまた同じ地獄（搾取される日常）が始まります。<br><br>
+        あなたの致命的なバグ（ホメオスタシス）を僕が直接破壊し、クレクレ星人を弾き飛ばす「強固な結界」を構築するための具体的な方法を、無料のメール講座でお渡しします。<br><br>
+        <span style="color:var(--gold);">※ただし、覚悟のない人間は絶対に登録しないでください。本気で自分の人生の支配者になりたい「蓮の花」だけ、下の扉を開けてください。</span>
+      </p>
+      
+      <a href="https://ここにマイスピーのURLを入れる" class="btn-primary" target="_blank" style="margin-top:20px;">【無料】16通の劇薬メール講座に参加する</a>
+      
+    </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <button onclick="resetQuiz()" style="background:transparent;border:none;font-size:12px;color:var(--mist);letter-spacing:2px;cursor:pointer;text-decoration:underline;">もう一度診断する</button>
+    </div>
+  `;
+
+  setTimeout(() => {
+    el.querySelectorAll('.fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 150);
     });
-  }
+  }, 100);
 
-  function answer(score) {
-    totalScore += score;
-    currentQ++;
-    
-    if (currentQ < questions.length) {
-      renderQuestion();
-    } else {
-      showResult();
-    }
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  function showResult() {
-    const res = results.find(r => totalScore >= r.min && totalScore <= r.max);
-    
-    document.
+function resetQuiz() {
+  current = 0;
+  answers = [];
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-result').innerHTML = '';
+  document.getElementById('screen-start').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// フェードイン初期化
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }, 100);
+});
+</script>
+</body>
+</html>
