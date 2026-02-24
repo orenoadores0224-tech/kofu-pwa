@@ -1,1 +1,1 @@
-# kofu-pwa
+sindan
