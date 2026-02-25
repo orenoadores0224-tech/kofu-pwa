@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Shippori+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* 黒・金・真紅のダークテーマ（教祖スタイル） */
-    --ink: #e6e6e6;       /* ベーステキスト（ライトグレー） */
-    --paper: #0a0a0a;     /* 背景（漆黒） */
-    --gold: #c9a84c;      /* アクセント（くすんだ金） */
-    --deep: #ffffff;      /* 見出し（純白） */
-    --mist: #888888;      /* サブテキスト（グレー） */
-    --accent: #8b0000;    /* 強調・選択（真紅） */
+    /* 黒・金・真紅のダークテーマ（教祖スタイル：破壊のフェーズ） */
+    --ink: #e6e6e6;       
+    --paper: #0a0a0a;     
+    --gold: #c9a84c;      
+    --deep: #ffffff;      
+    --mist: #888888;      
+    --accent: #8b0000;    
     --box-bg: rgba(255, 255, 255, 0.03);
   }
 
@@ -27,7 +27,6 @@
     overflow-x: hidden;
   }
 
-  /* ダーク和紙テクスチャ（魔導書の質感） */
   body::before {
     content: '';
     position: fixed;
@@ -46,7 +45,6 @@
     z-index: 1;
   }
 
-  /* ヘッダー */
   .hero {
     text-align: center;
     padding: 80px 0 60px;
@@ -54,7 +52,6 @@
     position: relative;
   }
 
-  /* 背景の透かし文字（呪縛の「縛」） */
   .hero::before {
     content: '縛';
     position: absolute;
@@ -63,7 +60,7 @@
     transform: translateX(-50%);
     font-family: 'Shippori Mincho', serif;
     font-size: 140px;
-    color: rgba(139, 0, 0, 0.08); /* 暗い赤の透かし */
+    color: rgba(139, 0, 0, 0.08); 
     letter-spacing: 0;
     pointer-events: none;
   }
@@ -76,7 +73,6 @@
     border: 1px solid var(--accent);
     padding: 6px 16px;
     margin-bottom: 28px;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
     font-weight: 700;
   }
 
@@ -97,323 +93,68 @@
     margin: 0 auto;
   }
 
-  /* 進捗バー */
-  .progress-wrap {
-    padding: 28px 0 0;
-    display: none;
-  }
-
+  .progress-wrap { padding: 28px 0 0; display: none; }
   .progress-wrap.active { display: block; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 2px; color: var(--mist); margin-bottom: 10px; }
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--mist);
-    margin-bottom: 10px;
-  }
-
-  .progress-bar {
-    height: 3px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 1px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--accent));
-    border-radius: 1px;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 0%;
-  }
-
-  /* スタート画面 */
   #screen-start { padding: 50px 0; }
+  .start-desc { background: var(--box-bg); border-left: 3px solid var(--accent); padding: 24px 28px; margin: 32px 0; font-size: 15px; line-height: 2.2; }
+  .time-note { text-align: center; font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 32px; font-weight: bold; }
 
-  .start-desc {
-    background: var(--box-bg);
-    border-left: 3px solid var(--accent);
-    padding: 24px 28px;
-    margin: 32px 0;
-    font-size: 15px;
-    line-height: 2.2;
-    color: var(--ink);
-  }
-
-  .time-note {
-    text-align: center;
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 2px;
-    margin-bottom: 32px;
-    font-weight: bold;
-  }
-
-  /* ボタン */
   .btn-primary {
-    display: block;
-    width: 100%;
-    background: var(--accent);
-    color: #ffffff;
-    border: 1px solid #ff0000;
-    padding: 20px;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    letter-spacing: 4px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    text-decoration: none;
+    display: block; width: 100%; background: var(--accent); color: #ffffff; border: 1px solid #ff0000;
+    padding: 20px; font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: bold; cursor: pointer;
+    letter-spacing: 4px; transition: all 0.3s; position: relative; overflow: hidden; text-align: center; text-decoration: none;
   }
-
   .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s;
   }
-
   .btn-primary:hover::before { left: 100%; }
-  .btn-primary:hover { 
-    background: #600000; 
-    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
-  }
+  .btn-primary:hover { background: #600000; box-shadow: 0 0 15px rgba(139, 0, 0, 0.5); }
 
-  /* 質問画面 */
   #screen-quiz { display: none; padding: 50px 0; }
-
-  .question-num {
-    font-size: 12px;
-    letter-spacing: 4px;
-    color: var(--gold);
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .question-text {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(18px, 3.5vw, 24px);
-    font-weight: 700;
-    line-height: 1.7;
-    color: var(--deep);
-    margin-bottom: 36px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(201,168,76,0.3);
-  }
-
+  .question-num { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 16px; display: block; }
+  .question-text { font-family: 'Shippori Mincho', serif; font-size: clamp(18px, 3.5vw, 22px); font-weight: 700; line-height: 1.7; color: var(--deep); margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(201,168,76,0.3); }
+  
   .choices { display: flex; flex-direction: column; gap: 16px; }
-
-  .choice-btn {
-    background: var(--box-bg);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 20px 24px;
-    text-align: left;
-    cursor: pointer;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--ink);
-    transition: all 0.25s;
-    position: relative;
-  }
-
-  .choice-btn:hover {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.1);
-    transform: translateX(4px);
-  }
-
-  .choice-btn.selected {
-    border-color: var(--accent);
-    background: rgba(139, 0, 0, 0.2);
-    color: #ffffff;
-  }
-
-  .choice-btn::before {
-    content: '◯';
-    font-size: 10px;
-    color: rgba(255,255,255,0.3);
-    margin-right: 12px;
-  }
-
+  .choice-btn { background: var(--box-bg); border: 1px solid rgba(255,255,255,0.2); padding: 20px 24px; text-align: left; cursor: pointer; font-size: 15px; line-height: 1.8; color: var(--ink); transition: all 0.25s; }
+  .choice-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); transform: translateX(4px); }
+  .choice-btn.selected { border-color: var(--accent); background: rgba(139, 0, 0, 0.2); color: #ffffff; }
+  .choice-btn::before { content: '◯'; font-size: 10px; color: rgba(255,255,255,0.3); margin-right: 12px; }
   .choice-btn.selected::before { content: '●'; color: var(--accent); }
 
-  .nav-wrap {
-    display: flex;
-    gap: 12px;
-    margin-top: 40px;
-  }
-
-  .btn-back {
-    flex: 0 0 auto;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 14px 24px;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 13px;
-    color: var(--mist);
-    cursor: pointer;
-    letter-spacing: 2px;
-    transition: all 0.2s;
-  }
-
+  .nav-wrap { display: flex; gap: 12px; margin-top: 40px; }
+  .btn-back { flex: 0 0 auto; background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 14px 24px; font-size: 13px; color: var(--mist); cursor: pointer; letter-spacing: 2px; transition: all 0.2s; }
   .btn-back:hover { border-color: var(--ink); color: var(--ink); }
-
-  .btn-next {
-    flex: 1;
-    background: #222222;
-    border: 1px solid #444444;
-    padding: 16px;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 16px;
-    color: var(--mist);
-    cursor: pointer;
-    letter-spacing: 3px;
-    transition: all 0.3s;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .btn-next.ready { 
-    opacity: 1; 
-    pointer-events: all; 
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--paper);
-    font-weight: bold;
-  }
+  
+  .btn-next { flex: 1; background: #222222; border: 1px solid #444444; padding: 16px; font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--mist); cursor: pointer; letter-spacing: 3px; transition: all 0.3s; opacity: 0.5; pointer-events: none; }
+  .btn-next.ready { opacity: 1; pointer-events: all; background: var(--gold); border-color: var(--gold); color: var(--paper); font-weight: bold; }
   .btn-next.ready:hover { background: #dfbb5a; }
 
-  /* 結果画面 */
   #screen-result { display: none; padding: 50px 0; }
+  .result-tag { font-size: 13px; letter-spacing: 4px; color: var(--accent); display: block; margin-bottom: 12px; font-weight: bold; }
+  .result-type { font-family: 'Shippori Mincho', serif; font-size: clamp(26px, 5vw, 36px); font-weight: 900; color: var(--gold); line-height: 1.4; margin-bottom: 16px; }
+  .result-divider { width: 60px; height: 2px; background: var(--accent); margin: 32px 0; }
+  .result-section { margin-bottom: 32px; background: var(--box-bg); padding: 24px; border-left: 2px solid var(--gold); }
+  .result-section p { font-size: 15px; line-height: 2.2; }
+  .result-section p strong { color: var(--accent); background: rgba(139, 0, 0, 0.1); padding: 0 4px; }
 
-  .result-tag {
-    font-size: 13px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 12px;
-    font-weight: bold;
-  }
+  .register-box { background: #111111; border: 1px solid var(--accent); padding: 40px 36px; margin-top: 48px; text-align: center; }
+  .register-box h3 { font-family: 'Shippori Mincho', serif; font-size: 22px; margin-bottom: 16px; color: var(--accent); }
+  .register-box p { font-size: 14px; line-height: 2; margin-bottom: 32px; text-align: left; }
 
-  .result-type {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(26px, 5vw, 36px);
-    font-weight: 900;
-    color: var(--gold);
-    line-height: 1.4;
-    margin-bottom: 16px;
-  }
-
-  .result-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--accent);
-    margin: 32px 0;
-  }
-
-  .result-section {
-    margin-bottom: 32px;
-    background: var(--box-bg);
-    padding: 24px;
-    border-left: 2px solid var(--gold);
-  }
-
-  .result-section p {
-    font-size: 15px;
-    line-height: 2.2;
-    color: var(--ink);
-  }
-
-  .result-section p strong {
-    color: var(--accent);
-    background: rgba(139, 0, 0, 0.1);
-    padding: 0 4px;
-  }
-
-  /* 登録ボックス */
-  .register-box {
-    background: #111111;
-    border: 1px solid var(--accent);
-    padding: 40px 36px;
-    margin-top: 48px;
-    position: relative;
-    text-align: center;
-  }
-
-  .register-box h3 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--accent);
-  }
-
-  .register-box p {
-    font-size: 14px;
-    line-height: 2;
-    color: var(--ink);
-    margin-bottom: 32px;
-    text-align: left;
-  }
-
-  /* ローディング */
-  .loading {
-    display: none;
-    text-align: center;
-    padding: 80px 0;
-  }
-
+  .loading { display: none; text-align: center; padding: 80px 0; }
   .loading.active { display: block; }
-
-  .loading-circle {
-    width: 50px;
-    height: 50px;
-    border: 2px solid rgba(255,255,255,0.1);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    margin: 0 auto 24px;
-    animation: spin 1s linear infinite;
-  }
-
+  .loading-circle { width: 50px; height: 50px; border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .loading p { font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--gold); letter-spacing: 2px; line-height: 1.8; }
 
-  .loading p {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 16px;
-    color: var(--gold);
-    letter-spacing: 2px;
-  }
-
-  /* フェードイン */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* フッター */
-  .footer {
-    text-align: center;
-    padding: 40px 0;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--mist);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    margin-top: 60px;
-  }
+  .fade-in { opacity: 0; transform: translateY(16px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .footer { text-align: center; padding: 40px 0; font-size: 11px; letter-spacing: 2px; color: var(--mist); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; }
 </style>
 </head>
 <body>
@@ -450,13 +191,13 @@
     <div class="choices" id="q-choices"></div>
     <div class="nav-wrap">
       <button class="btn-back" id="btn-back" onclick="prevQuestion()">← 戻る</button>
-      <button class="btn-next" id="btn-next" onclick="nextQuestion()">次へ進む →</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">次のバグを暴く →</button>
     </div>
   </div>
 
   <div class="loading" id="screen-loading">
     <div class="loading-circle"></div>
-    <p>あなたのホメオスタシスのバグを<br>解析しています...</p>
+    <p>あなたの情報空間（ゲシュタルト）をスキャン中...<br><span style="font-size:13px; color:var(--mist);">ホメオスタシスの偽装を剥がしています...</span></p>
   </div>
 
   <div id="screen-result"></div>
@@ -466,35 +207,35 @@
 <div class="footer">© ヒーラー自立起動プログラム</div>
 
 <script>
-// ■ 質問データ（ポイント制に変更）
+// ■ チューニング済みの質問データ（リアルな痛みをえぐる）
 const questions = [
   {
-    text: "友人から「最近しんどくて…無料でちょっと占って（ヒーリングして）よ」と言われたら？",
+    text: "Q1. SNSやLINEで「ちょっと相談に乗ってほしい」と長文が送られてきた時のあなたの本音は？",
     choices: [
-      { text: "相手が楽になるなら…と、つい引き受けてしまう。", score: 0 },
-      { text: "お金はもらわないが、軽くアドバイスだけする。", score: 1 },
-      { text: "「それは私の仕事だから」と、きっぱり断る（正規料金を提示）。", score: 2 }
+      { text: "「私がなんとかしてあげなきゃ！」とすぐに長文で返信し、時間を奪われる。", score: 0 },
+      { text: "疲れるから嫌だが、既読スルーする罪悪感に耐えられず、結局付き合ってしまう。", score: 1 },
+      { text: "「それは有料セッションの範囲です」と1秒で切り捨て、自分の時間を守る。", score: 2 }
     ]
   },
   {
-    text: "セッションや相談に乗った後の、あなたの「体調」は？",
+    text: "Q2. 自分のサービスの『値段』を決めるとき、真っ先に頭に浮かぶ感情は？",
     choices: [
-      { text: "ぐったり疲れて、自分のエネルギーが空っぽになる感覚がある。", score: 0 },
-      { text: "疲れるが「いいことをした」という充実感で誤魔化している。", score: 1 },
-      { text: "逆にエネルギーが循環し、自分自身も熱く、満たされている。", score: 2 }
+      { text: "「高すぎたら誰も来ないかも…」「このレベルでお金をもらっていいのか」という恐怖。", score: 0 },
+      { text: "「相場はこれくらいだから」と、他人の目を気にして無難な値段に合わせる。", score: 1 },
+      { text: "「私の命と時間を削るのだから、この金額以下では絶対にやらない」という静かな覚悟。", score: 2 }
     ]
   },
   {
-    text: "「お金（高額な対価）」を受け取ることについてどう感じますか？",
+    text: "Q3. あなたが今、最も時間とお金をかけていることは何ですか？",
     choices: [
-      { text: "罪悪感がある。できればお金の話はしたくない。", score: 0 },
-      { text: "スキルがもっと上がれば、いつか自信を持って受け取れるはずだ。", score: 1 },
-      { text: "自分の命（時間）を削るのだから、高額なのは当然だ。", score: 2 }
+      { text: "新しい資格や、もっとすごいヒーリング技術を習得するための「スキルアップ」。", score: 0 },
+      { text: "SNSのフォロワーを増やしたり、綺麗な投稿を作るための「見栄えの工夫」。", score: 1 },
+      { text: "嫌な客を弾き飛ばし、本物の客だけを自動で抽出する「物理的な仕組み（結界）作り」。", score: 2 }
     ]
   }
 ];
 
-// ■ 診断結果データ
+// ■ 診断結果データ（救済のコントラストを追加）
 const results = [
   {
     min: 0, max: 1,
@@ -512,18 +253,18 @@ const results = [
     min: 4, max: 5,
     rank: "⚡ 危険度 中",
     title: "【ノウハウコレクター型】スキルオタクの迷子",
-    desc: "あなたは気功やヒーリングの「技術」の重要性は理解しており、学び続けています。<br>しかし、それを物理空間のお金の循環に変える「ビジネスの仕組み（結界）」を持っていません。だから、<strong>いつまで経っても自信が持てず、安い単価で労働し続けています。</strong>あなたに足りないのはスキルではなく、支配者としての「覚悟」です。"
+    desc: "あなたはもう、薄っぺらい『愛と光』だけでは現実が変わらないことに気づいているはずです。<br>気功やヒーリングの「技術」はすでに十分です。しかし、それを物理空間のお金の循環に変える「ビジネスの仕組み（結界）」を持っていません。だからいつまでも安い単価で労働し続けています。<strong>あなたに足りないのはスキルではなく、支配者としての「エンジン」です。</strong>"
   },
   {
     min: 6, max: 6,
     rank: "👑 危険度 低",
     title: "【素質あり】支配者の卵",
-    desc: "あなたはすでに「無料で寄り添うことの無意味さ」にうすうす気づき始めています。<br>自分の身を守る必要があることも分かっています。あとは、その抽象度の高い感覚を、現実の<strong>「強固なビジネスシステム（結界）」</strong>へと落とし込むだけです。搾取されるフェーズはもう終わりました。"
+    desc: "素晴らしいです。あなたはすでに「無料で寄り添うことの無意味さ」にうすうす気づき始めています。<br>自分の命と時間を守る必要があることも分かっています。<strong>あとは、その抽象度の高い感覚を、現実の「強固なビジネスシステム（結界）」へと落とし込むだけです。</strong>搾取されるフェーズはもう終わりました。次のステージへ進んでください。"
   }
 ];
 
 let current = 0;
-let answers = []; // 選択したスコアを保存
+let answers = []; 
 
 function startQuiz() {
   document.getElementById('screen-start').style.display = 'none';
@@ -543,7 +284,6 @@ function showQuestion(idx) {
   q.choices.forEach((c, i) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
-    // 既に選択済みならハイライト
     if (answers[idx] !== undefined && answers[idx] === c.score) {
       btn.classList.add('selected');
     }
@@ -559,10 +299,8 @@ function showQuestion(idx) {
 
 function selectChoice(score, btnElement) {
   answers[current] = score;
-  // 他のボタンの選択状態を解除
   const btns = document.getElementById('q-choices').querySelectorAll('.choice-btn');
   btns.forEach(b => b.classList.remove('selected'));
-  // クリックしたボタンを選択状態に
   btnElement.classList.add('selected');
   updateNextBtn();
 }
@@ -571,7 +309,7 @@ function updateNextBtn() {
   const btn = document.getElementById('btn-next');
   const ready = answers[current] !== undefined;
   btn.classList.toggle('ready', ready);
-  btn.textContent = current === questions.length - 1 ? '診断結果を見る →' : '次へ進む →';
+  btn.textContent = current === questions.length - 1 ? '現実（診断結果）を直視する →' : '次のバグを暴く →';
 }
 
 function updateProgress() {
@@ -599,16 +337,13 @@ function showResult() {
   document.getElementById('progress-wrap').classList.remove('active');
   document.getElementById('screen-loading').classList.add('active');
 
-  // スコア合計を計算
   const totalScore = answers.reduce((sum, score) => sum + score, 0);
-
-  // 該当する結果を検索
   const resultData = results.find(r => totalScore >= r.min && totalScore <= r.max);
 
   setTimeout(() => {
     document.getElementById('screen-loading').classList.remove('active');
     renderResult(resultData);
-  }, 2000); // 2秒間のローディング演出
+  }, 2500); // 2.5秒間のスキャン演出
 }
 
 function renderResult(r) {
@@ -635,7 +370,6 @@ function renderResult(r) {
       
       <a href="https://ukikou.com/p/r/c4RgjG3i" class="btn-primary" target="_blank" style="margin-top:20px;">【無料】16通の劇薬メール講座に参加する</a>
 
-      
     </div>
 
     <div style="text-align:center;margin-top:32px;">
@@ -661,7 +395,6 @@ function resetQuiz() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// フェードイン初期化
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
