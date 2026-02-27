@@ -7,14 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Shippori+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* 黒・金・真紅のダークテーマ（教祖スタイル：破壊のフェーズ） */
-    --ink: #e6e6e6;       
-    --paper: #0a0a0a;     
-    --gold: #c9a84c;      
-    --deep: #ffffff;      
+    /* 白・金・真紅のライトテーマ（優しさと安心感のブレンド） */
+    --ink: #333333;       
+    --paper: #fcfcfc;     
+    --gold: #b8902b;      
+    --deep: #111111;      
     --mist: #888888;      
     --accent: #8b0000;    
-    --box-bg: rgba(255, 255, 255, 0.03);
+    --box-bg: rgba(0, 0, 0, 0.03);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +32,7 @@
     position: fixed;
     inset: 0;
     background-image: 
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
   }
@@ -48,7 +48,7 @@
   .hero {
     text-align: center;
     padding: 80px 0 60px;
-    border-bottom: 1px solid rgba(201,168,76,0.3);
+    border-bottom: 1px solid rgba(184,144,43,0.3);
     position: relative;
   }
 
@@ -60,7 +60,7 @@
     transform: translateX(-50%);
     font-family: 'Shippori Mincho', serif;
     font-size: 140px;
-    color: rgba(139, 0, 0, 0.08); 
+    color: rgba(139, 0, 0, 0.04); 
     letter-spacing: 0;
     pointer-events: none;
   }
@@ -96,11 +96,11 @@
   .progress-wrap { padding: 28px 0 0; display: none; }
   .progress-wrap.active { display: block; }
   .progress-label { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 2px; color: var(--mist); margin-bottom: 10px; }
-  .progress-bar { height: 3px; background: rgba(255,255,255,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-bar { height: 3px; background: rgba(0,0,0,0.1); border-radius: 1px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
   #screen-start { padding: 50px 0; }
-  .start-desc { background: var(--box-bg); border-left: 3px solid var(--accent); padding: 24px 28px; margin: 32px 0; font-size: 15px; line-height: 2.2; }
+  .start-desc { background: var(--box-bg); border-left: 3px solid var(--accent); padding: 24px 28px; margin: 32px 0; font-size: 15px; line-height: 2.2; color: var(--ink); }
   .time-note { text-align: center; font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 32px; font-weight: bold; }
 
   .btn-primary {
@@ -113,48 +113,48 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s;
   }
   .btn-primary:hover::before { left: 100%; }
-  .btn-primary:hover { background: #600000; box-shadow: 0 0 15px rgba(139, 0, 0, 0.5); }
+  .btn-primary:hover { background: #600000; box-shadow: 0 0 15px rgba(139, 0, 0, 0.3); }
 
   #screen-quiz { display: none; padding: 50px 0; }
-  .question-num { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 16px; display: block; }
-  .question-text { font-family: 'Shippori Mincho', serif; font-size: clamp(18px, 3.5vw, 22px); font-weight: 700; line-height: 1.7; color: var(--deep); margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(201,168,76,0.3); }
+  .question-num { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 16px; display: block; font-weight: bold;}
+  .question-text { font-family: 'Shippori Mincho', serif; font-size: clamp(18px, 3.5vw, 22px); font-weight: 700; line-height: 1.7; color: var(--deep); margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(184,144,43,0.3); }
   
   .choices { display: flex; flex-direction: column; gap: 16px; }
-  .choice-btn { background: var(--box-bg); border: 1px solid rgba(255,255,255,0.2); padding: 20px 24px; text-align: left; cursor: pointer; font-size: 15px; line-height: 1.8; color: var(--ink); transition: all 0.25s; }
-  .choice-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); transform: translateX(4px); }
-  .choice-btn.selected { border-color: var(--accent); background: rgba(139, 0, 0, 0.2); color: #ffffff; }
-  .choice-btn::before { content: '◯'; font-size: 10px; color: rgba(255,255,255,0.3); margin-right: 12px; }
+  .choice-btn { background: var(--paper); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.02); padding: 20px 24px; text-align: left; cursor: pointer; font-size: 15px; line-height: 1.8; color: var(--ink); transition: all 0.25s; }
+  .choice-btn:hover { border-color: var(--gold); background: rgba(184,144,43,0.05); transform: translateX(4px); }
+  .choice-btn.selected { border-color: var(--accent); background: rgba(139, 0, 0, 0.05); color: var(--deep); font-weight: bold;}
+  .choice-btn::before { content: '◯'; font-size: 10px; color: rgba(0,0,0,0.2); margin-right: 12px; }
   .choice-btn.selected::before { content: '●'; color: var(--accent); }
 
   .nav-wrap { display: flex; gap: 12px; margin-top: 40px; }
-  .btn-back { flex: 0 0 auto; background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 14px 24px; font-size: 13px; color: var(--mist); cursor: pointer; letter-spacing: 2px; transition: all 0.2s; }
+  .btn-back { flex: 0 0 auto; background: transparent; border: 1px solid rgba(0,0,0,0.2); padding: 14px 24px; font-size: 13px; color: var(--mist); cursor: pointer; letter-spacing: 2px; transition: all 0.2s; }
   .btn-back:hover { border-color: var(--ink); color: var(--ink); }
   
-  .btn-next { flex: 1; background: #222222; border: 1px solid #444444; padding: 16px; font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--mist); cursor: pointer; letter-spacing: 3px; transition: all 0.3s; opacity: 0.5; pointer-events: none; }
-  .btn-next.ready { opacity: 1; pointer-events: all; background: var(--gold); border-color: var(--gold); color: var(--paper); font-weight: bold; }
-  .btn-next.ready:hover { background: #dfbb5a; }
+  .btn-next { flex: 1; background: #e0e0e0; border: 1px solid #cccccc; padding: 16px; font-family: 'Shippori Mincho', serif; font-size: 16px; color: #888888; cursor: pointer; letter-spacing: 3px; transition: all 0.3s; pointer-events: none; }
+  .btn-next.ready { pointer-events: all; background: var(--gold); border-color: var(--gold); color: #ffffff; font-weight: bold; }
+  .btn-next.ready:hover { background: #9c7a25; }
 
   #screen-result { display: none; padding: 50px 0; }
   .result-tag { font-size: 13px; letter-spacing: 4px; color: var(--accent); display: block; margin-bottom: 12px; font-weight: bold; }
   .result-type { font-family: 'Shippori Mincho', serif; font-size: clamp(26px, 5vw, 36px); font-weight: 900; color: var(--gold); line-height: 1.4; margin-bottom: 16px; }
   .result-divider { width: 60px; height: 2px; background: var(--accent); margin: 32px 0; }
-  .result-section { margin-bottom: 32px; background: var(--box-bg); padding: 24px; border-left: 2px solid var(--gold); }
+  .result-section { margin-bottom: 32px; background: var(--paper); padding: 24px; border-left: 2px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.03);}
   .result-section p { font-size: 15px; line-height: 2.2; }
-  .result-section p strong { color: var(--accent); background: rgba(139, 0, 0, 0.1); padding: 0 4px; }
+  .result-section p strong { color: var(--accent); background: rgba(139, 0, 0, 0.05); padding: 0 4px; }
 
-  .register-box { background: #111111; border: 1px solid var(--accent); padding: 40px 36px; margin-top: 48px; text-align: center; }
-  .register-box h3 { font-family: 'Shippori Mincho', serif; font-size: 22px; margin-bottom: 16px; color: var(--accent); }
-  .register-box p { font-size: 14px; line-height: 2; margin-bottom: 32px; text-align: left; }
+  .register-box { background: var(--box-bg); border: 1px solid var(--gold); padding: 40px 36px; margin-top: 48px; text-align: left; }
+  .register-box h3 { font-family: 'Shippori Mincho', serif; font-size: 20px; margin-bottom: 20px; color: var(--accent); text-align: center;}
+  .register-box p { font-size: 15px; line-height: 2; margin-bottom: 0; }
 
   .loading { display: none; text-align: center; padding: 80px 0; }
   .loading.active { display: block; }
-  .loading-circle { width: 50px; height: 50px; border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite; }
+  .loading-circle { width: 50px; height: 50px; border: 2px solid rgba(0,0,0,0.1); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .loading p { font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--gold); letter-spacing: 2px; line-height: 1.8; }
+  .loading p { font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--gold); letter-spacing: 2px; line-height: 1.8; font-weight: bold;}
 
   .fade-in { opacity: 0; transform: translateY(16px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
-  .footer { text-align: center; padding: 40px 0; font-size: 11px; letter-spacing: 2px; color: var(--mist); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; }
+  .footer { text-align: center; padding: 40px 0; font-size: 11px; letter-spacing: 2px; color: var(--mist); border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px; }
 </style>
 </head>
 <body>
@@ -197,7 +197,7 @@
 
   <div class="loading" id="screen-loading">
     <div class="loading-circle"></div>
-    <p>あなたの情報空間（ゲシュタルト）をスキャン中...<br><span style="font-size:13px; color:var(--mist);">ホメオスタシスの偽装を剥がしています...</span></p>
+    <p>あなたの情報空間（ゲシュタルト）をスキャン中...<br><span style="font-size:13px; color:var(--mist); font-weight:normal;">ホメオスタシスの偽装を剥がしています...</span></p>
   </div>
 
   <div id="screen-result"></div>
@@ -207,7 +207,6 @@
 <div class="footer">© ヒーラー自立起動プログラム</div>
 
 <script>
-// ■ チューニング済みの質問データ（リアルな痛みをえぐる）
 const questions = [
   {
     text: "Q1. SNSやLINEで「ちょっと相談に乗ってほしい」と長文が送られてきた時のあなたの本音は？",
@@ -235,7 +234,6 @@ const questions = [
   }
 ];
 
-// ■ 診断結果データ（救済のコントラストを追加）
 const results = [
   {
     min: 0, max: 1,
@@ -343,7 +341,7 @@ function showResult() {
   setTimeout(() => {
     document.getElementById('screen-loading').classList.remove('active');
     renderResult(resultData);
-  }, 2500); // 2.5秒間のスキャン演出
+  }, 2500); 
 }
 
 function renderResult(r) {
@@ -360,16 +358,13 @@ function renderResult(r) {
     </div>
 
     <div class="register-box fade-in">
-      <h3>▼ あなたのバグをクレイジーに破壊する『劇薬』</h3>
+      <h3>▼ 明日からのメール講座をお待ちください</h3>
       <p>
-        あなたの搾取され度がわかりましたね。<br>
-        でも、絶望してここでページを閉じても、明日の朝にはまた同じ地獄（搾取される日常）が始まります。<br><br>
-        あなたの致命的なバグ（ホメオスタシス）を僕が直接破壊し、クレクレ星人を弾き飛ばす「強固な結界」を構築するための具体的な方法を、無料のメール講座でお渡しします。<br><br>
-        <span style="color:var(--gold);">※ただし、覚悟のない人間は絶対に登録しないでください。本気で自分の人生の支配者になりたい「蓮の花」だけ、下の扉を開けてください。</span>
+        あなたの「搾取され度」と、現在のバグが明確になりましたね。<br><br>
+        この残酷な現実に絶望する必要はありません。あなたが優しすぎただけです。<br>
+        この致命的なバグ（ホメオスタシス）を僕が直接破壊し、クレクレ星人を弾き飛ばす「強固な結界」を構築するための具体的な方法は、明日からお届けするメール講座の中で順番にお渡ししていきます。<br><br>
+        <strong style="color:var(--accent);">このまま『搾取されるピエロ』を卒業し、自分の人生の支配者になりたい方は、明日の20時に届くメールを必ず確認してください。</strong>
       </p>
-      
-      <a href="https://ukikou.com/p/r/c4RgjG3i" class="btn-primary" target="_blank" style="margin-top:20px;">【無料】16通の劇薬メール講座に参加する</a>
-
     </div>
 
     <div style="text-align:center;margin-top:32px;">
