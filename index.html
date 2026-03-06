@@ -1,3 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【無料診断】あなたの「ヒーラー搾取され度」チェック</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Shippori+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* 白・金・真紅のライトテーマ（優しさと安心感のブレンド） */
+    --ink: #333333;       
+    --paper: #fcfcfc;     
+    --gold: #b8902b;      
+    --deep: #111111;      
+    --mist: #888888;      
+    --accent: #8b0000;    
+    --box-bg: rgba(0, 0, 0, 0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 80px 0 60px;
+    border-bottom: 1px solid rgba(184,144,43,0.3);
+    position: relative;
+  }
+
+  .hero::before {
+    content: '縛';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 140px;
+    color: rgba(139, 0, 0, 0.04); 
+    letter-spacing: 0;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    font-weight: 700;
+  }
+
+  .hero h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 900;
+    line-height: 1.5;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--ink);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .progress-wrap { padding: 28px 0 0; display: none; }
+  .progress-wrap.active { display: block; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 2px; color: var(--mist); margin-bottom: 10px; }
+  .progress-bar { height: 3px; background: rgba(0,0,0,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  #screen-start { padding: 50px 0; }
+  .start-desc { background: var(--box-bg); border-left: 3px solid var(--accent); padding: 24px 28px; margin: 32px 0; font-size: 15px; line-height: 2.2; color: var(--ink); }
+  .time-note { text-align: center; font-size: 13px; color: var(--accent); letter-spacing: 2px; margin-bottom: 32px; font-weight: bold; }
+
+  .btn-primary {
+    display: block; width: 100%; background: var(--accent); color: #ffffff; border: 1px solid #ff0000;
+    padding: 20px; font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: bold; cursor: pointer;
+    letter-spacing: 4px; transition: all 0.3s; position: relative; overflow: hidden; text-align: center; text-decoration: none;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover { background: #600000; box-shadow: 0 0 15px rgba(139, 0, 0, 0.3); }
+
+  #screen-quiz { display: none; padding: 50px 0; }
+  .question-num { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 16px; display: block; font-weight: bold;}
+  .question-text { font-family: 'Shippori Mincho', serif; font-size: clamp(18px, 3.5vw, 22px); font-weight: 700; line-height: 1.7; color: var(--deep); margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(184,144,43,0.3); }
+  
+  .choices { display: flex; flex-direction: column; gap: 16px; }
+  .choice-btn { background: var(--paper); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.02); padding: 20px 24px; text-align: left; cursor: pointer; font-size: 15px; line-height: 1.8; color: var(--ink); transition: all 0.25s; position: relative;}
+  .choice-btn:hover { border-color: var(--gold); background: rgba(184,144,43,0.05); transform: translateX(4px); }
+  .choice-btn.selected { border-color: var(--accent); background: rgba(139, 0, 0, 0.05); color: var(--deep); font-weight: bold;}
+  .choice-btn::before { content: '◯'; font-size: 10px; color: rgba(0,0,0,0.2); margin-right: 12px; }
+  .choice-btn.selected::before { content: '●'; color: var(--accent); }
+
+  .nav-wrap { display: flex; gap: 12px; margin-top: 40px; }
+  .btn-back { flex: 0 0 auto; background: transparent; border: 1px solid rgba(0,0,0,0.2); padding: 14px 24px; font-size: 13px; color: var(--mist); cursor: pointer; letter-spacing: 2px; transition: all 0.2s; }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  
+  .btn-next { flex: 1; background: #e0e0e0; border: 1px solid #cccccc; padding: 16px; font-family: 'Shippori Mincho', serif; font-size: 16px; color: #888888; cursor: pointer; letter-spacing: 3px; transition: all 0.3s; pointer-events: none; }
+  .btn-next.ready { pointer-events: all; background: var(--gold); border-color: var(--gold); color: #ffffff; font-weight: bold; }
+  .btn-next.ready:hover { background: #9c7a25; }
+
+  #screen-result { display: none; padding: 50px 0; }
+  .result-tag { font-size: 13px; letter-spacing: 4px; color: var(--accent); display: block; margin-bottom: 12px; font-weight: bold; }
+  .result-type { font-family: 'Shippori Mincho', serif; font-size: clamp(26px, 5vw, 36px); font-weight: 900; color: var(--gold); line-height: 1.4; margin-bottom: 16px; }
+  .result-divider { width: 60px; height: 2px; background: var(--accent); margin: 32px 0; }
+  .result-section { margin-bottom: 32px; background: var(--paper); padding: 24px; border-left: 2px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.03);}
+  .result-section p { font-size: 15px; line-height: 2.2; }
+  .result-section p strong { color: var(--accent); background: rgba(139, 0, 0, 0.05); padding: 0 4px; }
+
+  .register-box { background: var(--box-bg); border: 1px solid var(--gold); padding: 40px 36px; margin-top: 48px; text-align: left; }
+  .register-box h3 { font-family: 'Shippori Mincho', serif; font-size: 20px; margin-bottom: 20px; color: var(--accent); text-align: center;}
+  .register-box p { font-size: 15px; line-height: 2; margin-bottom: 0; }
+
+  .loading { display: none; text-align: center; padding: 80px 0; }
+  .loading.active { display: block; }
+  .loading-circle { width: 50px; height: 50px; border: 2px solid rgba(0,0,0,0.1); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading p { font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--gold); letter-spacing: 2px; line-height: 1.8; font-weight: bold;}
+
+  .fade-in { opacity: 0; transform: translateY(16px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .footer { text-align: center; padding: 40px 0; font-size: 11px; letter-spacing: 2px; color: var(--mist); border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero fade-in">
+    <div class="hero-tag">HOMEOSTASIS BUG CHECK</div>
+    <h1>【無料診断】<br>あなたの「ヒーラー搾取され度」チェック</h1>
+    <p>あなたは今、誰の人生を生きていますか？<br>「お金をもらうのが申し訳ない」…そんな綺麗事を並べて、クレクレ星人に自分の命（時間と気）を吸い取られていませんか？</p>
+  </div>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-label">
+      <span id="progress-text">QUESTION 1 / 7</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div id="screen-start">
+    <div class="start-desc fade-in">
+      この診断では、あなたの脳内に潜む「自己犠牲という名のバグ」を数値化し、残酷な現実を突きつけます。<br><br>
+      優しさで自分を誤魔化すのは、もう終わりにしましょう。<br>
+      覚悟が決まった人だけ、扉を開けてください。
+    </div>
+    <p class="time-note">【警告】目を背けずに、直感で答えてください。</p>
+    <button class="btn-primary" onclick="startQuiz()">覚悟を決めて診断をはじめる</button>
+  </div>
+
+  <div id="screen-quiz">
+    <span class="question-num" id="q-num"></span>
+    <div class="question-text" id="q-text"></div>
+    <div class="choices" id="q-choices"></div>
+    <div class="nav-wrap">
+      <button class="btn-back" id="btn-back" onclick="prevQuestion()">← 戻る</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">次のバグを暴く →</button>
+    </div>
+  </div>
+
+  <div class="loading" id="screen-loading">
+    <div class="loading-circle"></div>
+    <p>あなたの情報空間（ゲシュタルト）をスキャン中...<br><span style="font-size:13px; color:var(--mist); font-weight:normal;">ホメオスタシスの偽装を剥がしています...</span></p>
+  </div>
+
+  <div id="screen-result"></div>
+
+</div>
+
+<div class="footer">© ヒーラー自立起動プログラム</div>
+
+<script>
 const questions = [
   {
     text: "Q1. 友人や知人から「ちょっとだけ相談に乗って」「軽く視てよ」と言われた時、あなたの心境と行動に最も近いものは？",
@@ -73,27 +282,165 @@ const questions = [
 
 const results = [
   {
-    min: 0, max: 7, // 0〜7点（重度アンパンマン）
+    min: 0, max: 7,
     rank: "💀 危険度MAX",
     title: "【完全搾取型】クレクレ星人の養分",
     desc: "あなたは今、確実に死に向かっています。<br>優しさという名の「逃げ」で自分を守っているつもりかもしれませんが、実際は他人のホメオスタシスに飲み込まれ、<strong>命（エネルギー）を際限なく吸い取られているただの「養分」</strong>です。このままお遊戯会を続ければ、必ずあなた自身が心身を壊して倒れます。今すぐ目を覚ましてください。"
   },
   {
-    min: 8, max: 15, // 8〜15点（隠れアンパンマン層）
+    min: 8, max: 15,
     rank: "🔥 危険度 高",
     title: "【お遊戯会型】自己犠牲の偽善者",
     desc: "あなたは「相手に寄り添うこと」が正義だと思い込んでいます。<br>しかし、それは相手から自立の機会を奪い、あなたへの依存を生み出しているだけの<strong>「偽善」</strong>です。スキルはあるのに、自分と他人を切り離す「結界」がないため、常に安い承認欲求（偽のドーパミン）で自分を誤魔化しています。"
   },
   {
-    min: 16, max: 23, // 16〜23点（仕組み化が必要と気づき始めた層）
+    min: 16, max: 23,
     rank: "⚡ 危険度 中",
     title: "【ノウハウコレクター型】スキルオタクの迷子",
     desc: "あなたはもう、薄っぺらい『愛と光』だけでは現実が変わらないことに気づいているはずです。<br>気功やヒーリングの「技術」はすでに十分です。しかし、それを物理空間のお金の循環に変える「ビジネスの仕組み（結界）」を持っていません。だからいつまでも安い単価で労働し続けています。<strong>あなたに足りないのはスキルではなく、支配者としての「エンジン」です。</strong>"
   },
   {
-    min: 24, max: 28, // 24〜28点（ほぼ正常、あとは自動化するだけ）
+    min: 24, max: 28,
     rank: "👑 危険度 低",
     title: "【素質あり】支配者の卵",
     desc: "素晴らしいです。あなたはすでに「無料で寄り添うことの無意味さ」にうすうす気づき始めています。<br>自分の命と時間を守る必要があることも分かっています。<strong>あとは、その抽象度の高い感覚を、現実の「強固なビジネスシステム（結界）」へと落とし込むだけです。</strong>搾取されるフェーズはもう終わりました。次のステージへ進んでください。"
   }
 ];
+
+let current = 0;
+let answers = []; 
+
+function startQuiz() {
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  document.getElementById('progress-wrap').classList.add('active');
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  current = idx;
+  const q = questions[idx];
+  document.getElementById('q-num').textContent = `QUESTION ${idx + 1} / ${questions.length}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const choicesEl = document.getElementById('q-choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    if (answers[idx] !== undefined && answers[idx] === c.score) {
+      btn.classList.add('selected');
+    }
+    btn.textContent = c.text;
+    btn.onclick = () => selectChoice(c.score, btn);
+    choicesEl.appendChild(btn);
+  });
+
+  updateProgress();
+  updateNextBtn();
+  document.getElementById('btn-back').style.visibility = idx === 0 ? 'hidden' : 'visible';
+}
+
+function selectChoice(score, btnElement) {
+  answers[current] = score;
+  const btns = document.getElementById('q-choices').querySelectorAll('.choice-btn');
+  btns.forEach(b => b.classList.remove('selected'));
+  btnElement.classList.add('selected');
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const btn = document.getElementById('btn-next');
+  const ready = answers[current] !== undefined;
+  btn.classList.toggle('ready', ready);
+  btn.textContent = current === questions.length - 1 ? '現実（診断結果）を直視する →' : '次のバグを暴く →';
+}
+
+function updateProgress() {
+  const pct = Math.round(((current) / questions.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = `QUESTION ${current + 1} / ${questions.length}`;
+}
+
+function nextQuestion() {
+  if (answers[current] === undefined) return;
+  if (current < questions.length - 1) {
+    showQuestion(current + 1);
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (current > 0) showQuestion(current - 1);
+}
+
+function showResult() {
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('progress-wrap').classList.remove('active');
+  document.getElementById('screen-loading').classList.add('active');
+
+  const totalScore = answers.reduce((sum, score) => sum + score, 0);
+  const resultData = results.find(r => totalScore >= r.min && totalScore <= r.max);
+
+  setTimeout(() => {
+    document.getElementById('screen-loading').classList.remove('active');
+    renderResult(resultData);
+  }, 2500); 
+}
+
+function renderResult(r) {
+  const el = document.getElementById('screen-result');
+  el.style.display = 'block';
+
+  el.innerHTML = `
+    <span class="result-tag">${r.rank}</span>
+    <div class="result-type">${r.title}</div>
+    <div class="result-divider"></div>
+
+    <div class="result-section fade-in">
+      <p>${r.desc}</p>
+    </div>
+
+    <div class="register-box fade-in">
+      <h3>▼ 明日からのメール講座をお待ちください</h3>
+      <p>
+        あなたの「搾取され度」と、現在のバグが明確になりましたね。<br><br>
+        この残酷な現実に絶望する必要はありません。あなたが優しすぎただけです。<br>
+        この致命的なバグ（ホメオスタシス）を僕が直接破壊し、クレクレ星人を弾き飛ばす「強固な結界」を構築するための具体的な方法は、明日からお届けするメール講座の中で順番にお渡ししていきます。<br><br>
+        <strong style="color:var(--accent);">このまま『搾取されるピエロ』を卒業し、自分の人生の支配者になりたい方は、明日の20時に届くメールを必ず確認してください。</strong>
+      </p>
+      </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <button onclick="resetQuiz()" style="background:transparent;border:none;font-size:12px;color:var(--mist);letter-spacing:2px;cursor:pointer;text-decoration:underline;">もう一度診断する</button>
+    </div>
+  `;
+
+  setTimeout(() => {
+    el.querySelectorAll('.fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 150);
+    });
+  }, 100);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  current = 0;
+  answers = [];
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-result').innerHTML = '';
+  document.getElementById('screen-start').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }, 100);
+});
+</script>
+</body>
+</html>
